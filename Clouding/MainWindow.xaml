@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Clouding"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024"
+        Title="MainWindow" Height="600" Width="800"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent" WindowStartupLocation="CenterScreen" 
         MouseDoubleClick="Window_MouseDoubleClick"
@@ -35,7 +35,7 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="Height" Value="40"/>
-            <Setter Property="Width" Value="40"/>
+            <Setter Property="Width" Value="85"/>
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="Background" Value="#FFDDDDDD"/>
             <Setter Property="BorderBrush" Value="#FF707070"/>
@@ -80,13 +80,13 @@
 
     <Border Background="Transparent">
         <Border Background="#FF37A0EA" CornerRadius="20" BorderThickness="0">
-            <Border.Effect>
-                <DropShadowEffect Color="#d24726" BlurRadius="16" ShadowDepth="0" Opacity="1" />
-            </Border.Effect>
+            <!--<Border.Effect>
+                <DropShadowEffect Color="gray" BlurRadius="16" ShadowDepth="0" Opacity="1" />
+            </Border.Effect>-->
             <!--begin-->
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <!--left column-->
@@ -94,12 +94,12 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
                     </Grid.RowDefinitions>
                     <!--pc icon-->
-                    <Rectangle Grid.Row="0" Height="40" Width="40" RadiusX="10" RadiusY="10" VerticalAlignment="Center">
+                    <Rectangle Grid.Row="0" Height="21.7" Width="100" RadiusX="10" RadiusY="10" VerticalAlignment="Center">
                         <Rectangle.Fill>
-                            <ImageBrush ImageSource="/Assets/applogoexample.png" Stretch="Uniform"/>
+                            <ImageBrush ImageSource="/Assets/microsoft.png" Stretch="Uniform"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <!--others-->
@@ -110,35 +110,42 @@
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="50"/>
+                            <!--<RowDefinition Height="50"/>-->
                         </Grid.RowDefinitions>
                         <!--Adding Menu buttons-->
-                        <Button Grid.Row="0" Background="Transparent" BorderThickness="0" Style="{DynamicResource menuButtonTemplate}">
+                        <Button Grid.Row="0" Background="Transparent" BorderThickness="0" 
+                                Foreground="White"
+                                Style="{DynamicResource menuButtonTemplate}">
                             <Button.Content>
-                                <Image Source="/Assets/mmc.png" Stretch="Uniform" Width="20"/>
+                                <!--<Image Source="/Assets/mmc.png" Stretch="Uniform" Width="20"/>-->
+                                升级到最新版本
                             </Button.Content>
                         </Button>
-                        <Button Grid.Row="1" Background="Transparent" BorderThickness="0" Style="{DynamicResource menuButtonTemplate}">
+                        <Button Grid.Row="1" Background="Transparent" BorderThickness="0" Foreground="White" Style="{DynamicResource menuButtonTemplate}">
                             <Button.Content>
-                                <Image Source="/Assets/contacts.png" Stretch="Uniform" Width="20"/>
+                                <!--<Image Source="/Assets/contacts.png" Stretch="Uniform" Width="20"/>-->
+                                当前版本补丁包"
                             </Button.Content>
                         </Button>
-                        <Button Grid.Row="2" Background="Transparent" BorderThickness="0" Style="{DynamicResource menuButtonTemplate}">
+                        <Button Visibility="Hidden" Grid.Row="2" Background="Transparent" BorderThickness="0" Foreground="White" Style="{DynamicResource menuButtonTemplate}">
                             <Button.Content>
                                 <Image Source="/Assets/sms.png" Stretch="Uniform" Width="20"/>
                             </Button.Content>
                         </Button>
-                        <Button Grid.Row="3" Background="Transparent" BorderThickness="0" Style="{DynamicResource menuButtonTemplate}">
+                        <Button Visibility="Hidden" Grid.Row="3" Background="Transparent" BorderThickness="0" Style="{DynamicResource menuButtonTemplate}">
                             <Button.Content>
                                 <Image Source="/Assets/settings.png" Stretch="Uniform" Width="20"/>
                             </Button.Content>
                         </Button>
-                        <Button Grid.Row="5" Background="Transparent" BorderThickness="0" Style="{DynamicResource menuButtonTemplate}">
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Button Grid.Row="5" Foreground="White" Background="Transparent" VerticalAlignment="Bottom"
+                                BorderThickness="0" Style="{DynamicResource menuButtonTemplate}" Margin="0, 0, 0 50">
                             <Button.Content>
-                                <Image Source="/Assets/cloud.png" Stretch="Uniform" Width="20"/>
+                                升级设置
+                                <!--<Image Source="/Assets/cloud.png" Stretch="Uniform" Width="20"/>-->
                             </Button.Content>
                         </Button>
-
                     </Grid>
                 </Grid>
                 <!--right column-->
@@ -201,7 +208,6 @@
                                                 </Button>
                                             </Grid>
 
-
                                             <Grid Grid.Column="3">
                                                 <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
                                 materialDesign:ShadowAssist.ShadowDepth="Depth1" Command="ApplicationCommands.Close" Padding="0">
@@ -216,20 +222,39 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid  Grid.Row="1"  VerticalAlignment="Stretch" Background="AliceBlue" ShowGridLines="True">
+                                <Grid  Grid.Row="1"  VerticalAlignment="Stretch" Background="AliceBlue" ShowGridLines="False">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="339*"/>
+                                        <ColumnDefinition Width="341*"/>
+                                    </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0" Margin="0">
-                                        <Button Margin="0,2,0,2">fuck-line0</Button>
+                                    <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                                        <Label Margin="0,0,0,2" Background="#1C93EC" Foreground="White">检测到当前版本V5.2.1，找到以下可用资源</Label>
                                     </Grid>
-                                    <Grid Grid.Row="1">
-                                        <Button Height="{Binding Path=parent, ElementName=Width}">fuck-line1</Button>
+                                    <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,0">
+                                        <!--<Button Height="{Binding Path=parent, ElementName=Width}" Grid.RowSpan="2">fuck-line1</Button>-->
+                                        <!--<ContentControl Grid.Row="1" Grid.Column="2" x:Name="ContentControl">-->
+                                        <ContentControl>
+                                            <!--<Page>-->
+                                            <ListView x:Name="listView">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Header="资源名" Width="auto" />
+                                                        <GridViewColumn Header="剩余时间" Width="auto"/>
+                                                        <GridViewColumn Header="进度" Width="auto" />
+                                                        <GridViewColumn Header="操作" Width="auto" />
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                            <!--</Page>-->
+                                        </ContentControl>
                                     </Grid>
-                                    <Grid Grid.Row="2" Name="parent">
-                                        <Button Margin="0,2,0,2">fuck-line2</Button>
+                                    <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                                        <Button Margin="0, 5, 40, 20" MaxWidth="200" HorizontalAlignment="Right">一键更新</Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
