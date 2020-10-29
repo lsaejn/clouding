@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
-        Background="Transparent" WindowStartupLocation="CenterScreen" 
+        Background="Transparent" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
         MouseDoubleClick="Window_MouseDoubleClick"
         MouseMove="Window_MouseMove">
 
@@ -251,21 +252,23 @@
                                                     </GridView>
                                                 </ListView.View>
                                             </ListView>-->
-                                            <ListBox>
-                                                <ListBoxItem>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Image Source="/Assets/bell.png" Width="40" Height="40"/>
-                                                        <Label Margin="10,0,15,0" VerticalAlignment="Center">V521Setup.exe</Label>
-                                                        <StackPanel>
-                                                            <Label>下载速度: 234KB/S</Label>
-                                                            <Label>剩余时间: 01:02:33</Label>
+                                            <ListBox Name="StackWidget">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Image Source="{Binding Path=imageSrc}" Width="40" Height="40"/>
+                                                            <Label Margin="10,0,15,0" VerticalAlignment="Center" Width="150" Content="{Binding Path=packageName}"></Label>
+                                                            <StackPanel>
+                                                                <Label Content="{Binding Path=speed}"></Label>
+                                                                <Label Content="{Binding Path=timeLeft}"></Label>
+                                                            </StackPanel>
+                                                            <ProgressBar Margin="15,0,25,0" Width="140" Background="Gray" Foreground="#FF37A0EA" BorderThickness="0" Value="{Binding progressValue}"></ProgressBar>
+                                                            <Button Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDownloadFile">下载</Button>
+                                                            <Button Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDeleteFile">删除</Button>
+                                                            <Button Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">升级</Button>
                                                         </StackPanel>
-                                                        <ProgressBar Margin="15,0,25,0" Width="140" Background="Gray" Foreground="#FF37A0EA" BorderThickness="0" Value="30"></ProgressBar>
-                                                        <Button Height="25" Margin="5,0,5,0">下载</Button>
-                                                        <Button Height="25" Margin="5,0,5,0">删除</Button>
-                                                        <Button Height="25" Margin="5,0,5,0">升级</Button>
-                                                    </StackPanel>
-                                                </ListBoxItem>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
                                             </ListBox>
                                             <!--</Page>-->
                                         </ContentControl>
