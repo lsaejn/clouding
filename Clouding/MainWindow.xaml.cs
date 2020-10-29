@@ -25,12 +25,38 @@ namespace Clouding
             InitializeComponent();
         }
 
+        /*
+         * 没有考虑多屏幕
+         */
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
-            if(e.LeftButton==MouseButtonState.Pressed)
+            if (e.LeftButton==MouseButtonState.Pressed)
             {
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    Point pt = Mouse.GetPosition(e.Source as FrameworkElement);
+                    pt=PointToScreen(pt);
+                    this.WindowState = WindowState.Normal;
+                    var w=this.Width;
+                    var h = this.Height;
+                    if (pt.X < w-120)
+                    {
+                        this.Left = 0;
+                        this.Top = 0;
+                    }
+                    else if (pt.X > w + 120)
+                    {
+                        this.Left = SystemParameters.PrimaryScreenWidth - w;
+                        this.Top = 0;
+                    }
+                    else
+                    {
+                        this.Left = (SystemParameters.PrimaryScreenWidth - w) / 2;
+                        this.Top = 0;
+                    }
+                }
                 Point pp = Mouse.GetPosition(e.Source as FrameworkElement);
-                if(pp.Y<40)
+                if (pp.Y<40)
                     DragMove();
             }
         }
@@ -43,6 +69,31 @@ namespace Clouding
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void OnClickUpdateVersion(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void OnClickPatching(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnClickMinBtn(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void OnClickMaxBtn(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        }
+
+        private void OnClickSettingBtn(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
