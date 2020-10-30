@@ -85,9 +85,9 @@
     </Window.Resources>
 
     <Border Background="Transparent">
-        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="0">
+        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="2">
             <!--<Border.Effect>
-                <DropShadowEffect Color="gray" BlurRadius="16" ShadowDepth="0" Opacity="1" />
+                <DropShadowEffect Color="black" BlurRadius="16" ShadowDepth="0" Opacity="0.2" />
             </Border.Effect>-->
             <!--begin-->
             <Grid>
@@ -257,15 +257,18 @@
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Source="{Binding Path=imageSrc}" Width="40" Height="40"/>
-                                                            <Label Margin="10,0,15,0" VerticalAlignment="Center" Width="150" Content="{Binding Path=packageName}"></Label>
+                                                            <Label Margin="10,0,15,0" VerticalAlignment="Center" Width="180" Content="{Binding Path=packageName}"></Label>
                                                             <StackPanel>
-                                                                <Label Content="{Binding Path=speed}"></Label>
-                                                                <Label Content="{Binding Path=timeLeft}"></Label>
+                                                                <Label Content="{Binding Path=speed_}"></Label>
+                                                                <Label Content="{Binding Path=timeLeft_}"></Label>
                                                             </StackPanel>
-                                                            <ProgressBar Margin="15,0,25,0" Width="140" Background="Gray" Foreground="#FF37A0EA" BorderThickness="0" Value="{Binding progressValue}"></ProgressBar>
-                                                            <Button Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDownloadFile">下载</Button>
-                                                            <Button Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDeleteFile">删除</Button>
-                                                            <Button Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">升级</Button>
+                                                            <StackPanel >
+                                                                <ProgressBar Margin="15,15,15,0" Width="140" Background="Gray" Foreground="#FF37A0EA" BorderThickness="0" Value="{Binding progressValue_}"></ProgressBar>
+                                                                <Label Margin="10, 0, 0 ,0" Content="{Binding Path=state_}"></Label>
+                                                            </StackPanel>
+                                                            <Button  Name="downBtn" Height="22" FontSize="12" Margin="0,0,5,0" Click="OnDownloadFile">下载</Button>
+                                                            <Button  Name="deleteBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDeleteFile">删除</Button>
+                                                            <Button  Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">升级</Button>
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>

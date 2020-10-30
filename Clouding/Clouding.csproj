@@ -67,9 +67,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DownLoader.cs" />
     <Compile Include="FixsPackagePage.xaml.cs">
       <DependentUpon>FixsPackagePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Installer.cs" />
+    <Compile Include="OneKeyTask.cs" />
+    <Compile Include="PackInfoFile.cs" />
+    <Compile Include="StackWidgetItem.cs" />
     <Compile Include="UpdatePage.xaml.cs">
       <DependentUpon>UpdatePage.xaml</DependentUpon>
     </Compile>

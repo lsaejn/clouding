@@ -19,61 +19,7 @@ using System.Windows.Threading;
 
 namespace Clouding
 {
-    public struct PatchItemInfo
-    {
-        public string patchFile { get; set; }
-        public string fileName { get; set; }
-    }
-    public struct PatchItem
-    {
-        public string version { get; set; }
-        public PatchItemInfo info { get; set; }
-    }
-    public struct UpdatePacks
-    {
-        public string version { get; set; }
-        public string fileName { get; set; }
-    };
-    class PackInfoFile
-    {
-        public string LatestVersion { get; set; }
-        public List<PatchItem> FixPacks { get; set; }
-        public UpdatePacks UpdatePacks { get; set; }
-        public string LatestIsoUrl { get; set; }
-    }
-
-    public class UserItem
-    {
-        public string packageName { get; set; }
-        public string speed { get; set; }
-        public string timeLeft { get; set; }
-        public int progressValue { get; set; }
-
-        static int num;
-        public string imageSrc
-        {
-            get
-            {
-                num++;
-                if(num%4==0)
-                    return "/Assets/bell.png";
-                else if(num%4==1)
-                    return "/Assets/apps.png";
-                else if (num%4 == 2)
-                    return "/Assets/cartcolor.png";
-                return "/Assets/computer.png";
-                //return "/test;component/Assets/bell.png";
-
-            }
-        }
-        public UserItem(string timeLeft, string speed, string name, int progressValue)
-        {
-            this.timeLeft = timeLeft;
-            this.packageName = name;
-            this.speed = speed;
-            this.progressValue = progressValue;
-        }
-    }
+    
 
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -88,6 +34,9 @@ namespace Clouding
 
         public DispatcherTimer timer;
         public bool protect { get; set; }
+        public string packCtn { get; set; }
+
+        public PackInfoFile packinfo { get; set; }
         /*
          * 没有考虑多屏幕
          */
@@ -173,19 +122,35 @@ namespace Clouding
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            InitUI();
+        }
+
+        private void InitUI()
+        {
             //test();
+            // write to config
+            string serverFilePath = "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/packsInfoWpf1.json";
+            packCtn = ReadPackInfo(serverFilePath);
             ParsePackInfo();
             InitStackWidget();
         }
 
         private void InitStackWidget()
         {
-            StackWidget.ItemsSource = new List<UserItem>
+            string appPath = System.AppDomain.CurrentDomain.BaseDirectory;
+            string cfgPath = appPath + "/../CFG/";
+
+            var lv = packinfo.LatestVersion;
+            var iso = packinfo.LatestIsoUrl;
+            var fixs = packinfo.FixPacks;
+            var updatepk = packinfo.UpdatePacks;
+
+            StackWidget.ItemsSource = new List<StackWidgetItem>
             {
-                new UserItem("00:01:33", "123KB/S","V5.2.1.Setup.exe",30),
-                new UserItem("10:21:34", "443KB/S","V5.3.Setup.exe",50),
-                new UserItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80),
-                new UserItem("00:08:34", "555KB/S","V6.0.Setup.exe",100)
+                new StackWidgetItem("00:01:33", "123KB/S","V5.2.1.Setup.exe",30),
+                new StackWidgetItem("10:21:34", "443KB/S","V5.3.Setup.exe",50),
+                new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80),
+                new StackWidgetItem("00:08:34", "555KB/S","V6.0.Setup.exe",100)
             };
         }
         public void test()
@@ -205,15 +170,8 @@ namespace Clouding
 
         public void ParsePackInfo()
         {
-            string serverFilePath = "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/packsInfoWpf1.json";
-
-            string packCtn = ReadPackInfo(serverFilePath);
             var serializer = new JavaScriptSerializer();
-            var ret = serializer.Deserialize<PackInfoFile>(packCtn);
-            var lv = ret.LatestVersion;
-            var iso = ret.LatestIsoUrl;
-            var fixs = ret.FixPacks;
-            var updatepk = ret.UpdatePacks;
+            packinfo= serializer.Deserialize<PackInfoFile>(packCtn);
         }
 
         public string ReadPackInfo(string url)
@@ -239,7 +197,10 @@ namespace Clouding
 
         private void OnDownloadFile(object sender, RoutedEventArgs e)
         {
-
+            var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
+            StackWidgetItem item = (StackWidgetItem)curItem;
+            var pkName=item.packageName;
+            item.state_ = "正在连接";
         }
 
         private void OnDeleteFile(object sender, RoutedEventArgs e)
