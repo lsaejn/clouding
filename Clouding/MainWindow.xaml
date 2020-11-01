@@ -85,7 +85,7 @@
     </Window.Resources>
 
     <Border Background="Transparent">
-        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="2">
+        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="0">
             <!--<Border.Effect>
                 <DropShadowEffect Color="black" BlurRadius="16" ShadowDepth="0" Opacity="0.2" />
             </Border.Effect>-->
