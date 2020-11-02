@@ -85,7 +85,7 @@
     </Window.Resources>
 
     <Border Background="Transparent">
-        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="2">
+        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="0">
             <!--<Border.Effect>
                 <DropShadowEffect Color="black" BlurRadius="16" ShadowDepth="0" Opacity="0.2" />
             </Border.Effect>-->
@@ -235,7 +235,7 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0" >
-                                        <Label Margin="0,0,0,2" Background="#1C93EC" Foreground="White">检测到当前版本V5.2.1，找到以下可用资源</Label>
+                                        <Label Name="infoLabel" Margin="0,0,0,2" Background="#1C93EC" Foreground="White">检测到当前版本V5.2.1，找到以下可用资源</Label>
                                     </Grid>
                                     <Grid Grid.Row="1" Margin="0,0,0,0">
                                         <!--<Button Height="{Binding Path=parent, ElementName=Width}" Grid.RowSpan="2">fuck-line1</Button>-->
