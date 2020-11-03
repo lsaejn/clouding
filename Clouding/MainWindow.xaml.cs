@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows;
@@ -123,6 +124,8 @@ namespace Clouding
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             InitUI();
+            var ins=ConfigFileRW.GetInstance;
+            var v = this.frame1;
         }
 
         private void InitUI()
@@ -147,11 +150,15 @@ namespace Clouding
 
             StackWidget.ItemsSource = new List<StackWidgetItem>
             {
-                new StackWidgetItem("00:01:33", "123KB/S","V5.2.1.Setup.exe",30),
-                new StackWidgetItem("10:21:34", "443KB/S","V5.3.Setup.exe",50),
-                new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80),
-                new StackWidgetItem("00:08:34", "555KB/S","V6.0.Setup.exe",100)
+                new StackWidgetItem("00:01:33", "123KB/S","V5.2.1.Setup.exe",30, "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/UpdatePacks/"+updatepk.fileName,infoLabel),
+                new StackWidgetItem("10:21:34", "443KB/S","V5.3.Setup.exe",50, updatepk.fileName, null),
+                new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                new StackWidgetItem("00:08:34", "555KB/S","V6.0.Setup.exe",100, updatepk.fileName, null)
             };
+            ItemCollection col =StackWidget.Items;
+            StackWidgetItem elem3 =(StackWidgetItem)col.GetItemAt(3);
+            //var f=elem3.ItemData;
+            var fName=elem3.packageName;
         }
         public void test()
         {
@@ -197,20 +204,25 @@ namespace Clouding
 
         private void OnDownloadFile(object sender, RoutedEventArgs e)
         {
+            Thread.Sleep(100000);
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
             var pkName=item.packageName;
             item.state_ = "正在连接";
+            item.DownloadFile();
+            
         }
 
         private void OnDeleteFile(object sender, RoutedEventArgs e)
         {
-
+            var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
+            StackWidgetItem item = (StackWidgetItem)curItem;
         }
 
         private void OnSetupFile(object sender, RoutedEventArgs e)
         {
-
+            var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
+            StackWidgetItem item = (StackWidgetItem)curItem;
         }
     }
 }
