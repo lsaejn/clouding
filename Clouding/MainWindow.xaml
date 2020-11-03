@@ -85,10 +85,10 @@
     </Window.Resources>
 
     <Border Background="Transparent">
-        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="0">
-            <!--<Border.Effect>
-                <DropShadowEffect Color="black" BlurRadius="16" ShadowDepth="0" Opacity="0.2" />
-            </Border.Effect>-->
+        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="1">
+            <Border.Effect>
+                <DropShadowEffect Color="#FF37A0EA" BlurRadius="5" ShadowDepth="0" Opacity="0.2" />
+            </Border.Effect>
             <!--begin-->
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -252,7 +252,7 @@
                                                     </GridView>
                                                 </ListView.View>
                                             </ListView>-->
-                                            <ListBox Name="StackWidget">
+                                            <ListBox Name="StackWidget" Visibility="Hidden">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">

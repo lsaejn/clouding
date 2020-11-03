@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows;
@@ -123,6 +124,7 @@ namespace Clouding
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             InitUI();
+            var ins=ConfigFileRW.GetInstance;
         }
 
         private void InitUI()
@@ -197,11 +199,13 @@ namespace Clouding
 
         private void OnDownloadFile(object sender, RoutedEventArgs e)
         {
+            Thread.Sleep(100000);
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
             var pkName=item.packageName;
             item.state_ = "正在连接";
             item.DownloadFile();
+            
         }
 
         private void OnDeleteFile(object sender, RoutedEventArgs e)

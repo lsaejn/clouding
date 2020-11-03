@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConfigFileRW.cs" />
     <Compile Include="DownLoader.cs" />
     <Compile Include="FixsPackagePage.xaml.cs">
       <DependentUpon>FixsPackagePage.xaml</DependentUpon>
