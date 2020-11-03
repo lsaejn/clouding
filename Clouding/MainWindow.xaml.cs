@@ -125,6 +125,7 @@ namespace Clouding
         {
             InitUI();
             var ins=ConfigFileRW.GetInstance;
+            var v = this.frame1;
         }
 
         private void InitUI()
@@ -154,6 +155,10 @@ namespace Clouding
                 new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
                 new StackWidgetItem("00:08:34", "555KB/S","V6.0.Setup.exe",100, updatepk.fileName, null)
             };
+            ItemCollection col =StackWidget.Items;
+            StackWidgetItem elem3 =(StackWidgetItem)col.GetItemAt(3);
+            //var f=elem3.ItemData;
+            var fName=elem3.packageName;
         }
         public void test()
         {

@@ -240,19 +240,9 @@
                                     <Grid Grid.Row="1" Margin="0,0,0,0">
                                         <!--<Button Height="{Binding Path=parent, ElementName=Width}" Grid.RowSpan="2">fuck-line1</Button>-->
                                         <!--<ContentControl Grid.Row="1" Grid.Column="2" x:Name="ContentControl">-->
-                                        <ContentControl>
-                                            <!--<Page>-->
-                                            <!--<ListView x:Name="listView">
-                                                <ListView.View>
-                                                    <GridView>
-                                                        <GridViewColumn Header="资源名" Width="auto" />
-                                                        <GridViewColumn Header="剩余时间" Width="auto"/>
-                                                        <GridViewColumn Header="进度" Width="auto" />
-                                                        <GridViewColumn Header="操作" Width="auto" />
-                                                    </GridView>
-                                                </ListView.View>
-                                            </ListView>-->
-                                            <ListBox Name="StackWidget" Visibility="Hidden">
+                                        <StackPanel>
+                                            <Frame Name="frame1" Source="FixsPackagePage.xaml" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="500"></Frame>
+                                            <ListBox Name="StackWidget" Height="auto">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
@@ -273,8 +263,7 @@
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>
-                                            <!--</Page>-->
-                                        </ContentControl>
+                                        </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2" Grid.ColumnSpan="2">
                                         <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right">一键更新</Button>
