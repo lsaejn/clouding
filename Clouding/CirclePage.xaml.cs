@@ -18,11 +18,31 @@ namespace Clouding
     /// <summary>
     /// FixsPackagePage.xaml 的交互逻辑
     /// </summary>
-    public partial class FixsPackagePage : Page
+    public partial class CirclePage : Page
     {
-        public FixsPackagePage()
+        public CirclePage()
         {
             InitializeComponent();
+        }
+
+        public void SetTip(string str)
+        {
+            this.TipLabel.Content = str;
+        }
+
+        public void HidePage()
+        {
+            this.Height = 0;
+        }
+
+        public void HideProgressBar()
+        {
+            CircularProgress.Visibility = Visibility.Hidden;
+        }
+
+        public void RestorePage()
+        {
+            this.Height = double.NaN;//fix me...
         }
     }
 }

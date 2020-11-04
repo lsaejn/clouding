@@ -69,8 +69,8 @@
     </ApplicationDefinition>
     <Compile Include="ConfigFileRW.cs" />
     <Compile Include="DownLoader.cs" />
-    <Compile Include="FixsPackagePage.xaml.cs">
-      <DependentUpon>FixsPackagePage.xaml</DependentUpon>
+    <Compile Include="CirclePage.xaml.cs">
+      <DependentUpon>CirclePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Installer.cs" />
     <Compile Include="OneKeyTask.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="UpdatePage.xaml.cs">
       <DependentUpon>UpdatePage.xaml</DependentUpon>
     </Compile>
-    <Page Include="FixsPackagePage.xaml">
+    <Page Include="CirclePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

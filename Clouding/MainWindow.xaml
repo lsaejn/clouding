@@ -240,9 +240,10 @@
                                     <Grid Grid.Row="1" Margin="0,0,0,0">
                                         <!--<Button Height="{Binding Path=parent, ElementName=Width}" Grid.RowSpan="2">fuck-line1</Button>-->
                                         <!--<ContentControl Grid.Row="1" Grid.Column="2" x:Name="ContentControl">-->
+                                        <!--原本是打算用frame, 为了方便访问StackWidget，这里省事来-->
                                         <StackPanel>
-                                            <Frame Name="frame1" Source="FixsPackagePage.xaml" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="500"></Frame>
-                                            <ListBox Name="StackWidget" Height="auto">
+                                            <Frame Name="circleFrame" Source="CirclePage.xaml" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="480" ></Frame>
+                                            <ListBox Name="StackWidget" Height="0">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">

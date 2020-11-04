@@ -125,17 +125,32 @@ namespace Clouding
         {
             InitUI();
             var ins=ConfigFileRW.GetInstance;
-            var v = this.frame1;
         }
 
-        private void InitUI()
+        private async void InitUI()
         {
             //test();
             // write to config
-            string serverFilePath = "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/packsInfoWpf1.json";
-            packCtn = ReadPackInfo(serverFilePath);
-            ParsePackInfo();
-            InitStackWidget();
+            string serverFilePath = ConfigFileRW.GetInstance.updateInfoUrl;
+            //packCtn = await ReadPackInfo(serverFilePath);
+            packCtn = await Task<string>.Run(() =>
+            {
+                return ReadPackInfo(serverFilePath);
+            });
+            //load之后调用本段函数
+            var frame = this.circleFrame;
+            CirclePage page = (CirclePage)frame.Content;
+            if (packCtn.Length==0)
+            {
+                page.HideProgressBar();
+                page.SetTip("查询信息失败，请检查您的网络");
+            }
+            else
+            {
+                ParsePackInfo();
+                InitStackWidget();
+                page.Height = 0;
+            }
         }
 
         private void InitStackWidget()
@@ -183,23 +198,32 @@ namespace Clouding
 
         public string ReadPackInfo(string url)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.AllowAutoRedirect = true;
-            WebResponse respone = request.GetResponse();
-            Stream netStream = respone.GetResponseStream();
-
-            string buffer = string.Empty;
-
-            byte[] read = new byte[1024];
-            int realReadLen = netStream.Read(read, 0, read.Length);
-            while (realReadLen > 0)
+            try
             {
-                buffer += System.Text.Encoding.UTF8.GetString(read, 0, realReadLen);
-                realReadLen = netStream.Read(read, 0, read.Length);
+                //Thread.Sleep(5000);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.AllowAutoRedirect = false;
+                WebResponse respone = request.GetResponse();
+                Stream netStream = respone.GetResponseStream();
+
+                string buffer = string.Empty;
+
+                byte[] read = new byte[1024];
+                int realReadLen = netStream.Read(read, 0, read.Length);
+                while (realReadLen > 0)
+                {
+                    buffer += System.Text.Encoding.UTF8.GetString(read, 0, realReadLen);
+                    realReadLen = netStream.Read(read, 0, read.Length);
+                }
+                netStream.Close();
+                return buffer;
             }
-            netStream.Close();
-            return buffer;
+            catch(Exception e)
+            {
+                //OutP
+                return string.Empty;
+            }     
         }
 
         private void OnDownloadFile(object sender, RoutedEventArgs e)
