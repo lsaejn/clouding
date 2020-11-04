@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Clouding
 {
     /// <summary>
-    /// FixsPackagePage.xaml 的交互逻辑
+    /// 只使用一次，每次登录时，我们会将更新信息保存。
     /// </summary>
     public partial class CirclePage : Page
     {
@@ -28,6 +28,8 @@ namespace Clouding
         public void SetTip(string str)
         {
             this.TipLabel.Content = str;
+            this.TipLabel.Foreground= new SolidColorBrush(Colors.Red);
+            this.TipLabel.FontSize = 20;
         }
 
         public void HidePage()
@@ -37,6 +39,7 @@ namespace Clouding
 
         public void HideProgressBar()
         {
+            CircularProgress.Height = 0;
             CircularProgress.Visibility = Visibility.Hidden;
         }
 

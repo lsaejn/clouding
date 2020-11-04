@@ -20,8 +20,6 @@ using System.Windows.Threading;
 
 namespace Clouding
 {
-    
-
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
@@ -38,6 +36,7 @@ namespace Clouding
         public string packCtn { get; set; }
 
         public PackInfoFile packinfo { get; set; }
+        public List<StackWidgetItem> ItemList;
         /*
          * 没有考虑多屏幕
          */
@@ -82,6 +81,7 @@ namespace Clouding
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += timer1_Tick;
+            //timer.Repeat = false; //we are not writing qml~~
             protect = true;
             timer.Start();
         }
@@ -133,14 +133,14 @@ namespace Clouding
             // write to config
             string serverFilePath = ConfigFileRW.GetInstance.updateInfoUrl;
             //packCtn = await ReadPackInfo(serverFilePath);
-            packCtn = await Task<string>.Run(() =>
+            packCtn = await Task.Run(() =>
             {
                 return ReadPackInfo(serverFilePath);
             });
             //load之后调用本段函数
             var frame = this.circleFrame;
             CirclePage page = (CirclePage)frame.Content;
-            if (packCtn.Length==0)
+            if (0==packCtn.Length)
             {
                 page.HideProgressBar();
                 page.SetTip("查询信息失败，请检查您的网络");
@@ -149,10 +149,10 @@ namespace Clouding
             {
                 ParsePackInfo();
                 InitStackWidget();
-                page.Height = 0;
+                circleFrame.Height = 0;
+                //StackWidget.Height = double.NaN;
             }
         }
-
         private void InitStackWidget()
         {
             string appPath = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -163,17 +163,24 @@ namespace Clouding
             var fixs = packinfo.FixPacks;
             var updatepk = packinfo.UpdatePacks;
 
-            StackWidget.ItemsSource = new List<StackWidgetItem>
+            //StackWidget.ItemsSource = new List<StackWidgetItem>
+            ItemList= new List<StackWidgetItem>
             {
                 new StackWidgetItem("00:01:33", "123KB/S","V5.2.1.Setup.exe",30, "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/UpdatePacks/"+updatepk.fileName,infoLabel),
                 new StackWidgetItem("10:21:34", "443KB/S","V5.3.Setup.exe",50, updatepk.fileName, null),
                 new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
                 new StackWidgetItem("00:08:34", "555KB/S","V6.0.Setup.exe",100, updatepk.fileName, null)
             };
-            ItemCollection col =StackWidget.Items;
-            StackWidgetItem elem3 =(StackWidgetItem)col.GetItemAt(3);
+            StackWidget.ItemsSource = ItemList;
+            //ItemCollection col =StackWidget.Items;
+            //StackWidgetItem elem3 =(StackWidgetItem)col.GetItemAt(3);
             //var f=elem3.ItemData;
-            var fName=elem3.packageName;
+            //var fName=elem3.packageName;
         }
         public void test()
         {
@@ -200,7 +207,6 @@ namespace Clouding
         {
             try
             {
-                //Thread.Sleep(5000);
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
                 request.AllowAutoRedirect = false;
@@ -217,11 +223,14 @@ namespace Clouding
                     realReadLen = netStream.Read(read, 0, read.Length);
                 }
                 netStream.Close();
+                //我们是有意让客户端慢
+                Thread.Sleep(2000);
                 return buffer;
             }
             catch(Exception e)
             {
                 //OutP
+                Logger.Log().Error($"无法下载网络信息: {url}。原因:{e.Message}");
                 return string.Empty;
             }     
         }
@@ -247,6 +256,25 @@ namespace Clouding
         {
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
+        }
+
+        private void OnClickOneKeyUpdate(object sender, RoutedEventArgs e)
+        {
+            //StackWidget.Items.RemoveAt(3);
+            List<StackWidgetItem> itemsSource =(List<StackWidgetItem>) StackWidget.ItemsSource;
+            itemsSource.RemoveAt(3);
+
+            //Refreshes data binding
+            {
+                StackWidget.ItemsSource = null;
+                StackWidget.ItemsSource = ItemList;
+            }
+
+            //StackWidget
+            //itemsSource.
+            //var iter = ItemsSource.GetEnumerator();
+            //while(iter.)
+            //StackWidget.Items.Remove(item);
         }
     }
 }

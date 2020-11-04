@@ -44,13 +44,19 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
             <Setter Property="Padding" Value="5"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" 
+                                              Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsDefaulted" Value="True">
@@ -78,6 +84,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="menuRadioButtonTemplate" TargetType="{x:Type RadioButton}">
             <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="100"/>
@@ -135,8 +142,9 @@
                                 当前版本补丁包
                             </Button.Content>
                         </Button>
-                        <RadioButton Grid.Row="2" Background="Transparent" BorderThickness="0" Foreground="White" Style="{StaticResource RadioThemeColor}">
-                            "fuck"
+                        <RadioButton Grid.Row="2" Background="Transparent" BorderThickness="0" Foreground="White" 
+                                Style="{StaticResource MaterialDesignActionToggleButton}">
+                            fuck
                         </RadioButton>
                         <Button Visibility="Hidden" Grid.Row="3" Background="Transparent" BorderThickness="0" Style="{DynamicResource menuButtonTemplate}">
                             <Button.Content>
@@ -243,7 +251,8 @@
                                         <!--原本是打算用frame, 为了方便访问StackWidget，这里省事来-->
                                         <StackPanel>
                                             <Frame Name="circleFrame" Source="CirclePage.xaml" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="480" ></Frame>
-                                            <ListBox Name="StackWidget" Height="0">
+                                            <!--ItemsSource="{Binding Path=ItemList}"-->
+                                            <ListBox Name="StackWidget" Height="450" ScrollViewer.VerticalScrollBarVisibility="auto">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
@@ -264,10 +273,11 @@
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>
+
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right">一键更新</Button>
+                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right" Click="OnClickOneKeyUpdate">一键更新</Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
