@@ -119,30 +119,21 @@
                             <!--<RowDefinition Height="50"/>-->
                         </Grid.RowDefinitions>
                         <!--Adding Menu buttons-->
-                        <Button Grid.Row="0" Background="Transparent" BorderThickness="0" 
+                        <RadioButton Grid.Row="0" Background="Transparent" BorderThickness="0" 
                                 Foreground="White" Click="OnClickUpdateVersion" Name="UpdateBtn"
-                                Style="{DynamicResource menuButtonTemplate}">
-                            <Button.Content>
-                                <!--<Image Source="/Assets/mmc.png" Stretch="Uniform" Width="20"/>-->
-                                升级到最新版本
-                            </Button.Content>
-                        </Button>
-                        <Button Grid.Row="1" Background="Transparent" BorderThickness="0" 
-                                Foreground="White" Click="OnClickPatching" 
-                                Style="{DynamicResource menuButtonTemplate}">
-                            <Button.Content>
-                                <!--<Image Source="/Assets/contacts.png" Stretch="Uniform" Width="20"/>-->
-                                当前版本补丁包
-                            </Button.Content>
-                        </Button>
-                        <RadioButton Grid.Row="2" Background="Transparent" BorderThickness="0" Foreground="White" Style="{StaticResource RadioThemeColor}">
-                            "fuck"
+                                Style="{DynamicResource myRadioButton}">
+                            <!--<Image Source="/Assets/mmc.png" Stretch="Uniform" Width="20"/>-->
+                                升级
                         </RadioButton>
-                        <Button Visibility="Hidden" Grid.Row="3" Background="Transparent" BorderThickness="0" Style="{DynamicResource menuButtonTemplate}">
-                            <Button.Content>
-                                <Image Source="/Assets/settings.png" Stretch="Uniform" Width="20"/>
-                            </Button.Content>
-                        </Button>
+                        <RadioButton Grid.Row="1" Background="Transparent" BorderThickness="0" 
+                                Foreground="White" Click="OnClickPatching" 
+                                Style="{DynamicResource myRadioButton}">
+                            <!--<Image Source="/Assets/contacts.png" Stretch="Uniform" Width="20"/>-->
+                                当前版本补丁包
+                        </RadioButton>
+                        <RadioButton Grid.Row="2"  BorderThickness="0" Foreground="White" Style="{StaticResource myRadioButton}">
+                            
+                        </RadioButton>
                     </Grid>
                     <Grid Grid.Row="2">
                         <Button Grid.Row="5" Foreground="White" Background="Transparent" VerticalAlignment="Bottom"
