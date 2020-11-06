@@ -77,6 +77,9 @@ namespace Clouding
 
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Point pp = Mouse.GetPosition(e.Source as FrameworkElement);
+            if (pp.Y > 40)
+                return;
             this.WindowState = this.WindowState == WindowState.Maximized ?WindowState.Normal : WindowState.Maximized;
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
