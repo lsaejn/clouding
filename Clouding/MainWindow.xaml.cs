@@ -138,8 +138,7 @@ namespace Clouding
                 return ReadPackInfo(serverFilePath);
             });
             //load之后调用本段函数
-            var frame = this.circleFrame;
-            CirclePage page = (CirclePage)frame.Content;
+            CirclePage page = (CirclePage)this.circleFrame.Content;
             if (0==packCtn.Length)
             {
                 page.HideProgressBar();
@@ -149,7 +148,8 @@ namespace Clouding
             {
                 ParsePackInfo();
                 InitStackWidget();
-                circleFrame.Height = 0;
+                circleFrame.Visibility = Visibility.Collapsed;
+                //circleFrame.Height = 0;
                 //StackWidget.Height = double.NaN;
             }
         }
@@ -230,6 +230,7 @@ namespace Clouding
             catch(Exception e)
             {
                 //OutP
+                Thread.Sleep(2000);
                 Logger.Log().Error($"无法下载网络信息: {url}。原因:{e.Message}");
                 return string.Empty;
             }     

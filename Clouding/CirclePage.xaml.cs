@@ -34,18 +34,19 @@ namespace Clouding
 
         public void HidePage()
         {
-            this.Height = 0;
+            this.Visibility= Visibility.Collapsed;
+            //HideProgressBar();
+            //this.TipLabel.Visibility= Visibility.Collapsed;
         }
 
         public void HideProgressBar()
         {
-            CircularProgress.Height = 0;
-            CircularProgress.Visibility = Visibility.Hidden;
+            CircularProgress.Visibility = Visibility.Collapsed;
         }
 
         public void RestorePage()
         {
-            this.Height = double.NaN;//fix me...
+            CircularProgress.Visibility = Visibility.Visible;
         }
     }
 }

@@ -212,7 +212,7 @@
                                                 </Button>
                                             </Grid>
                                             <Grid Grid.Column="2">
-                                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
+                                                <Button IsEnabled="False" Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
                                 materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="0" Click="OnClickMaxBtn">
                                                     <Viewbox Width="25" Height="25">
                                                         <Canvas Width="24" Height="24">
