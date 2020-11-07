@@ -1,4 +1,4 @@
-﻿<Page x:Class="Clouding.FixsPackagePage"
+﻿<Page x:Class="Clouding.CirclePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,18 +6,18 @@
       xmlns:local="clr-namespace:Clouding"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="400"
-      Title="FixsPackagePage" Background="AliceBlue">
+      Title="nothing" Background="AliceBlue">
 
     <Grid>
         <StackPanel VerticalAlignment="Center">
             <ProgressBar 
-                            x:Name="DeterminateCircularProgress"
+                            x:Name="CircularProgress"
                             Value="0"
                             Height="100" Width="100"
                             IsIndeterminate="True"
                             VerticalAlignment="Center"
                             Style="{StaticResource MaterialDesignCircularProgressBar}"/>
-            <Label Grid.Row="1" HorizontalAlignment="Center">正在查询升级信息</Label>
+            <Label Name="TipLabel" Grid.Row="1" HorizontalAlignment="Center">正在查询升级信息</Label>
         </StackPanel>
 
 

@@ -20,8 +20,6 @@ using System.Windows.Threading;
 
 namespace Clouding
 {
-    
-
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
@@ -38,6 +36,7 @@ namespace Clouding
         public string packCtn { get; set; }
 
         public PackInfoFile packinfo { get; set; }
+        public List<StackWidgetItem> ItemList;
         /*
          * 没有考虑多屏幕
          */
@@ -78,10 +77,14 @@ namespace Clouding
 
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Point pp = Mouse.GetPosition(e.Source as FrameworkElement);
+            if (pp.Y > 40)
+                return;
             this.WindowState = this.WindowState == WindowState.Maximized ?WindowState.Normal : WindowState.Maximized;
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += timer1_Tick;
+            //timer.Repeat = false; //we are not writing qml~~
             protect = true;
             timer.Start();
         }
@@ -125,19 +128,34 @@ namespace Clouding
         {
             InitUI();
             var ins=ConfigFileRW.GetInstance;
-            var v = this.frame1;
         }
 
-        private void InitUI()
+        private async void InitUI()
         {
             //test();
             // write to config
-            string serverFilePath = "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/packsInfoWpf1.json";
-            packCtn = ReadPackInfo(serverFilePath);
-            ParsePackInfo();
-            InitStackWidget();
+            string serverFilePath = ConfigFileRW.GetInstance.updateInfoUrl;
+            //packCtn = await ReadPackInfo(serverFilePath);
+            packCtn = await Task.Run(() =>
+            {
+                return ReadPackInfo(serverFilePath);
+            });
+            //load之后调用本段函数
+            CirclePage circlePage = (CirclePage)this.circleFrame.Content;
+            if (0==packCtn.Length)
+            {
+                circlePage.HideProgressBar();
+                circlePage.SetTip("查询信息失败，请检查您的网络");
+            }
+            else
+            {
+                ParsePackInfo();
+                InitStackWidget();
+                //circlePage.HidePage();
+                circleFrame.Height = 0;
+                //StackWidget.Height = double.NaN;
+            }
         }
-
         private void InitStackWidget()
         {
             string appPath = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -148,17 +166,24 @@ namespace Clouding
             var fixs = packinfo.FixPacks;
             var updatepk = packinfo.UpdatePacks;
 
-            StackWidget.ItemsSource = new List<StackWidgetItem>
+            //StackWidget.ItemsSource = new List<StackWidgetItem>
+            ItemList= new List<StackWidgetItem>
             {
                 new StackWidgetItem("00:01:33", "123KB/S","V5.2.1.Setup.exe",30, "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/UpdatePacks/"+updatepk.fileName,infoLabel),
                 new StackWidgetItem("10:21:34", "443KB/S","V5.3.Setup.exe",50, updatepk.fileName, null),
                 new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
+                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
                 new StackWidgetItem("00:08:34", "555KB/S","V6.0.Setup.exe",100, updatepk.fileName, null)
             };
-            ItemCollection col =StackWidget.Items;
-            StackWidgetItem elem3 =(StackWidgetItem)col.GetItemAt(3);
+            StackWidget.ItemsSource = ItemList;
+            //ItemCollection col =StackWidget.Items;
+            //StackWidgetItem elem3 =(StackWidgetItem)col.GetItemAt(3);
             //var f=elem3.ItemData;
-            var fName=elem3.packageName;
+            //var fName=elem3.packageName;
         }
         public void test()
         {
@@ -183,28 +208,40 @@ namespace Clouding
 
         public string ReadPackInfo(string url)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.AllowAutoRedirect = true;
-            WebResponse respone = request.GetResponse();
-            Stream netStream = respone.GetResponseStream();
-
-            string buffer = string.Empty;
-
-            byte[] read = new byte[1024];
-            int realReadLen = netStream.Read(read, 0, read.Length);
-            while (realReadLen > 0)
+            try
             {
-                buffer += System.Text.Encoding.UTF8.GetString(read, 0, realReadLen);
-                realReadLen = netStream.Read(read, 0, read.Length);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.AllowAutoRedirect = false;
+                WebResponse respone = request.GetResponse();
+                Stream netStream = respone.GetResponseStream();
+
+                string buffer = string.Empty;
+
+                byte[] read = new byte[1024];
+                int realReadLen = netStream.Read(read, 0, read.Length);
+                while (realReadLen > 0)
+                {
+                    buffer += System.Text.Encoding.UTF8.GetString(read, 0, realReadLen);
+                    realReadLen = netStream.Read(read, 0, read.Length);
+                }
+                netStream.Close();
+                //我们是有意让客户端慢
+                Thread.Sleep(2000);
+                return buffer;
             }
-            netStream.Close();
-            return buffer;
+            catch(Exception e)
+            {
+                //OutP
+                Thread.Sleep(2000);
+                Logger.Log().Error($"无法下载网络信息: {url}。原因:{e.Message}");
+                return string.Empty;
+            }     
         }
 
         private void OnDownloadFile(object sender, RoutedEventArgs e)
         {
-            Thread.Sleep(100000);
+            //Thread.Sleep(100000);
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
             var pkName=item.packageName;
@@ -223,6 +260,25 @@ namespace Clouding
         {
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
+        }
+
+        private void OnClickOneKeyUpdate(object sender, RoutedEventArgs e)
+        {
+            //StackWidget.Items.RemoveAt(3);
+            List<StackWidgetItem> itemsSource =(List<StackWidgetItem>) StackWidget.ItemsSource;
+            itemsSource.RemoveAt(3);
+
+            //Refreshes data binding
+            {
+                StackWidget.ItemsSource = null;
+                StackWidget.ItemsSource = ItemList;
+            }
+
+            //StackWidget
+            //itemsSource.
+            //var iter = ItemsSource.GetEnumerator();
+            //while(iter.)
+            //StackWidget.Items.Remove(item);
         }
     }
 }

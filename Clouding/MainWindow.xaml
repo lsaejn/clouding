@@ -19,7 +19,9 @@
                         Executed="CloseCommandHandler"/>
     </Window.CommandBindings>
     <!--resources-->
+    
     <Window.Resources>
+        <local:boolDateConverter x:Key="BtnConverter"/>
         <Style x:Key="menuButtonTemplate" TargetType="{x:Type Button}">
             <!--焦点视觉样式-->
             <Setter Property="FocusVisualStyle">
@@ -44,13 +46,19 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
             <Setter Property="Padding" Value="5"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" 
+                                              Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsDefaulted" Value="True">
@@ -78,6 +86,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="menuRadioButtonTemplate" TargetType="{x:Type RadioButton}">
             <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="100"/>
@@ -195,7 +204,7 @@
                                                 </Button>
                                             </Grid>
                                             <Grid Grid.Column="2">
-                                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
+                                                <Button IsEnabled="False" Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
                                 materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="0" Click="OnClickMaxBtn">
                                                     <Viewbox Width="25" Height="25">
                                                         <Canvas Width="24" Height="24">
@@ -226,14 +235,16 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0" >
-                                        <Label Name="infoLabel" Margin="0,0,0,2" Background="#1C93EC" Foreground="White">检测到当前版本V5.2.1，找到以下可用资源</Label>
+                                        <Label Name="infoLabel" Margin="0,0,0,2" Background="#1C93EC" Foreground="White">检测到当前版本V5.2.1</Label>
                                     </Grid>
                                     <Grid Grid.Row="1" Margin="0,0,0,0">
                                         <!--<Button Height="{Binding Path=parent, ElementName=Width}" Grid.RowSpan="2">fuck-line1</Button>-->
                                         <!--<ContentControl Grid.Row="1" Grid.Column="2" x:Name="ContentControl">-->
+                                        <!--原本是打算用frame, 为了方便访问StackWidget，这里省事来-->
                                         <StackPanel>
-                                            <Frame Name="frame1" Source="FixsPackagePage.xaml" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="500"></Frame>
-                                            <ListBox Name="StackWidget" Height="auto">
+                                            <Frame Name="circleFrame" Source="CirclePage.xaml" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="480" ></Frame>
+                                            <!--ItemsSource="{Binding Path=ItemList}"-->
+                                            <ListBox Name="StackWidget" Height="450" ScrollViewer.VerticalScrollBarVisibility="auto">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
@@ -247,17 +258,19 @@
                                                                 <ProgressBar Margin="15,15,15,0" Width="140" Background="Gray" Foreground="#FF37A0EA" BorderThickness="0" Value="{Binding progressValue_}"></ProgressBar>
                                                                 <Label Margin="10, 0, 0 ,0" Content="{Binding Path=state_}"></Label>
                                                             </StackPanel>
-                                                            <Button  Name="downBtn" Height="22" FontSize="12" Margin="0,0,5,0" Click="OnDownloadFile">下载</Button>
+
+                                                            <Button  Name="downBtn" Height="22" FontSize="12" Margin="0,0,5,0" Click="OnDownloadFile" Content="{Binding stopped_, Converter={StaticResource BtnConverter}}"></Button>
                                                             <Button  Name="deleteBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDeleteFile">删除</Button>
                                                             <Button  Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">升级</Button>
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>
+
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right">一键更新</Button>
+                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right" Click="OnClickOneKeyUpdate">一键更新</Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
