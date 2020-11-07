@@ -98,9 +98,9 @@
                 <!--left column-->
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="120"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="120"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
                     </Grid.RowDefinitions>
                     <!--pc icon-->
                     <Rectangle Grid.Row="0" Height="21.7" Width="100" RadiusX="10" RadiusY="10" VerticalAlignment="Center">
@@ -109,28 +109,35 @@
                         </Rectangle.Fill>
                     </Rectangle>
                     <!--others-->
-                    <StackPanel Grid.Row="1">
-
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                            <!--<RowDefinition Height="50"/>-->
+                        </Grid.RowDefinitions>
                         <!--Adding Menu buttons-->
-                        <RadioButton  Background="Transparent" BorderThickness="0" Margin="0, 5, 0, 5" 
+                        <RadioButton Grid.Row="0" Background="Transparent" BorderThickness="0" 
                                 Foreground="White" Click="OnClickUpdateVersion" Name="UpdateBtn"
                                 Style="{DynamicResource myRadioButton}">
                             <!--<Image Source="/Assets/mmc.png" Stretch="Uniform" Width="20"/>-->
-                                升级到最新版本
+                                升级
                         </RadioButton>
-                        <RadioButton  Background="Transparent" BorderThickness="0" Margin="0, 5, 0, 5"
+                        <RadioButton Grid.Row="1" Background="Transparent" BorderThickness="0" 
                                 Foreground="White" Click="OnClickPatching" 
                                 Style="{DynamicResource myRadioButton}">
                             <!--<Image Source="/Assets/contacts.png" Stretch="Uniform" Width="20"/>-->
                                 当前版本补丁包
                         </RadioButton>
-                        <RadioButton Grid.Row="2"  BorderThickness="0" Foreground="White" Margin="0, 5, 0, 5" Style="{StaticResource myRadioButton}">
-                            我的助手
+                        <RadioButton Grid.Row="2"  BorderThickness="0" Foreground="White" Style="{StaticResource myRadioButton}">
+                            
                         </RadioButton>
-                    </StackPanel>
+                    </Grid>
                     <Grid Grid.Row="2">
                         <Button Grid.Row="5" Foreground="White" Background="Transparent" VerticalAlignment="Bottom"
-                                BorderThickness="0" Style="{DynamicResource menuButtonTemplate}" Margin="0, 0, 0, 80">
+                                BorderThickness="0" Style="{DynamicResource menuButtonTemplate}" Margin="0, 0, 0 50">
                             <Button.Content>
                                 升级设置
                                 <!--<Image Source="/Assets/cloud.png" Stretch="Uniform" Width="20"/>-->
