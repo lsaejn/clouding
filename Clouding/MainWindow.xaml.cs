@@ -141,18 +141,18 @@ namespace Clouding
                 return ReadPackInfo(serverFilePath);
             });
             //load之后调用本段函数
-            CirclePage page = (CirclePage)this.circleFrame.Content;
+            CirclePage circlePage = (CirclePage)this.circleFrame.Content;
             if (0==packCtn.Length)
             {
-                page.HideProgressBar();
-                page.SetTip("查询信息失败，请检查您的网络");
+                circlePage.HideProgressBar();
+                circlePage.SetTip("查询信息失败，请检查您的网络");
             }
             else
             {
                 ParsePackInfo();
                 InitStackWidget();
-                circleFrame.Visibility = Visibility.Collapsed;
-                //circleFrame.Height = 0;
+                //circlePage.HidePage();
+                circleFrame.Height = 0;
                 //StackWidget.Height = double.NaN;
             }
         }
@@ -241,7 +241,7 @@ namespace Clouding
 
         private void OnDownloadFile(object sender, RoutedEventArgs e)
         {
-            Thread.Sleep(100000);
+            //Thread.Sleep(100000);
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
             var pkName=item.packageName;

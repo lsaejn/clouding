@@ -8,9 +8,72 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Reflection.Emit;
+using System.Windows.Data;
+using System.Globalization;
 
 namespace Clouding
 {
+    /// <summary>
+    /// 一次具体的下载。这个思路是对的，避免和之前c++一样混乱。
+    /// </summary>
+    public class DownLoadTask
+    {
+        StackWidgetItem item;
+        bool stopped;
+        string url;
+        public DownLoadTask(StackWidgetItem _item)
+        {
+            item = _item;
+            url = item.url;
+            stopped = false;
+        }
+        public void DownloadFileImpl()
+        {
+            Stream ofs = null;
+            try
+            {
+                //属性绑定, 不需要代理
+                item.state_ = "you know nothing";
+                item.stopped_ = false;
+                return;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.AllowAutoRedirect = false;
+                request.Timeout = 5000;
+                WebResponse respone = request.GetResponse();
+                Stream netStream = respone.GetResponseStream();
+                ofs = new FileStream("1.txt", FileMode.Append, FileAccess.Write);
+                byte[] read = new byte[1024 * 64];
+                int realReadLen = netStream.Read(read, 0, read.Length);
+                while (realReadLen > 0 & !stopped)
+                {
+                    lock (this)
+                    {
+                        Thread.Sleep(5000);
+                        ofs.Write(read, 0, realReadLen);
+                        ofs.Flush();
+                    }
+                    realReadLen = netStream.Read(read, 0, read.Length);
+                }
+                netStream.Close();
+                item.state_ = "下载完成";
+                //check filelengthhere
+            }
+            catch (Exception e)
+            {
+                Logger.Log().Error(e.Message);
+                item.state_ = "下载失败";
+            }
+            finally
+            {
+                if(ofs!=null)
+                    ofs.Close();
+            }
+        }
+    }
+
+
+
     public class StackWidgetItem: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -22,6 +85,8 @@ namespace Clouding
         public string url { get; set; }
         public bool stopped { get; set; }
         public System.Windows.Controls.Label lb;
+
+
 
         static int num;
         public string imageSrc
@@ -65,6 +130,7 @@ namespace Clouding
             this.state = "暂停中";
             this.url = url;
             this.lb = lb;
+            stopped = true;
         }
 
         public int progressValue_
@@ -104,6 +170,19 @@ namespace Clouding
             }
         }
 
+        public bool stopped_
+        {
+            get { return stopped; }
+            set
+            {
+                stopped = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("stopped_"));
+            }
+        }
+
+        DownLoadTask task;
+        Object lockObj=new Object();
+
         public void ResetUIWhenDownloadFinished()
         {
 
@@ -115,57 +194,48 @@ namespace Clouding
 
         public void DownloadFile()
         {
-            new Thread(DownloadFileImpl).Start();
+            task = new DownLoadTask(this);
+            new Thread(task.DownloadFileImpl).Start();
             //Thread.Sleep(2000);
-            lock (this)
+            //lock (this)
+            //{
+            //    speed_ = "fuck2";
+            //}
+        }
+
+        public void StopDownLoad()
+        {
+            //call
+            lock (lockObj)//lock似乎应该放在task对象里
             {
-                speed_ = "fuck2";
+                stopped = true;
+                task = null;
             }
+            
+        }
+
+        public void StartDownLoad()
+        {
+
+        }
+
+        public void DeleteFile()
+        {
+
+        }
+
+        public void OpenFolder()
+        {
+
+        }
+
+        public bool InstallFile()
+        {
+            return true;
         }
 
         //pack these into download class
-        public void DownloadFileImpl()
-        {
-            Stream ofs = null;
-            try
-            {
-                //属性绑定, 不需要代理
-                //Thread.Sleep(5050);
-                speed_ = "fuck";
-                //lb.Content = "you know nothing";
-                return;
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-                request.AllowAutoRedirect = false;
-                request.Timeout = 5000;
-                WebResponse respone = request.GetResponse();
-                Stream netStream = respone.GetResponseStream();
-                ofs = new FileStream("1.txt", FileMode.Append, FileAccess.Write);
-                byte[] read = new byte[1024*64];
-                int realReadLen = netStream.Read(read, 0, read.Length);
-                while (realReadLen > 0 & !stopped)
-                {
-                    lock (this)
-                    {
-                        Thread.Sleep(5000);
-                        ofs.Write(read, 0, realReadLen);
-                        ofs.Flush();
-                    }
-                    realReadLen = netStream.Read(read, 0, read.Length);
-                }
-                netStream.Close();
-                state_ = "下载完成";
-                //check filelengthhere
-            }
-            catch(Exception e)
-            {
-                state_ = "下载失败";
-            }
-            finally
-            {
-                ofs.Close();
-            }
-        }
+
 
     }//class StackWidgetItem
 }// namespace Clouding
