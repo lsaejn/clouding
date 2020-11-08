@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -121,7 +122,17 @@ namespace Clouding
         }
         private void OnClickSettingBtn(object sender, RoutedEventArgs e)
         {
+            Button cmd = (Button)e.OriginalSource;
 
+            Type type = this.GetType();
+            Assembly assembly = type.Assembly;
+
+            Window win = (Window)assembly.CreateInstance(
+                type.Namespace + "." + "SettingWindow");
+            if (null == win)
+                MessageBox.Show($"无法打开{cmd.Content}对话框 ");
+            else
+                win.ShowDialog();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

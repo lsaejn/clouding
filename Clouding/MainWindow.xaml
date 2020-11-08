@@ -146,7 +146,7 @@
                     </Grid>
                     <Grid Grid.Row="2">
                         <Button Grid.Row="5" Foreground="White" Background="Transparent" VerticalAlignment="Bottom"
-                                BorderThickness="0" Style="{DynamicResource menuButtonTemplate}" Margin="0, 0, 0 50">
+                                BorderThickness="0" Style="{DynamicResource menuButtonTemplate}" Margin="0, 0, 0 50" Click="OnClickSettingBtn">
                             <Button.Content>
                                 升级设置
                                 <!--<Image Source="/Assets/cloud.png" Stretch="Uniform" Width="20"/>-->
