@@ -47,7 +47,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Height" Value="40"/>
-        <Setter Property="Width" Value="100"/>
+        <Setter Property="Width" Value="120"/>
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="#FF707070"/>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Clouding"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800"
+        Title="MainWindow" Height="580" Width="820"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
@@ -101,7 +101,7 @@
             <!--begin-->
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition Width="140"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <!--left column-->
@@ -132,7 +132,7 @@
                                 Foreground="White" Click="OnClickUpdateVersion" Name="UpdateBtn"
                                 Style="{DynamicResource myRadioButton}">
                             <!--<Image Source="/Assets/mmc.png" Stretch="Uniform" Width="20"/>-->
-                                升级
+                                当前版本升级到最新
                         </RadioButton>
                         <RadioButton Grid.Row="1" Background="Transparent" BorderThickness="0" 
                                 Foreground="White" Click="OnClickPatching" 

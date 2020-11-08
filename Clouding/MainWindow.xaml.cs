@@ -36,7 +36,7 @@ namespace Clouding
         public string packCtn { get; set; }
 
         public PackInfoFile packinfo { get; set; }
-        public List<StackWidgetItem> itemList;
+        public List<StackWidgetItem> updateItemList;
         public List<StackWidgetItem> fixItemList;
         /*
          * 没有考虑多屏幕
@@ -75,7 +75,6 @@ namespace Clouding
                     DragMove();
             }
         }
-
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Point pp = Mouse.GetPosition(e.Source as FrameworkElement);
@@ -94,43 +93,41 @@ namespace Clouding
             protect = false;
             timer.Stop();
         }
-
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
         {
             this.Close();
         }
-
         private void OnClickUpdateVersion(object sender, RoutedEventArgs e)
         {
-           
+            if (StackWidget.ItemsSource == updateItemList)
+                return;
+            StackWidget.ItemsSource = null;
+            StackWidget.ItemsSource = updateItemList;
         }
-
         private void OnClickPatching(object sender, RoutedEventArgs e)
         {
-
+            if (StackWidget.ItemsSource == fixItemList)
+                return;
+            StackWidget.ItemsSource = null;
+            StackWidget.ItemsSource = fixItemList;
         }
-
         private void OnClickMinBtn(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
-
         private void OnClickMaxBtn(object sender, RoutedEventArgs e)
         {
             this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
-
         private void OnClickSettingBtn(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             InitUI();
             var ins=ConfigFileRW.GetInstance;
         }
-
         private async void InitUI()
         {
             //test();
@@ -157,7 +154,7 @@ namespace Clouding
                 });
                 if(ret)
                 {
-                    StackWidget.ItemsSource = fixItemList;
+                    StackWidget.ItemsSource = updateItemList;
                     circleFrame.Height = 0;
                 }
                 else
@@ -191,7 +188,7 @@ namespace Clouding
                     ConfigFileRW.GetInstance.pkgRootFolder + ConfigFileRW.GetInstance.fixPackFolder + fn, null));
             }
 
-            itemList = new List<StackWidgetItem>
+            updateItemList = new List<StackWidgetItem>
             {
                 new StackWidgetItem("00:01:33", "123KB/S",updatepk.fileName,30, "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/UpdatePacks/"+updatepk.fileName,null),
                 new StackWidgetItem("10:21:34", "443KB/S","V5.3.Setup.exe",50, updatepk.fileName, null),
@@ -290,7 +287,7 @@ namespace Clouding
             //Refreshes data binding
             {
                 StackWidget.ItemsSource = null;
-                StackWidget.ItemsSource = itemList;
+                StackWidget.ItemsSource = updateItemList;
             }
 
             //StackWidget
