@@ -248,15 +248,25 @@
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <Image Source="{Binding Path=imageSrc}" Width="40" Height="40"/>
-                                                            <Label Margin="10,0,15,0" VerticalAlignment="Center" Width="180" Content="{Binding Path=packageName}"></Label>
+                                                            <Image Source="{Binding Path=imageSrc}" Width="30" Height="30"/>
+                                                            <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Width="220" Text="{Binding Path=packageName_}" 
+                                                                       TextTrimming= "CharacterEllipsis" ToolTip="{Binding Path=packageName_}">
+                                                            </TextBlock>
                                                             <StackPanel>
-                                                                <Label Content="{Binding Path=speed_}"></Label>
-                                                                <Label Content="{Binding Path=timeLeft_}"></Label>
+                                                                <Label FontSize="11" Content="{Binding Path=speed_}"></Label>
+                                                                <Label FontSize="11" Content="{Binding Path=timeLeft_}"></Label>
                                                             </StackPanel>
-                                                            <StackPanel >
+                                                            <StackPanel>
                                                                 <ProgressBar Margin="15,15,15,0" Width="140" Background="Gray" Foreground="#FF37A0EA" BorderThickness="0" Value="{Binding progressValue_}"></ProgressBar>
-                                                                <Label Margin="10, 0, 0 ,0" Content="{Binding Path=state_}"></Label>
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <Label Grid.Column="0" Margin="10, 0, 0 ,0" FontSize="11" Content="{Binding Path=state_}"></Label>
+                                                                    <Label Grid.Column="2" Margin="0, 0, 10, 0" FontSize="11" Content="31MB/100MB" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></Label>
+                                                                </Grid>
                                                             </StackPanel>
 
                                                             <Button  Name="downBtn" Height="22" FontSize="12" Margin="0,0,5,0" Click="OnDownloadFile" Content="{Binding stopped_, Converter={StaticResource BtnConverter}}"></Button>

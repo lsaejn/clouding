@@ -7,36 +7,32 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows;
 
+/// <summary>
+/// fix me, 没有仔细检查
+/// </summary>
 namespace Clouding
 {
     public class ConfigFile
     {
-        public string downloadDir { get; set; }
-        public string maxTaskNum { get; set; }
-        public string logFilePath { get; set; }
-        public string logLever { get; set; }
-        public string logFileRollSize { get; set; }
-        public string assistantDll { get; set; }
-        public string updateInfoUrl { get; set; }
-        public string pkgRootFolder { get; set; }
-        public string fixPackFolder { get; set; }
-        public string updatePackFolder { get; set; }
-        public string IntegralImageFileFolder { get; set; }
-        public string useLocalPackInfo { get; set; }
-        public string localPackInfo { get; set; }
+        public string downloadDir;
+        public string maxTaskNum;
+        public string logFilePath;
+        public string logLever;
+        public string logFileRollSize;
+        public string assistantDll;
+        public string updateInfoUrl;
+        public string pkgRootFolder;
+        public string fixPackFolder;
+        public string updatePackFolder;
+        public string IntegralImageFileFolder;
+        public string useLocalPackInfo;
+        public string localPackInfo;
     }
 
     public sealed class ConfigFileRW
     {
-        private static readonly ConfigFileRW instance_ = new ConfigFileRW();
         public ConfigFile config_;
-        public static ConfigFileRW GetInstance
-        {
-            get
-            {
-                return instance_;
-            }  
-        }
+        public static ConfigFileRW GetInstance { get; } = new ConfigFileRW();
 
         public string downloadDir
         {

@@ -36,7 +36,8 @@ namespace Clouding
         public string packCtn { get; set; }
 
         public PackInfoFile packinfo { get; set; }
-        public List<StackWidgetItem> ItemList;
+        public List<StackWidgetItem> itemList;
+        public List<StackWidgetItem> fixItemList;
         /*
          * 没有考虑多屏幕
          */
@@ -140,7 +141,7 @@ namespace Clouding
             {
                 return ReadPackInfo(serverFilePath);
             });
-            //load之后调用本段函数
+            //不好的味道
             CirclePage circlePage = (CirclePage)this.circleFrame.Content;
             if (0==packCtn.Length)
             {
@@ -150,14 +151,30 @@ namespace Clouding
             else
             {
                 ParsePackInfo();
-                InitStackWidget();
-                //circlePage.HidePage();
-                circleFrame.Height = 0;
-                //StackWidget.Height = double.NaN;
+                bool ret=await Task.Run(() =>
+                {
+                    return InitStackWidget();
+                });
+                if(ret)
+                {
+                    StackWidget.ItemsSource = fixItemList;
+                    circleFrame.Height = 0;
+                }
+                else
+                {
+                    circlePage.HideProgressBar();
+                    circlePage.SetTip("查询信息失败，请检查您的网络");
+                }
             }
         }
-        private void InitStackWidget()
+
+        /// <summary>
+        /// 读取Item到StackWidget, StackWidget对应Qt的概念，一时转不过来
+        /// </summary>
+        /// <returns>是否发生错误</returns>
+        private bool InitStackWidget()
         {
+            //fix me, 这里需要比较版本，有软件的旧债，让他们自己还
             string appPath = System.AppDomain.CurrentDomain.BaseDirectory;
             string cfgPath = appPath + "/../CFG/";
 
@@ -166,20 +183,22 @@ namespace Clouding
             var fixs = packinfo.FixPacks;
             var updatepk = packinfo.UpdatePacks;
 
-            //StackWidget.ItemsSource = new List<StackWidgetItem>
-            ItemList= new List<StackWidgetItem>
+            fixItemList = new List<StackWidgetItem>();
+            foreach (var fixFile in fixs)
             {
-                new StackWidgetItem("00:01:33", "123KB/S","V5.2.1.Setup.exe",30, "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/UpdatePacks/"+updatepk.fileName,infoLabel),
+                var fn= fixFile.info.fileName;
+                fixItemList.Add(new StackWidgetItem("--:--:--",  "0KB/S", fn, 0,
+                    ConfigFileRW.GetInstance.pkgRootFolder + ConfigFileRW.GetInstance.fixPackFolder + fn, null));
+            }
+
+            itemList = new List<StackWidgetItem>
+            {
+                new StackWidgetItem("00:01:33", "123KB/S",updatepk.fileName,30, "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/UpdatePacks/"+updatepk.fileName,null),
                 new StackWidgetItem("10:21:34", "443KB/S","V5.3.Setup.exe",50, updatepk.fileName, null),
                 new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
-                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
-                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
-                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
-                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
-                //new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
                 new StackWidgetItem("00:08:34", "555KB/S","V6.0.Setup.exe",100, updatepk.fileName, null)
             };
-            StackWidget.ItemsSource = ItemList;
+            return true;
             //ItemCollection col =StackWidget.Items;
             //StackWidgetItem elem3 =(StackWidgetItem)col.GetItemAt(3);
             //var f=elem3.ItemData;
@@ -246,7 +265,7 @@ namespace Clouding
             StackWidgetItem item = (StackWidgetItem)curItem;
             var pkName=item.packageName;
             item.state_ = "正在连接";
-            item.DownloadFile();
+            item.OnClickDownloadBtn();
             
         }
 
@@ -271,7 +290,7 @@ namespace Clouding
             //Refreshes data binding
             {
                 StackWidget.ItemsSource = null;
-                StackWidget.ItemsSource = ItemList;
+                StackWidget.ItemsSource = itemList;
             }
 
             //StackWidget
