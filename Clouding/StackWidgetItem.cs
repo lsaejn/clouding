@@ -15,13 +15,21 @@ using System.Windows;
 namespace Clouding
 {
     /// <summary>
-    /// 一次具体的下载。避免和之前c++一样混乱。
+    /// 一次具体的下载。不用异步是为了避免和之前c++版本一样混乱。
     /// </summary>
     public class DownLoadTask
     {
         StackWidgetItem item;
-        bool stopped;
-        string url;
+        bool stopped { get; set; }
+        string url { get; set; }
+        /// <summary>
+        /// 任务开始时，已下载到文件的字节数
+        /// </summary>
+        long bytesDown { get; set; }
+        /// <summary>
+        /// 目标字节数
+        /// </summary>
+        long bytesTotal { get; set; }
         public void Stop()
         {
             stopped = true;
@@ -35,9 +43,10 @@ namespace Clouding
         public void DownloadFileImpl()
         {
             Stream ofs = null;
+            Stream netStream = null;
             try
             {
-                //属性绑定, 不需要代理
+                //属性绑定, 不需要delegate
                 //item.state_ = "you know nothing";
                 //item.stopped_ = false;
                 //return;
@@ -46,33 +55,47 @@ namespace Clouding
                 request.AllowAutoRedirect = false;
                 request.Timeout = 5000;
                 WebResponse respone = request.GetResponse();
-                Stream netStream = respone.GetResponseStream();
-                ofs = new FileStream("1.txt", FileMode.Append, FileAccess.Write);
+                netStream = respone.GetResponseStream();
+                string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
+                string localFilePath = downLoadPath + item.packageName;
+                ofs = new FileStream(localFilePath, FileMode.Append, FileAccess.Write);
                 byte[] read = new byte[1024 * 64];
                 int realReadLen = netStream.Read(read, 0, read.Length);
+                if(realReadLen>0)
+                    item.state_ = "正在下载";
                 while (realReadLen > 0 && !stopped)
                 {
                     lock (this)
                     {
-                        //Thread.Sleep(5000);
-                        ofs.Write(read, 0, realReadLen);
-                        ofs.Flush();
+                        if(!stopped)
+                        {
+                            ofs.Write(read, 0, realReadLen);
+                            ofs.Flush();
+                            if (bytesDown == bytesTotal)
+                                item.state_ = "下载完成";
+                        }
                     }
                     realReadLen = netStream.Read(read, 0, read.Length);
                 }
-                netStream.Close();
-                if(realReadLen==0 && !stopped)
-                    item.state_ = "下载完成";
-                //check filelengthhere
+                //item update
             }
             catch (Exception e)
             {
                 Logger.Log().Error(e.Message);
-                item.state_ = "下载失败";
+                lock (this)
+                {
+                    if (!stopped)
+                    {
+                        item.state_ = "下载失败";
+                        item.task = null;
+                    }     
+                }   
             }
             finally
             {
-                if(ofs!=null)
+                if(netStream!=null)
+                    netStream.Close();
+                if (ofs!=null)
                     ofs.Close();
             }
         }
@@ -87,12 +110,12 @@ namespace Clouding
         public string speed;
         public string timeLeft;
         public string state;
+        public string fileSizeState;
         public int progressValue;
         public string url;
         public bool stopped;
         public long bytesDown;
         public long bytesTotal;
-        public System.Windows.Controls.Label lb;
 
         //fix me. 等待删除
         static int num;
@@ -129,7 +152,7 @@ namespace Clouding
         /// <param name="progressValue"></param>
         /// <param name="url">阿里云下载网址,阿里云只转义了中文</param>
         /// <param name="lb">测试label</param>
-        public StackWidgetItem(string timeLeft, string speed, string name, int progressValue, string url, System.Windows.Controls.Label lb)
+        public StackWidgetItem(string timeLeft, string speed, string name, int progressValue, string url, long bytesTotal)
         {
             useTestCase = true;
             timeLeft_ = timeLeft;
@@ -139,7 +162,7 @@ namespace Clouding
             progressValue_ = progressValue;
             state = "暂停中";
             url_ = url;
-            lb = lb;
+            bytesTotal_ = bytesTotal;
             stopped = true;
             ReadLocalFile();
         }
@@ -154,6 +177,10 @@ namespace Clouding
                 bytesDown = info.Length;
             else
                 bytesDown = 0;
+            //fix me, 下载速度格式化, 我们基本上都很大，MB就行了
+            fileSizeState_ = (bytesDown / (1024.0*1024)).ToString("f2") + "MB/"+ (bytesTotal / (1024.0 * 1024)).ToString("f2") +"MB";
+            progressValue_ = (int)(bytesDown / bytesTotal);
+            //filesiz
             //bytesTotal;
     }
         public string packageName_
@@ -163,6 +190,28 @@ namespace Clouding
             {
                 packageName = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("packageName_"));
+            }
+        }
+
+        public long bytesDown_
+        {
+            get { return bytesDown; }
+            set
+            {
+                bytesDown = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("bytesDown_"));
+            }
+        }
+        /// <summary>
+        /// fix me, bytesTotal_没什么机会变化
+        /// </summary>
+        public long bytesTotal_
+        {
+            get { return bytesTotal; }
+            set
+            {
+                bytesTotal = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("bytesTotal_"));
             }
         }
         public int progressValue_
@@ -181,6 +230,15 @@ namespace Clouding
             {
                 state = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("state_"));
+            }
+        }
+        public string fileSizeState_
+        {
+            get { return fileSizeState; }
+            set
+            {
+                fileSizeState = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("fileSizeState_"));
             }
         }
         public string url_
@@ -220,7 +278,7 @@ namespace Clouding
             }
         }
 
-        DownLoadTask task;
+        public DownLoadTask task { get; set; }
         Object lockObj=new Object();
 
         public void ResetUIWhenDownloadFinished()

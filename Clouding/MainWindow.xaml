@@ -196,6 +196,9 @@
                                             <Grid Grid.Column="1">
                                                 <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
                                 materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="0" Click="OnClickMinBtn">
+                                                    <Button.ToolTip>
+                                                        <ToolTip Content="最小化" Placement="Bottom"></ToolTip>
+                                                    </Button.ToolTip>
                                                     <Viewbox Width="25" Height="25">
                                                         <Canvas Width="24" Height="24">
                                                             <Path Data="M20,14H4V10H20" Fill="#FF37A0EA" />
@@ -217,6 +220,9 @@
                                             <Grid Grid.Column="3">
                                                 <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
                                 materialDesign:ShadowAssist.ShadowDepth="Depth1" Command="ApplicationCommands.Close" Padding="0">
+                                                    <Button.ToolTip>
+                                                        <ToolTip Content="关闭" Placement="Bottom"></ToolTip>
+                                                    </Button.ToolTip>
                                                     <Viewbox Width="25" Height="25">
                                                         <Canvas Width="24" Height="24">
                                                             <Path Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" Fill="#FF37A0EA" />
@@ -252,9 +258,9 @@
                                                             <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Width="220" Text="{Binding Path=packageName_}" 
                                                                        TextTrimming= "CharacterEllipsis" ToolTip="{Binding Path=packageName_}">
                                                             </TextBlock>
-                                                            <StackPanel>
-                                                                <Label FontSize="11" Content="{Binding Path=speed_}"></Label>
-                                                                <Label FontSize="11" Content="{Binding Path=timeLeft_}"></Label>
+                                                            <StackPanel VerticalAlignment="Center">
+                                                                <Label FontSize="11"  Content="{Binding Path=speed_}"></Label>
+                                                                <Label FontSize="11"  Content="{Binding Path=timeLeft_}"></Label>
                                                             </StackPanel>
                                                             <StackPanel>
                                                                 <ProgressBar Margin="15,15,15,0" Width="140" Background="Gray" Foreground="#FF37A0EA" BorderThickness="0" Value="{Binding progressValue_}"></ProgressBar>
@@ -265,7 +271,7 @@
                                                                         <ColumnDefinition Width="auto"></ColumnDefinition>
                                                                     </Grid.ColumnDefinitions>
                                                                     <Label Grid.Column="0" Margin="10, 0, 0 ,0" FontSize="11" Content="{Binding Path=state_}"></Label>
-                                                                    <Label Grid.Column="2" Margin="0, 0, 10, 0" FontSize="11" Content="31MB/100MB" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></Label>
+                                                                    <Label Grid.Column="2" Margin="0, 0, 10, 0" FontSize="11" Content="{Binding Path=fileSizeState_}" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></Label>
                                                                 </Grid>
                                                             </StackPanel>
 

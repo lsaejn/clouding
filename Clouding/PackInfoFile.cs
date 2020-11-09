@@ -10,6 +10,7 @@ namespace Clouding
     {
         public string patchFile { get; set; }
         public string fileName { get; set; }
+        public string relativePath { get; set; }
     }
     public struct PatchItem
     {
@@ -20,6 +21,7 @@ namespace Clouding
     {
         public string version { get; set; }
         public string fileName { get; set; }
+        public string relativePath { get; set; }
     };
     public class PackInfoFile
     {

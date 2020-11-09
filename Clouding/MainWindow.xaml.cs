@@ -30,6 +30,8 @@ namespace Clouding
         {
             InitializeComponent();
             protect = false;
+            fixItemList = new List<StackWidgetItem>();
+            updateItemList=new List<StackWidgetItem>();
         }
 
         public DispatcherTimer timer;
@@ -37,7 +39,7 @@ namespace Clouding
         public string packCtn { get; set; }
 
         public PackInfoFile packinfo { get; set; }
-        public List<StackWidgetItem> updateItemList;
+        public List<StackWidgetItem> updateItemList;//有异步访问,但只有两次, 可以无视
         public List<StackWidgetItem> fixItemList;
         /*
          * 没有考虑多屏幕
@@ -182,6 +184,7 @@ namespace Clouding
         /// <returns>是否发生错误</returns>
         private bool InitStackWidget()
         {
+            //Thread.Sleep(5000);
             //fix me, 这里需要比较版本，有软件的旧债，让他们自己还
             string appPath = System.AppDomain.CurrentDomain.BaseDirectory;
             string cfgPath = appPath + "/../CFG/";
@@ -191,26 +194,68 @@ namespace Clouding
             var fixs = packinfo.FixPacks;
             var updatepk = packinfo.UpdatePacks;
 
-            fixItemList = new List<StackWidgetItem>();
+            var ins = ConfigFileRW.GetInstance;
+            System.Net.ServicePointManager.DefaultConnectionLimit = 50;
+
             foreach (var fixFile in fixs)
             {
-                var fn= fixFile.info.fileName;
-                fixItemList.Add(new StackWidgetItem("--:--:--",  "0KB/S", fn, 0,
-                    ConfigFileRW.GetInstance.pkgRootFolder + ConfigFileRW.GetInstance.fixPackFolder + fn, null));
+                //配置文件里必须是从网站拷贝的严格的阿里云url，维护人员可能会犯错
+                string urlBase64 = ins.pkgRootFolder + ins.fixPackFolder + fixFile.info.relativePath;
+                var sz=QueryFileSize(urlBase64);
+                fixItemList.Add(new StackWidgetItem("--:--:--",  "0KB/S", fixFile.info.fileName, 0,
+                    ins.pkgRootFolder + ins.fixPackFolder + fixFile.info.relativePath, sz));
             }
 
-            updateItemList = new List<StackWidgetItem>
+            //var sz = QueryFileSize(urlBase64);
+            var updateFIleUrl = ins.pkgRootFolder + ins.updatePackFolder + updatepk.relativePath;
+            var fsz = QueryFileSize(updateFIleUrl);
+            updateItemList.Add(new StackWidgetItem("00:00:00", "--", updatepk.fileName, 0,updateFIleUrl, fsz));
+            //test
             {
-                new StackWidgetItem("00:01:33", "123KB/S",updatepk.fileName,30, "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/UpdatePacks/"+updatepk.fileName,null),
-                new StackWidgetItem("10:21:34", "443KB/S","V5.3.Setup.exe",50, updatepk.fileName, null),
-                new StackWidgetItem("00:01:04", "333KB/S","V5.2.2.2.Setup.exe",80, updatepk.fileName, null),
-                new StackWidgetItem("00:08:34", "555KB/S","V6.0.Setup.exe",100, updatepk.fileName, null)
+                //updateItemList.Add(new StackWidgetItem("10:21:34", "443KB/S", "fakePackage.exe", 50, updatepk.fileName, 0));
+                //updateItemList.Add(new StackWidgetItem("00:01:04", "333KB/S", "fakePackage.exe", 80, updatepk.fileName, 0));
+                //updateItemList.Add(new StackWidgetItem("00:08:34", "555KB/S", "fakePackage.exe", 100, updatepk.fileName, 0));
             };
             return true;
             //ItemCollection col =StackWidget.Items;
             //StackWidgetItem elem3 =(StackWidgetItem)col.GetItemAt(3);
             //var f=elem3.ItemData;
             //var fName=elem3.packageName;
+        }
+
+        private long QueryFileSize(string url)
+        {
+            HttpWebRequest request = null;
+            WebResponse respone = null;
+            try
+            {
+                //if(url== "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/FixPacks/V522SetUpPatch.exe")
+                //{
+                //    url= "http://pkpmsoft.oss-cn-beijing.aliyuncs.com/PKPM2010/Info/pkpmSoft/FixPacks/V522SetUpPatch.exe";
+                //}
+                request = (HttpWebRequest)WebRequest.Create(url);
+                request.Proxy = null;
+                request.KeepAlive = false;
+                //request.Headers.Add("HttpWebRequest")
+                request.AllowAutoRedirect = false;
+                request.Timeout = 5000;
+                respone = request.GetResponse() as HttpWebResponse;
+                var sz = respone.ContentLength;
+                return sz;
+            }
+            catch (WebException e)
+            {
+                //if(e.Status==)
+                return 0;
+            }
+            finally
+            {
+                if (request != null)
+                    request.Abort();
+                if (respone != null)
+                    respone.Close();
+                System.GC.Collect();
+            }
         }
         public void test()
         {
@@ -254,7 +299,7 @@ namespace Clouding
                 }
                 netStream.Close();
                 //我们是有意让客户端慢
-                Thread.Sleep(2000);
+                //Thread.Sleep(2000);
                 return buffer;
             }
             catch(Exception e)
@@ -272,7 +317,7 @@ namespace Clouding
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
             var pkName=item.packageName;
-            item.state_ = "正在连接";
+            item.state_ = "正在连接...";
             item.OnClickDownloadBtn();
             
         }
@@ -291,21 +336,12 @@ namespace Clouding
 
         private void OnClickOneKeyUpdate(object sender, RoutedEventArgs e)
         {
-            //StackWidget.Items.RemoveAt(3);
-            List<StackWidgetItem> itemsSource =(List<StackWidgetItem>) StackWidget.ItemsSource;
-            itemsSource.RemoveAt(3);
-
-            //Refreshes data binding
             {
-                StackWidget.ItemsSource = null;
-                StackWidget.ItemsSource = updateItemList;
+                //StackWidget.ItemsSource = null;
+                //StackWidget.ItemsSource = updateItemList;
             }
-
-            //StackWidget
-            //itemsSource.
-            //var iter = ItemsSource.GetEnumerator();
-            //while(iter.)
-            //StackWidget.Items.Remove(item);
+            //detect wether OneKeyUpdate is Running
+            //
         }
     }
 }
