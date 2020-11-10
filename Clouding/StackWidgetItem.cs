@@ -125,19 +125,22 @@ namespace Clouding
         {
             get
             {
-                if(useTestCase)
+                if(packageName_.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
                 {
-                    num++;
-                    if (num % 4 == 0)
-                        return "/Assets/bell.png";
-                    else if (num % 4 == 1)
-                        return "/Assets/apps.png";
-                    else if (num % 4 == 2)
-                        return "/Assets/cartcolor.png";
-                    return "/Assets/computer.png";
+                    return "/Assets/exe.png";
+                }
+                else if(packageName_.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+                {
+                    return "/Assets/zip.png";
+                }
+                else if (packageName_.EndsWith(".iso", StringComparison.OrdinalIgnoreCase))
+                {
+                    return "/Assets/iso.png";
                 }
                 else
-                    return "/test;component/Assets/bell.png";
+                {
+                    return "/Assets/directory.png";
+                }
             }
         }
 
