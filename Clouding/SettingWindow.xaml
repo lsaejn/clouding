@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clouding"
         mc:Ignorable="d"
-        Title="SettingWindow" Height="450" Width="800">
-    <Grid>
+        Title="SettingWindow" Height="600" Width="400"
+        Background="AliceBlue">
+    <StackPanel>
+        <CheckBox Margin="5,5,5,5" HorizontalAlignment="Left">是否后台更新</CheckBox>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Margin="5,0,0,0" VerticalAlignment="Center">下载路径:</TextBlock>
+            <TextBox Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" Width="200"></TextBox>
+            <Button Background="LightGray" Grid.Column="2" Margin="5,0,5,0" HorizontalAlignment="Right" Width="100" Height="auto">设置下载路径</Button>
+        </Grid>
         
-    </Grid>
+    </StackPanel>
 </Window>
