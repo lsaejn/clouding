@@ -182,7 +182,7 @@ namespace Clouding
                 bytesDown = 0;
             //fix me, 下载速度格式化, 我们基本上都很大，MB就行了
             fileSizeState_ = (bytesDown / (1024.0*1024)).ToString("f2") + "MB/"+ (bytesTotal / (1024.0 * 1024)).ToString("f2") +"MB";
-            progressValue_ = (int)(bytesDown / bytesTotal);
+            progressValue_ = (int)(bytesDown / bytesTotal*100);
             //filesiz
             //bytesTotal;
     }

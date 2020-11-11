@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Clouding"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="580" Width="820"
+        Title="MainWindow" Height="580" Width="840"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
@@ -253,12 +253,12 @@
                                                             <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Width="220" Text="{Binding Path=packageName_}" 
                                                                        TextTrimming= "CharacterEllipsis" ToolTip="{Binding Path=packageName_}">
                                                             </TextBlock>
-                                                            <StackPanel VerticalAlignment="Center">
+                                                            <StackPanel VerticalAlignment="Center" Width="55">
                                                                 <Label FontSize="11"  Content="{Binding Path=speed_}"></Label>
                                                                 <Label FontSize="11"  Content="{Binding Path=timeLeft_}"></Label>
                                                             </StackPanel>
                                                             <StackPanel>
-                                                                <ProgressBar Margin="15,15,15,0" Width="140" Background="Gray" Foreground="#FF37A0EA" BorderThickness="0" Value="{Binding progressValue_}"></ProgressBar>
+                                                                <ProgressBar Margin="15,10,15,5" Width="190" Background="Gray" Foreground="#FF37A0EA" BorderThickness="0" Value="{Binding progressValue_}"></ProgressBar>
                                                                 <Grid>
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -270,9 +270,9 @@
                                                                 </Grid>
                                                             </StackPanel>
 
-                                                            <Button  Name="downBtn" Height="22" FontSize="12" Margin="0,0,5,0" Click="OnDownloadFile" Content="{Binding stopped_, Converter={StaticResource BtnConverter}}"></Button>
-                                                            <Button  Name="deleteBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDeleteFile">删除</Button>
-                                                            <Button  Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">升级</Button>
+                                                            <Button Padding="8,0,8,0" Name="downBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDownloadFile" Content="{Binding stopped_, Converter={StaticResource BtnConverter}}"></Button>
+                                                            <Button Padding="8,0,8,0" Name="deleteBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDeleteFile">删除</Button>
+                                                            <Button Padding="8,0,8,0" Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">升级</Button>
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
