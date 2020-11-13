@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Clouding"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="580" Width="840"
+        Title="MainWindow" Height="580" Width="850"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
@@ -88,11 +88,14 @@
         </Style>
     </Window.Resources>
 
-    <Border Background="Transparent">
-        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="1">
-            <Border.Effect>
+    <Border Background="Transparent" CornerRadius="5" BorderThickness="4">
+        <Border.Effect>
+            <DropShadowEffect Color="#80000000" BlurRadius="5" ShadowDepth="0" Opacity="0.4" />
+        </Border.Effect>
+        <Border Background="#FF37A0EA" CornerRadius="5" BorderThickness="0">
+            <!--<Border.Effect>
                 <DropShadowEffect Color="#FF37A0EA" BlurRadius="5" ShadowDepth="0" Opacity="0.2" />
-            </Border.Effect>
+            </Border.Effect>-->
             <!--begin-->
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -250,9 +253,12 @@
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Source="{Binding Path=imageSrc}" Width="30" Height="30"/>
-                                                            <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Width="220" Text="{Binding Path=packageName_}" 
+                                                            <!--Width="220"-->
+                                                             <TextBlock Margin="5,0,5,0" Width="220" VerticalAlignment="Center" Text="{Binding Path=packageName_}" 
                                                                        TextTrimming= "CharacterEllipsis" ToolTip="{Binding Path=packageName_}">
-                                                            </TextBlock>
+                                                               
+                                                             </TextBlock>
+
                                                             <StackPanel VerticalAlignment="Center" Width="55">
                                                                 <Label FontSize="11"  Content="{Binding Path=speed_}"></Label>
                                                                 <Label FontSize="11"  Content="{Binding Path=timeLeft_}"></Label>
