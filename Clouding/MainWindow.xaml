@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Clouding"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="580" Width="850"
+        Title="MainWindow" Height="580" Width="870"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
@@ -166,8 +166,8 @@
                                 <Grid Grid.Row="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="13.069"></ColumnDefinition>
-                                        <ColumnDefinition Width="137.331"/>
+                                        <ColumnDefinition Width="15"></ColumnDefinition>
+                                        <ColumnDefinition Width="150"/>
                                         <ColumnDefinition Width="15"/>
                                     </Grid.ColumnDefinitions>
                                     <!--占位符-->
@@ -206,7 +206,7 @@
                                                 </Button>
                                             </Grid>
                                             <Grid Grid.Column="2">
-                                                <Button IsEnabled="False" Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
+                                                <Button IsEnabled="True" Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
                                 materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="0" Click="OnClickMaxBtn">
                                                     <Viewbox Width="25" Height="25">
                                                         <Canvas Width="24" Height="24">
@@ -260,7 +260,7 @@
                                                                
                                                              </TextBlock>
 
-                                                            <StackPanel VerticalAlignment="Center" Width="55">
+                                                            <StackPanel VerticalAlignment="Center" Width="75">
                                                                 <Label FontSize="11"  Content="{Binding Path=speed_}"></Label>
                                                                 <Label FontSize="11"  Content="{Binding Path=timeLeft_}"></Label>
                                                             </StackPanel>

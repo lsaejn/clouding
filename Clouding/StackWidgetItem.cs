@@ -16,9 +16,13 @@ namespace Clouding
 {
     /// <summary>
     /// 一次具体的下载。不用异步是为了避免和之前c++版本一样混乱。
+    /// 由于要下载的文件数量极少，根本不需要使用缓冲区
+    /// 统一updateTime可能导致的一个问题是，有的任务一直收不到数据包时，速度得不到更新
     /// </summary>
     public class DownLoadTask
     {
+        static DateTime updateTime;
+        long bytesDownLastUpdate;//上一次更新时的下载量
         StackWidgetItem item;
         bool stopped { get; set; }
         string url { get; set; }
@@ -37,9 +41,102 @@ namespace Clouding
         public DownLoadTask(StackWidgetItem _item)
         {
             item = _item;
-            url = item.url;
+            url = _item.url_;
             stopped = false;
+            updateTime = DateTime.Now;
+            bytesTotal = _item.bytesTotal_;
+            bytesDownLastUpdate = _item.bytesDown_;
+            bytesDown = _item.bytesDown_;
         }
+
+        const int BYTES_PER_KB = 1024;
+        const int BYTES_PER_MB = 1024 * 1024;
+        const int BYTES_PER_GB = 1024* 1024 * 1024;
+
+        //fix me
+        private long UpdateSpeed(double timeSpan)
+        {
+            var bytesAdd = bytesDown - bytesDownLastUpdate;
+            if(bytesAdd<=0)
+            {
+                Logger.Log().Error($"bytesAdd<=0, bytesDown={bytesDown}, bytesDownLastUpdate={bytesDownLastUpdate}");
+            }
+            if(bytesAdd< BYTES_PER_KB)
+            {
+                item.speed_ = ((bytesDown - bytesDownLastUpdate) / timeSpan).ToString("f2") + "B/s";
+            }
+            else if(bytesAdd < BYTES_PER_MB)
+            {
+                item.speed_ = ((bytesDown - bytesDownLastUpdate) / timeSpan / BYTES_PER_KB).ToString("f2") + "KB/s";
+            }
+            else if(bytesAdd < BYTES_PER_GB)
+            {
+                item.speed_ = ((bytesDown - bytesDownLastUpdate) / timeSpan / BYTES_PER_MB).ToString("f2") + "MB/s";
+            }
+            else//.....
+            {
+                item.speed_ = ((bytesDown - bytesDownLastUpdate) / timeSpan / BYTES_PER_GB).ToString("f2") + "GB/s";
+            }
+            return (long)((bytesDown - bytesDownLastUpdate) / timeSpan);
+        }
+
+        private void UpdateFileSizeState()
+        {
+            //文件大小一般是MB-GB, 当然我也预料不了未来
+            var bytesTotalInMB = (bytesTotal / 1024.0 / 1024).ToString("f2") + "MB";
+            //fix me, 需要封装
+            if (bytesDown < BYTES_PER_KB)
+            {
+                item.fileSizeState_ = bytesDown.ToString("f2") + "B/" + bytesTotalInMB;
+            }
+            else if (bytesDown < BYTES_PER_MB)
+            {
+                item.fileSizeState_ = (bytesDown / BYTES_PER_KB).ToString("f2") + "KB/" + bytesTotalInMB;
+            }
+            else if (bytesDown < BYTES_PER_GB)
+            {
+                item.fileSizeState_ = (bytesDown / BYTES_PER_MB).ToString("f2") + "MB/" + bytesTotalInMB;
+            }
+            else//有生之年怕是看不见
+            {
+                item.fileSizeState_ = (bytesDown / BYTES_PER_MB).ToString("f2") + "MB/" + bytesTotalInMB;
+            }
+        }
+
+        //fix me, 我没有想好
+        enum State: byte
+        {
+            Running,
+            Finished,
+            Error
+        }
+        private void UpdateState(State s)
+        {
+            if(s== State.Finished)
+            {
+                item.state_ = "下载完成";
+            }
+        }
+
+        private void UpdateProgress()
+        {
+            item.progressValue_ = bytesDown * 100.0 / bytesTotal;
+        }
+
+        private void UpdateRemainingTime(long speedInByte)
+        {
+            var leftInSecond= ((bytesTotal - bytesDown) / speedInByte);
+            long hour = leftInSecond / 3600;
+            long min = (leftInSecond%3600) / 60;
+            long sec = leftInSecond%3600%60;
+            if (hour > 99)
+                item.timeLeft_ = "99:99:99";
+            else
+            {
+                item.timeLeft_ = hour.ToString("00")+":" + min.ToString("00")+":"+ sec.ToString("00");
+            }
+        }
+
         public void DownloadFileImpl()
         {
             Stream ofs = null;
@@ -58,21 +155,51 @@ namespace Clouding
                 netStream = respone.GetResponseStream();
                 string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
                 string localFilePath = downLoadPath + item.packageName;
-                ofs = new FileStream(localFilePath, FileMode.Append, FileAccess.Write);
+                ofs = new FileStream(localFilePath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
                 byte[] read = new byte[1024 * 64];
                 int realReadLen = netStream.Read(read, 0, read.Length);
                 if(realReadLen>0)
                     item.state_ = "正在下载";
                 while (realReadLen > 0 && !stopped)
                 {
+                    bool updateFlag = false;
+                    DateTime newDateTime = DateTime.Now;
+                    double timeSpan = newDateTime.Subtract(updateTime).TotalSeconds;
+                    if (timeSpan - 1.0 > 0.0000001)
+                    {
+                        updateFlag = true;
+                        updateTime = newDateTime;
+                    }
+                       
                     lock (this)
                     {
                         if(!stopped)
                         {
                             ofs.Write(read, 0, realReadLen);
                             ofs.Flush();
-                            if (bytesDown == bytesTotal)
-                                item.state_ = "下载完成";
+                            bytesDown += realReadLen;
+                            item.bytesDown_ = bytesDown;
+                            if (bytesDown < bytesTotal)
+                            {
+                                if (updateFlag)
+                                {
+                                    UpdateFileSizeState();
+                                    long speed=UpdateSpeed(timeSpan);
+                                    UpdateRemainingTime(speed);
+                                    UpdateProgress();
+                                    bytesDownLastUpdate = bytesDown;
+                                }
+                            }
+                            else if (bytesDown == bytesTotal)
+                            {
+                                UpdateState(State.Finished);
+                                //item.state_ = "下载完成";//break, or not?
+                                UpdateFileSizeState();
+                            }
+                            else// (bytesDown > bytesTotal)
+                            {
+                                throw new Exception($"file size error bytesDown={bytesDown} with a totalBytes= {bytesTotal}");
+                            }
                         }
                     }
                     realReadLen = netStream.Read(read, 0, read.Length);
@@ -81,6 +208,7 @@ namespace Clouding
             }
             catch (Exception e)
             {
+                //warning user or not?
                 Logger.Log().Error(e.Message);
                 lock (this)
                 {
@@ -97,6 +225,11 @@ namespace Clouding
                     netStream.Close();
                 if (ofs!=null)
                     ofs.Close();
+                lock (this)
+                {
+                    if (!stopped)//若没有手动停止本任务
+                        item.stopped_ = true;
+                }
             }
         }
     }
@@ -111,16 +244,11 @@ namespace Clouding
         public string timeLeft;
         public string state;
         public string fileSizeState;
-        public int progressValue;
+        public double progressValue;
         public string url;
         public bool stopped;
         public long bytesDown;
         public long bytesTotal;
-
-        //fix me. 等待删除
-        static int num;
-        public bool useTestCase;
-
         public string imageSrc
         {
             get
@@ -155,9 +283,8 @@ namespace Clouding
         /// <param name="progressValue"></param>
         /// <param name="url">阿里云下载网址,阿里云只转义了中文</param>
         /// <param name="lb">测试label</param>
-        public StackWidgetItem(string timeLeft, string speed, string name, int progressValue, string url, long bytesTotal)
+        public StackWidgetItem(string timeLeft, string speed, string name, double progressValue, string url, long bytesTotal)
         {
-            useTestCase = true;
             timeLeft_ = timeLeft;
             var str = System.Web.HttpUtility.UrlDecode(name);
             packageName_ =str.Substring(str.LastIndexOf('/')+1);
@@ -169,8 +296,6 @@ namespace Clouding
             stopped = true;
             ReadLocalFile();
         }
-
-        
         public void ReadLocalFile()
         {
             string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase+"\\download\\";
@@ -184,7 +309,7 @@ namespace Clouding
                 state = "下载完成";
             //fix me, 下载速度格式化, 我们基本上都很大，MB就行了
             fileSizeState_ = (bytesDown / (1024.0*1024)).ToString("f2") + "MB/"+ (bytesTotal / (1024.0 * 1024)).ToString("f2") +"MB";
-            progressValue_ = (int)(bytesDown / bytesTotal*100);
+            progressValue_ = 100.0*bytesDown / bytesTotal;
             //filesiz
             //bytesTotal;
     }
@@ -219,7 +344,7 @@ namespace Clouding
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("bytesTotal_"));
             }
         }
-        public int progressValue_
+        public double progressValue_
         {
             get { return progressValue; }
             set

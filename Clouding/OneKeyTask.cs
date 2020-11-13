@@ -8,5 +8,14 @@ namespace Clouding
 {
     class OneKeyTask
     {
+        private StackWidgetItem itemFrom;
+        private DownLoader taskRunner;
+
+        public void run()
+        {
+
+        }
+
+
     }
 }

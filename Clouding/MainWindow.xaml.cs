@@ -257,6 +257,7 @@ namespace Clouding
             }
             catch (WebException e)
             {
+                Logger.Log(e.Message);
                 //if(e.Status==)
                 return 0;
             }
