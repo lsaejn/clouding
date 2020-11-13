@@ -32,6 +32,17 @@ namespace Clouding
             protect = false;
             fixItemList = new List<StackWidgetItem>();
             updateItemList=new List<StackWidgetItem>();
+            this.StateChanged += new EventHandler(OnStateChanged);
+        }
+
+        void OnStateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Minimized)
+                return;
+            else if (this.WindowState == WindowState.Maximized)
+                this.FrameChrome.BorderThickness = new Thickness(0);
+            else
+                this.FrameChrome.BorderThickness = new Thickness(4);
         }
 
         public DispatcherTimer timer;
@@ -84,6 +95,7 @@ namespace Clouding
             if (pp.Y > 40)
                 return;
             this.WindowState = this.WindowState == WindowState.Maximized ?WindowState.Normal : WindowState.Maximized;
+
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += timer1_Tick;
