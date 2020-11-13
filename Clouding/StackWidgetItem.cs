@@ -34,6 +34,7 @@ namespace Clouding
         /// 目标字节数
         /// </summary>
         long bytesTotal { get; set; }
+        bool hasError { get; set; }
         public void Stop()
         {
             stopped = true;
@@ -47,6 +48,7 @@ namespace Clouding
             bytesTotal = _item.bytesTotal_;
             bytesDownLastUpdate = _item.bytesDown_;
             bytesDown = _item.bytesDown_;
+            hasError = false;
         }
 
         const int BYTES_PER_KB = 1024;
@@ -139,6 +141,10 @@ namespace Clouding
 
         public void DownloadFileImpl()
         {
+            //这么写最简单，
+            //1.如果FileStream让item控制，那么下载完成时，我们还要同步item。繁琐。
+            //2.使用现在的方案，只需要保证本任务被stop后，不要再往文件里写。简单。
+            //3.使用async。最简单，但不利于以后扩展。比如一键更新。 
             Stream ofs = null;
             Stream netStream = null;
             try
@@ -153,6 +159,7 @@ namespace Clouding
                 request.Timeout = 5000;
                 WebResponse respone = request.GetResponse();
                 netStream = respone.GetResponseStream();
+                netStream.ReadTimeout = 5000;
                 string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
                 string localFilePath = downLoadPath + item.packageName;
                 ofs = new FileStream(localFilePath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
@@ -210,14 +217,7 @@ namespace Clouding
             {
                 //warning user or not?
                 Logger.Log().Error(e.Message);
-                lock (this)
-                {
-                    if (!stopped)
-                    {
-                        item.state_ = "下载失败";
-                        item.task = null;
-                    }     
-                }   
+                hasError = true;
             }
             finally
             {
@@ -225,10 +225,16 @@ namespace Clouding
                     netStream.Close();
                 if (ofs!=null)
                     ofs.Close();
-                lock (this)
+                lock (this)//用户只有stopped这个接口和本类交互
                 {
                     if (!stopped)//若没有手动停止本任务
+                    {
+                        //stopped_用于更新按钮
                         item.stopped_ = true;
+                        if (hasError)
+                            item.state_ = "下载失败";
+                        item.task = null;
+                    }
                 }
             }
         }
