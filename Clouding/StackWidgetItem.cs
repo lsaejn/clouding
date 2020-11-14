@@ -24,17 +24,11 @@ namespace Clouding
         static DateTime updateTime;
         long bytesDownLastUpdate;//上一次更新时的下载量
         StackWidgetItem item;
-        bool stopped { get; set; }
-        string url { get; set; }
-        /// <summary>
-        /// 任务开始时，已下载到文件的字节数
-        /// </summary>
-        long bytesDown { get; set; }
-        /// <summary>
-        /// 目标字节数
-        /// </summary>
-        long bytesTotal { get; set; }
-        bool hasError { get; set; }
+        bool stopped;
+        string url;
+        long bytesDown;
+        long bytesTotal;
+        bool hasError;
         public void Stop()
         {
             stopped = true;
@@ -429,9 +423,15 @@ namespace Clouding
         public void OnClickDownloadBtn()
         {
             if (true == stopped_)
+            {
+                state_ = "正在连接...";
                 StartDownLoad();
+            }     
             else
+            {
                 StopDownLoad();
+                state_ = "正在停止...";
+            } 
         }
 
         private void DownloadFile()
@@ -448,15 +448,12 @@ namespace Clouding
                 MessageBox.Show("任务尚未开始");
                 return;
             }
-                
-            //call
             lock (task)//lock似乎应该放在task对象里
             {
                 stopped_ = true;
                 task.Stop() ;
                 task = null;
-            }
-            
+            }   
         }
 
         public void StartDownLoad()

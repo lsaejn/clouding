@@ -18,13 +18,15 @@ namespace Clouding
             {
                 return "下载";
             }
-            else return "暂停";
+            else
+            {
+                return "暂停";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return "下载" == (string)value;
-            //return (FontStyle)value == FontStyles.Italic;
         }
     }
 }

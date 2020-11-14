@@ -110,10 +110,9 @@ namespace Clouding
         {
             string appPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             string configFile = appPath + "/config.json";
-            //Stream fstream = new FileStream(configFile, FileMode.Open, FileAccess.Read);
             try
             {
-                string str = File.ReadAllText(configFile, Encoding.UTF8);//NET中内存中的字符串都是Unicode
+                string str = File.ReadAllText(configFile, Encoding.UTF8);
                 var serializer = new JavaScriptSerializer();
                 config_ = serializer.Deserialize<ConfigFile>(str);
             }

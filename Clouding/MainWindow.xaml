@@ -255,12 +255,12 @@
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Source="{Binding Path=imageSrc}" Width="30" Height="30"/>
                                                             <!--Width="220"-->
-                                                             <TextBlock Margin="5,0,5,0" Width="220" VerticalAlignment="Center" Text="{Binding Path=packageName_}" 
+                                                             <TextBlock Margin="5,0,0,0" Width="220" VerticalAlignment="Center" Text="{Binding Path=packageName_}" 
                                                                        TextTrimming= "CharacterEllipsis" ToolTip="{Binding Path=packageName_}">
                                                                
                                                              </TextBlock>
 
-                                                            <StackPanel VerticalAlignment="Center" Width="75">
+                                                            <StackPanel VerticalAlignment="Center" Width="70">
                                                                 <Label FontSize="11"  Content="{Binding Path=speed_}"></Label>
                                                                 <Label FontSize="11"  Content="{Binding Path=timeLeft_}"></Label>
                                                             </StackPanel>
@@ -288,8 +288,7 @@
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right" Click="OnClickOneKeyUpdate" Content="一键更新">
-                                        </Button>
+                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right" Click="OnClickOneKeyUpdate" Content="一键更新"/>
                                     </Grid>
                                 </Grid>
                             </Grid>

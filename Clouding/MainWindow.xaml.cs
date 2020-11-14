@@ -199,7 +199,7 @@ namespace Clouding
             //Thread.Sleep(5000);
             //fix me, 这里需要比较版本，有软件的旧债，让他们自己还
             string appPath = System.AppDomain.CurrentDomain.BaseDirectory;
-            string cfgPath = appPath + "/../CFG/";
+            string cfgPath = appPath + "..\\CFG\\";
 
             var lv = packinfo.LatestVersion;
             var iso = packinfo.LatestIsoUrl;
@@ -207,7 +207,7 @@ namespace Clouding
             var updatepk = packinfo.UpdatePacks;
 
             var ins = ConfigFileRW.GetInstance;
-            System.Net.ServicePointManager.DefaultConnectionLimit = 50;
+            //System.Net.ServicePointManager.DefaultConnectionLimit = 50;
 
             foreach (var fixFile in fixs)
             {
@@ -270,21 +270,6 @@ namespace Clouding
                 System.GC.Collect();
             }
         }
-        public void test()
-        {
-            using (var sr = new StreamReader("packsInfoWpf_.json"))
-            {
-                // Read the stream as a string, and write the string to the console.
-                var serializer = new JavaScriptSerializer();
-                var str = sr.ReadToEnd();
-                var ret = serializer.Deserialize<PackInfoFile>(str);
-                var lv = ret.LatestVersion;
-                var iso = ret.LatestIsoUrl;
-                var fixs = ret.FixPacks;
-                var updatepk = ret.UpdatePacks;
-            }
-        }
-
         public void ParsePackInfo()
         {
             var serializer = new JavaScriptSerializer();
@@ -330,7 +315,7 @@ namespace Clouding
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
             var pkName=item.packageName;
-            item.state_ = "正在连接...";
+            
             item.OnClickDownloadBtn();
             
         }
