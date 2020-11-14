@@ -166,16 +166,15 @@
                                 <Grid Grid.Row="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="15"></ColumnDefinition>
-                                        <ColumnDefinition Width="150"/>
-                                        <ColumnDefinition Width="15"/>
+                                        <ColumnDefinition Width="20"></ColumnDefinition>
+                                        <ColumnDefinition Width="160"/>
+                                        <ColumnDefinition Width="10"/>
                                     </Grid.ColumnDefinitions>
                                     <!--占位符-->
-                                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,12.669,0">
-                                    </Grid>
+                                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
 
-                                    <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="0.4,0,0,0">
-                                        <Grid HorizontalAlignment="Right" Width="150">
+                                    <Grid Grid.Column="2" Margin="0,0,0,0">
+                                        <Grid HorizontalAlignment="Right" Width="160">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="*" />
@@ -183,8 +182,7 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
                                             <Grid Grid.Column="0">
-                                                <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
-                                        materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="0" Click="OnClickSettingBtn">
+                                                <Button ToolTip="设置" Click="OnClickSettingBtn" Style="{StaticResource AlimeBaseButton}">
                                                     <Viewbox Width="25" Height="25">
                                                         <Canvas Width="24" Height="24">
                                                             <Path Data="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" Fill="#FF37A0EA" />
@@ -206,7 +204,7 @@
                                                 </Button>
                                             </Grid>
                                             <Grid Grid.Column="2">
-                                                <Button IsEnabled="True" Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
+                                                <Button  IsEnabled="True" Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
                                 materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="0" Click="OnClickMaxBtn">
                                                     <Viewbox Width="25" Height="25">
                                                         <Canvas Width="24" Height="24">
@@ -288,7 +286,8 @@
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right" Click="OnClickOneKeyUpdate" Content="一键更新"/>
+                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" 
+                                                HorizontalAlignment="Right" Click="OnClickOneKeyUpdate" Content="一键更新"/>
                                     </Grid>
                                 </Grid>
                             </Grid>
