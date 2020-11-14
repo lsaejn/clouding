@@ -64,7 +64,7 @@ namespace Clouding
                 if (this.WindowState == WindowState.Maximized)
                 {
                     Point pt = Mouse.GetPosition(e.Source as FrameworkElement);
-                    pt=PointToScreen(pt);
+                    //var pt2=PointToScreen(pt);
                     this.WindowState = WindowState.Normal;
                     var w=this.Width;
                     var h = this.Height;

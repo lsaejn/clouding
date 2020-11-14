@@ -155,7 +155,7 @@
                 </Grid>
                 <!--right column-->
                 <Border  Grid.Column="1" Background="Transparent">
-                    <Border Background="AliceBlue" CornerRadius="5" BorderThickness="0">
+                    <Border Background="AliceBlue" CornerRadius="4" BorderThickness="0">
                         <Grid Grid.Column="1" >
                             <Grid >
                                 <Grid.RowDefinitions>
@@ -288,7 +288,8 @@
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right" Click="OnClickOneKeyUpdate">一键更新</Button>
+                                        <Button VerticalAlignment="Center" Margin="0, 0, 40, 30" MaxWidth="200" HorizontalAlignment="Right" Click="OnClickOneKeyUpdate" Content="一键更新">
+                                        </Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
