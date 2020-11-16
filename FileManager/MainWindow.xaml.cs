@@ -19,8 +19,7 @@ using System.Windows.Shapes;
 
 namespace FileManager
 {
-
-    public struct configData
+    public struct ConfigData
     {
         public string cfglib2014 { get; set; }
         public string cfglib2015 { get; set; }
@@ -32,17 +31,18 @@ namespace FileManager
         public string temp_stskey_lib { get; set; }
         public string update_stskey_include { get; set; }
         public string update_stskey_lib { get; set; }
+    }
 
-        public void Init()
+    public struct configDataRW
+    {
+        public void Init(ref ConfigData d)
         {
             string appPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             string configFile = appPath + "/config.json";
             try
             {
                 string str = File.ReadAllText(configFile, Encoding.UTF8);
-                DataTable dt = new DataTable();
-                configData d = JsonConvert.DeserializeObject<configData>(str);
-                var str1 = "...";
+                d = JsonConvert.DeserializeObject<ConfigData>(str);
             }
             catch
             {
@@ -60,12 +60,13 @@ namespace FileManager
 
         ArrayList list_left;
         ArrayList list_right;
+        ConfigData configData;
 
         public MainWindow()
         {
             InitializeComponent();
-            configData d = new configData();
-            d.Init();
+            configDataRW rw = new configDataRW();
+            rw.Init(ref configData);
         }
 
         private void MoveToLeft(object sender, RoutedEventArgs e)
@@ -99,7 +100,12 @@ namespace FileManager
                     if (null == win)
                         MessageBox.Show($"not class name as {btnName}");
                     else
-                        win.ShowDialog();
+                    {
+                        var settingWindow = ((Setting)win);
+                        settingWindow.SetData(configData);
+                        settingWindow.ShowDialog();
+                    }
+                        
                 }
             }
         }

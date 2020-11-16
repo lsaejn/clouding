@@ -5,57 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileManager"
         mc:Ignorable="d"
-        Title="Setting" Height="410" Width="560">
-    <StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center">cfglib2014</Label>
-            <TextBox Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap" Text="c:/"/>
-            <Button Width="60" Height="30">选择</Button>
-        </StackPanel>
+        Title="Setting" Height="410" Width="700">
+    <StackPanel >
+        <ListBox x:Name="container">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="160" VerticalAlignment="Center" Content="{Binding Path=FolderName}"></Label>
+                        <TextBox Text="{Binding Path=FolderPath}" Margin="5" Width="400" Padding="5" VerticalAlignment="Center" AcceptsReturn="True" TextWrapping="Wrap"/>
+                        <Button Width="60" Height="25" Click="OnClickButton">选择</Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </StackPanel>
 </Window>

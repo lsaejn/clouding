@@ -34,7 +34,7 @@
                     <TextBlock Margin="5, 2, 10, 0">当前源目录:</TextBlock>
                     <TextBlock Margin="5, 2, 10, 0">当前目的目录:</TextBlock>
                 </StackPanel>
-                <DatePicker Name="date"></DatePicker>
+                <DatePicker Name="date" Text="过滤"></DatePicker>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
