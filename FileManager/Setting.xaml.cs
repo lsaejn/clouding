@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+//using WinForm= System.Windows.Forms;
 
 namespace FileManager
 {
@@ -34,7 +36,7 @@ namespace FileManager
             get { return folderPath; }
             set
             {
-                folderName = value;
+                folderPath = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FolderPath"));
             }
         }
@@ -44,6 +46,7 @@ namespace FileManager
     /// </summary>
     public partial class Setting : Window
     {
+        public ConfigData dataRef;
         public Setting()
         {
             InitializeComponent();
@@ -53,6 +56,7 @@ namespace FileManager
         public List<settingItem> settingItemList;
         public void SetData(ConfigData d)
         {
+            dataRef = d;
             foreach (PropertyInfo info in d.GetType().GetProperties())
             {
                 if (info.PropertyType == typeof(string))
@@ -69,7 +73,20 @@ namespace FileManager
         }
         private void OnClickButton(object sender, RoutedEventArgs e)
         {
-
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;//设置为选择文件夹
+            var result=dialog.ShowDialog();
+            
+            if(result== CommonFileDialogResult.Ok)
+            {
+                string path = dialog.FileName;
+                var curItem = ((ListBoxItem)container.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
+                settingItem item = (settingItem)curItem;
+                item.FolderPath = path;
+                var info = dataRef.GetType().GetProperty(item.folderName);
+                Object obj = (Object)dataRef;
+                info.SetValue(obj, path, null);
+            }
         }
     }
 }

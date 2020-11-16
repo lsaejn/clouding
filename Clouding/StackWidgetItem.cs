@@ -430,7 +430,7 @@ namespace Clouding
             else
             {
                 StopDownLoad();
-                state_ = "正在停止...";
+                state_ = "暂停中";
             } 
         }
 
