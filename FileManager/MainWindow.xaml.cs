@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -78,20 +79,43 @@ namespace FileManager
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         List<FileListItem> list_left;
         List<FileListItem> list_right;
         string currentSrcPath;
         string currentDesPath;
+
+        public string CurrentDesPath
+        {
+            get { return currentDesPath; }
+            set
+            {
+                currentDesPath = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentDesPath"));
+            }
+        }
+
+        public string CurrentSrcPath
+        {
+            get { return currentSrcPath; }
+            set
+            {
+                currentSrcPath = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentSrcPath"));
+            }
+        }
+
         DateTime date;
         ConfigData configData;
 
         public MainWindow()
         {
             InitializeComponent();
+
             configDataRW rw = new configDataRW();
-            rw.Init(ref configData);
+            rw.Init(ref configData);//or out
             list_left = new List<FileListItem>
             {
                 new FileListItem{ fileName ="测试"},
@@ -99,6 +123,9 @@ namespace FileManager
             };
             list_right = new List<FileListItem>();
             leftBox.ItemsSource = list_left;
+
+            CurrentDesPath = configData.temp_stskey_lib;
+            CurrentSrcPath = configData.temp_stskey_lib;
         }
 
         private void MoveToLeft(object sender, RoutedEventArgs e)

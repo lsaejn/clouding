@@ -83,19 +83,19 @@ namespace Clouding
             //fix me, 需要封装
             if (bytesDown < BYTES_PER_KB)
             {
-                item.fileSizeState_ = bytesDown.ToString("f2") + "B/" + bytesTotalInMB;
+                item.fileSizeState_ = (bytesDown * 1.0).ToString("f2") + "B/" + bytesTotalInMB;
             }
             else if (bytesDown < BYTES_PER_MB)
             {
-                item.fileSizeState_ = (bytesDown / BYTES_PER_KB).ToString("f2") + "KB/" + bytesTotalInMB;
+                item.fileSizeState_ = (bytesDown * 1.0 / BYTES_PER_KB).ToString("f2") + "KB/" + bytesTotalInMB;
             }
             else if (bytesDown < BYTES_PER_GB)
             {
-                item.fileSizeState_ = (bytesDown / BYTES_PER_MB).ToString("f2") + "MB/" + bytesTotalInMB;
+                item.fileSizeState_ = (bytesDown * 1.0 / BYTES_PER_MB ).ToString("f2") + "MB/" + bytesTotalInMB;
             }
             else//有生之年怕是看不见
             {
-                item.fileSizeState_ = (bytesDown / BYTES_PER_MB).ToString("f2") + "MB/" + bytesTotalInMB;
+                item.fileSizeState_ = (bytesDown * 1.0 / BYTES_PER_MB).ToString("f2") + "MB/" + bytesTotalInMB;
             }
         }
 
@@ -116,7 +116,7 @@ namespace Clouding
 
         private void UpdateProgress()
         {
-            item.progressValue_ = bytesDown * 100.0 / bytesTotal;
+                item.progressValue_ = 100.0* bytesDown/bytesTotal;
         }
 
         private void UpdateRemainingTime(long speedInByte)
@@ -143,14 +143,11 @@ namespace Clouding
             Stream netStream = null;
             try
             {
-                //属性绑定, 不需要delegate
-                //item.state_ = "you know nothing";
-                //item.stopped_ = false;
-                //return;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
                 request.AllowAutoRedirect = false;
                 request.Timeout = 5000;
+                request.AddRange(bytesDown);
                 WebResponse respone = request.GetResponse();
                 netStream = respone.GetResponseStream();
                 netStream.ReadTimeout = 5000;
@@ -193,12 +190,18 @@ namespace Clouding
                             }
                             else if (bytesDown == bytesTotal)
                             {
+                                //fix me,重复的代码
                                 UpdateState(State.Finished);
+                                long speed = UpdateSpeed(timeSpan);
+                                UpdateRemainingTime(speed);
+                                UpdateProgress();
+                                bytesDownLastUpdate = bytesDown;
                                 //item.state_ = "下载完成";//break, or not?
                                 UpdateFileSizeState();
                             }
                             else// (bytesDown > bytesTotal)
                             {
+                                UpdateFileSizeState();
                                 throw new Exception($"file size error bytesDown={bytesDown} with a totalBytes= {bytesTotal}");
                             }
                         }
@@ -219,6 +222,7 @@ namespace Clouding
                     netStream.Close();
                 if (ofs!=null)
                     ofs.Close();
+                //race发生之处是用户点击按钮，改变下载状态的时刻。我们只要保护stopped变量即可
                 lock (this)//用户只有stopped这个接口和本类交互
                 {
                     if (!stopped)//若没有手动停止本任务
