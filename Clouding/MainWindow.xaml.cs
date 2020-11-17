@@ -10,13 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Clouding
@@ -29,10 +23,14 @@ namespace Clouding
         public MainWindow()
         {
             InitializeComponent();
+
             protect = false;
             fixItemList = new List<StackWidgetItem>();
             updateItemList=new List<StackWidgetItem>();
             this.StateChanged += new EventHandler(OnStateChanged);
+
+            this.MaxHeight =System.Windows.SystemParameters.WorkArea.Height;
+            //this.MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
         }
 
         void OnStateChanged(object sender, EventArgs e)
@@ -57,17 +55,22 @@ namespace Clouding
          */
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
+
             if (e.LeftButton==MouseButtonState.Pressed)
             {
+                //fix me, 拿屏幕坐标，转到主窗口坐标，判断高度
+                if (e.Source.GetType()!= FrameChrome.GetType())
+                    return;
                 if (protect)
                     return;
                 if (this.WindowState == WindowState.Maximized)
                 {
                     Point pt = Mouse.GetPosition(e.Source as FrameworkElement);
-                    //var pt2=PointToScreen(pt);
+                    if (pt.Y > 40)
+                        return;
+
                     this.WindowState = WindowState.Normal;
-                    var w=this.Width;
-                    var h = this.Height;
+                    var w = this.Width;
                     if (pt.X < w-120)
                     {
                         this.Left = 0;
