@@ -80,7 +80,7 @@
       <DependentUpon>CirclePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Installer.cs" />
-    <Compile Include="LogObject.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="OneKeyTask.cs" />
     <Compile Include="PackInfoFile.cs" />
     <Compile Include="SettingWindow.xaml.cs">

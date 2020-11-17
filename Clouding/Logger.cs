@@ -11,6 +11,7 @@ namespace Clouding
     {
         /// <summary>
         /// 简单的同步日志
+        /// 使用方法Logger.Log.debug("fuck");
         /// </summary>
         /// <param name="LoggerName">唯一的logger</param>
         /// <returns></returns>
