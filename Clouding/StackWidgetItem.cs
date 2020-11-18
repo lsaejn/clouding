@@ -467,11 +467,43 @@ namespace Clouding
 
         public void DeleteFile()
         {
-
+            if (task != null)
+            {
+                lock (task)//lock似乎应该放在task对象里
+                {
+                    stopped_ = true;
+                    task.Stop();
+                    task = null;
+                }
+            }
+            string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
+            string localFilePath = downLoadPath + packageName;
+            try
+            {
+                File.Delete(localFilePath);
+            }catch(Exception e)
+            {
+                Logger.Log().Warn($"delete file failed because of {e.Message}");
+            }
+            
         }
 
         public void OpenFolder()
         {
+            string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
+            string localFilePath = downLoadPath + packageName;
+            if (File.Exists(localFilePath))
+            {
+                System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo("Explorer.exe");
+                psi.Arguments = "/e,/select," + localFilePath;
+                System.Diagnostics.Process.Start(psi);
+            }
+            else
+            {
+                System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo("Explorer.exe");
+                psi.Arguments = "/e" + downLoadPath;
+                System.Diagnostics.Process.Start(psi);
+            }
 
         }
 
