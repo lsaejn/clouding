@@ -25,7 +25,7 @@ namespace Clouding
         public string fixPackFolder;
         public string updatePackFolder;
         public string IntegralImageFileFolder;
-        public string useLocalPackInfo;
+        public bool useLocalPackInfo;
         public string localPackInfo;
     }
 
@@ -90,7 +90,7 @@ namespace Clouding
                 return config_.updatePackFolder;
             }
         }
-        public string useLocalPackInfo
+        public bool useLocalPackInfo
         {
             get
             {
