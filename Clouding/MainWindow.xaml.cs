@@ -162,10 +162,28 @@ namespace Clouding
             // write to config
             string serverFilePath = ConfigFileRW.GetInstance.updateInfoUrl;
             //packCtn = await ReadPackInfo(serverFilePath);
-            packCtn = await Task.Run(() =>
+            if(ConfigFileRW.GetInstance.useLocalPackInfo)
             {
-                return ReadPackInfo(serverFilePath);
-            });
+                try
+                {
+                    FileStream fs = File.Open(System.AppDomain.CurrentDomain.BaseDirectory+ConfigFileRW.GetInstance.localPackInfo, FileMode.Open);
+                    StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                    packCtn = sr.ReadToEnd();
+                }
+                catch
+                {
+                    MessageBox.Show("使用了本地配置，但文件无法正常读取");
+                }
+
+            }
+            else
+            {
+                packCtn = await Task.Run(() =>
+                {
+                    return ReadPackInfo(serverFilePath);
+                });
+            }
+
             //不好的味道
             CirclePage circlePage = (CirclePage)this.circleFrame.Content;
             if (0==packCtn.Length)
@@ -183,7 +201,8 @@ namespace Clouding
                 if(ret)
                 {
                     StackWidget.ItemsSource = updateItemList;
-                    circleFrame.Height = 0;
+                    StackWidget.Visibility = Visibility.Visible;
+                    circleFrame.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
@@ -231,13 +250,11 @@ namespace Clouding
             //var sz = QueryFileSize(urlBase64);
             var updateFIleUrl = ins.pkgRootFolder + ins.updatePackFolder + updatepk.relativePath;
             var fsz = QueryFileSize(updateFIleUrl);
-            updateItemList.Add(new StackWidgetItem("00:00:00", "--", updatepk.fileName, 0,updateFIleUrl, fsz));
-            //test
+            if(fsz>0)
             {
-                //updateItemList.Add(new StackWidgetItem("10:21:34", "443KB/S", "fakePackage.exe", 50, updatepk.fileName, 0));
-                //updateItemList.Add(new StackWidgetItem("00:01:04", "333KB/S", "fakePackage.exe", 80, updatepk.fileName, 0));
-                //updateItemList.Add(new StackWidgetItem("00:08:34", "555KB/S", "fakePackage.exe", 100, updatepk.fileName, 0));
-            };
+                //i did not lock here though a data race may happen
+                updateItemList.Add(new StackWidgetItem("00:00:00", "--", updatepk.fileName, 0, updateFIleUrl, fsz));
+            }
             return true;
             //ItemCollection col =StackWidget.Items;
             //StackWidgetItem elem3 =(StackWidgetItem)col.GetItemAt(3);
@@ -350,6 +367,13 @@ namespace Clouding
             }
             //detect wether OneKeyUpdate is Running
             //
+        }
+
+        private void listItem_clicked(object sender, MouseButtonEventArgs e)
+        {
+            var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.StackPanel)sender)).Content;
+            StackWidgetItem item = (StackWidgetItem)curItem;
+            item.OpenFolder();
         }
     }
 }

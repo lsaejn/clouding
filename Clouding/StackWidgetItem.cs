@@ -268,7 +268,7 @@ namespace Clouding
 
         public void OpenFolder()
         {
-            string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
+            string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "download\\";
             string localFilePath = downLoadPath + packageName;
             if (File.Exists(localFilePath))
             {

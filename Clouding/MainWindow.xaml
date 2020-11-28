@@ -247,10 +247,10 @@
                                         <StackPanel>
                                             <Frame Name="circleFrame" Source="CirclePage.xaml" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="480" ></Frame>
                                             <!--ItemsSource="{Binding Path=ItemList}"-->
-                                            <ListBox Name="StackWidget" Height="450" ScrollViewer.VerticalScrollBarVisibility="auto">
+                                            <ListBox Name="StackWidget" Height="450" ScrollViewer.VerticalScrollBarVisibility="auto" Visibility="Collapsed">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal">
+                                                        <StackPanel Orientation="Horizontal" MouseRightButtonDown="listItem_clicked">
                                                             <Image Source="{Binding Path=imageSrc}" Width="30" Height="30"/>
                                                             <!--Width="220"-->
                                                              <TextBlock Margin="5,0,0,0" Width="220" VerticalAlignment="Center" Text="{Binding Path=packageName_}" 
