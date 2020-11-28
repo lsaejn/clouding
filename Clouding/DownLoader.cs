@@ -15,7 +15,7 @@ namespace Clouding
     /// </summary>
     public class DownLoadTask
     {
-        static DateTime updateTime;
+        /*static */DateTime updateTime;
         long bytesDownLastUpdate;//上一次更新时的下载量
         StackWidgetItem item;
         bool stopped;

@@ -154,7 +154,7 @@ namespace Clouding
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             InitUI();
-            var ins=ConfigFileRW.GetInstance;
+            //var ins=ConfigFileRW.GetInstance;
         }
         private async void InitUI()
         {
@@ -217,8 +217,15 @@ namespace Clouding
                 //配置文件里必须是从网站拷贝的严格的阿里云url，维护人员可能会犯错
                 string urlBase64 = ins.pkgRootFolder + ins.fixPackFolder + fixFile.info.relativePath;
                 var sz=QueryFileSize(urlBase64);
-                fixItemList.Add(new StackWidgetItem("--:--:--",  "0KB/S", fixFile.info.fileName, 0,
-                    ins.pkgRootFolder + ins.fixPackFolder + fixFile.info.relativePath, sz));
+                if(sz==-1)
+                {
+                    Logger.Log().Error($"服务器查询不到文件{fixFile.info.fileName}的信息, 地址{urlBase64}");
+                }
+                else
+                {
+                    fixItemList.Add(new StackWidgetItem("--:--:--",  "0KB/S", fixFile.info.fileName, 0,
+                        ins.pkgRootFolder + ins.fixPackFolder + fixFile.info.relativePath, sz));
+                }
             }
 
             //var sz = QueryFileSize(urlBase64);
@@ -262,7 +269,7 @@ namespace Clouding
             {
                 Logger.Log(e.Message);
                 //if(e.Status==)
-                return 0;
+                return -1;
             }
             finally
             {
