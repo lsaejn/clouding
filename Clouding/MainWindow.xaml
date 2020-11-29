@@ -250,13 +250,23 @@
                                             <ListBox Name="StackWidget" Height="450" ScrollViewer.VerticalScrollBarVisibility="auto" Visibility="Collapsed">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal" MouseRightButtonDown="listItem_clicked">
+                                                        <Border Padding="5" Background="Transparent">
+                                                            <Border.ContextMenu>
+                                                                <ContextMenu MenuItem.Click="listItem_clicked">
+                                                                    <MenuItem Header="打开文件夹"/>
+                                                                    <MenuItem Header="删除文件"/>
+                                                                    <MenuItem Header="安装"/>
+                                                                </ContextMenu>
+                                                            </Border.ContextMenu>
+                                                            <StackPanel Background="Transparent" Orientation="Horizontal">
+                                                                <!--<StackPanel Orientation="Horizontal" Margin="5">-->
+
                                                             <Image Source="{Binding Path=imageSrc}" Width="30" Height="30"/>
                                                             <!--Width="220"-->
-                                                             <TextBlock Margin="5,0,0,0" Width="220" VerticalAlignment="Center" Text="{Binding Path=packageName_}" 
+                                                            <TextBlock Margin="5,0,0,0" Width="220" VerticalAlignment="Center" Text="{Binding Path=packageName_}" 
                                                                        TextTrimming= "CharacterEllipsis" ToolTip="{Binding Path=packageName_}">
-                                                               
-                                                             </TextBlock>
+
+                                                            </TextBlock>
 
                                                             <StackPanel VerticalAlignment="Center" Width="70">
                                                                 <Label FontSize="11"  Content="{Binding Path=speed_}"></Label>
@@ -277,12 +287,27 @@
 
                                                             <Button Padding="8,0,8,0" Name="downBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDownloadFile" Content="{Binding stopped_, Converter={StaticResource BtnConverter}}"></Button>
                                                             <Button Padding="8,0,8,0" Name="deleteBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDeleteFile">删除</Button>
-                                                            <Button Padding="8,0,8,0" Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">升级</Button>
+                                                            <Button Padding="8,0,8,0" Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">升级aaaa</Button>
+                                                        <!--</StackPanel>-->
                                                         </StackPanel>
+                                                        </Border>
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
+                                                <ListBox.ItemContainerStyle>
+                                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource ResourceKey={x:Type ListBoxItem}}">
+                                                        <!--<Setter Property="ContextMenu">
+                                                            <Setter.Value>
+                                                                <ContextMenu>
+                                                                    <MenuItem Header="打开文件夹"/>
+                                                                    <MenuItem Header="删除文件"/>
+                                                                    <MenuItem Header="安装"/>
+                                                                </ContextMenu>
+                                                            </Setter.Value>
+                                                        </Setter>-->
+                                                        <Setter Property="Padding" Value="0" />
+                                                    </Style>
+                                                </ListBox.ItemContainerStyle>
                                             </ListBox>
-
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2" Grid.ColumnSpan="2">

@@ -369,11 +369,20 @@ namespace Clouding
             //
         }
 
-        private void listItem_clicked(object sender, MouseButtonEventArgs e)
+        private void listItem_clicked(object sender, RoutedEventArgs e)
         {
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.StackPanel)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
-            item.OpenFolder();
+        }
+
+        private void test(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StackWidget_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
