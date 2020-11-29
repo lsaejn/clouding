@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Clouding"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="580" Width="870"
+        Title="MainWindow" Height="580" Width="850"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
@@ -129,13 +129,13 @@
                         <!--Adding Menu buttons-->
                         <RadioButton Grid.Row="0" Background="Transparent" BorderThickness="0" 
                                 Foreground="White" Click="OnClickUpdateVersion" Name="UpdateBtn"
-                                Style="{DynamicResource myRadioButton}">
+                                Style="{DynamicResource myRadioButton}" FontSize="15">
                             <!--<Image Source="/Assets/mmc.png" Stretch="Uniform" Width="20"/>-->
-                                当前版本升级到最新
+                                升级到最新版本
                         </RadioButton>
                         <RadioButton Grid.Row="1" Background="Transparent" BorderThickness="0" 
                                 Foreground="White" Click="OnClickPatching" 
-                                Style="{DynamicResource myRadioButton}">
+                                Style="{DynamicResource myRadioButton}" FontSize="15">
                             <!--<Image Source="/Assets/contacts.png" Stretch="Uniform" Width="20"/>-->
                                 当前版本补丁包
                         </RadioButton>
@@ -287,7 +287,7 @@
 
                                                             <Button Padding="8,0,8,0" Name="downBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDownloadFile" Content="{Binding stopped_, Converter={StaticResource BtnConverter}}"></Button>
                                                             <Button Padding="8,0,8,0" Name="deleteBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDeleteFile">删除</Button>
-                                                            <Button Padding="8,0,8,0" Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">升级aaaa</Button>
+                                                                <Button Padding="8,0,8,0" Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">安装</Button>
                                                         <!--</StackPanel>-->
                                                         </StackPanel>
                                                         </Border>
