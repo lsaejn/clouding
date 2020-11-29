@@ -89,6 +89,8 @@ namespace Clouding
                 bytesDown = 0;
             if(bytesDown== bytesTotal)
                 state = "下载完成";
+            else if(bytesDown > bytesTotal)
+                state = "文件大小错误";
             //fix me, 下载速度格式化, 我们基本上都很大，MB就行了
             fileSizeState_ = (bytesDown / (1024.0*1024)).ToString("f2") + "MB/"+ (bytesTotal / (1024.0 * 1024)).ToString("f2") +"MB";
             progressValue_ = 100.0*bytesDown / bytesTotal;
