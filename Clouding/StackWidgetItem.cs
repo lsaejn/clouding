@@ -208,6 +208,13 @@ namespace Clouding
         {
             if (true == stopped_)
             {
+                if(bytesDown == bytesTotal)
+                {
+                    if (MessageBox.Show("确定要重新下载吗？", "提示：", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
+                        return;
+                    else
+                        DeleteFile();
+                }
                 state_ = "正在连接...";
                 StartDownLoad();
             }     
@@ -215,6 +222,7 @@ namespace Clouding
             {
                 StopDownLoad();
                 state_ = "暂停中";
+                speed_ = "--";
             } 
         }
 
@@ -247,25 +255,21 @@ namespace Clouding
 
         public void DeleteFile()
         {
-            if (task != null)
+            if(task!=null)
             {
-                lock (task)//lock似乎应该放在task对象里
-                {
-                    stopped_ = true;
-                    task.Stop();
-                    task = null;
-                }
+                StopDownLoad();
             }
             string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
             string localFilePath = downLoadPath + packageName;
             try
             {
                 File.Delete(localFilePath);
-            }catch(Exception e)
+                ReadLocalFile();
+            }
+            catch(Exception e)
             {
                 Logger.Log().Warn($"delete file failed because of {e.Message}");
             }
-            
         }
 
         public void OpenFolder()

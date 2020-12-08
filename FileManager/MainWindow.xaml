@@ -23,10 +23,14 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Background="#00A2E2" Button.Click="OnMenuButtonClicked">
-            <Button Style="{StaticResource ButtonStype}" ToolTip="更新头文件和库">整理Sts_Key</Button>
-            <Button Style="{StaticResource ButtonStype}" ToolTip="更新Pkpmmain的sts_key头文件和库">针对Sts_Key更新Pkpmmain</Button>
+            <Button Style="{StaticResource ButtonStype}">编译StsKey</Button>
+            <Button Style="{StaticResource ButtonStype}">更新Sts_Key头文件到P</Button>
+            <Button Style="{StaticResource ButtonStype}">更新Sts_Key库文件到P</Button>
+            <Button Style="{StaticResource ButtonStype}">更新Sts_Key头文件到Pkpmmain</Button>
+            <Button Style="{StaticResource ButtonStype}">更新Sts_Key库文件到Pkpmmain</Button>
             <Button Style="{StaticResource ButtonStype}" >移动CFGLIB2014到2015</Button>
             <Button Style="{StaticResource ButtonStype}">移动CFGLIB到Pkpmmain目录</Button>
+            <Button Style="{StaticResource ButtonStype}">编译Pkpmmain</Button>
             <Button Style="{StaticResource ButtonStype}">移动Pkpmmain程序到P盘</Button>
             <Button Style="{StaticResource ButtonStype}">一键更新全部</Button>
             <Button Style="{StaticResource ButtonStype}" Margin="0,80,0,5">设置</Button>
@@ -72,7 +76,7 @@
             </StackPanel>
 
             <StackPanel Grid.Row="2">
-                <Button Margin="0,5,0,5" Width="60" Click="DoMoving">确定</Button>
+                <Button Margin="0,5,0,5" Width="60" Click="DoOperator">确定</Button>
             </StackPanel>
         </Grid>
     </Grid>

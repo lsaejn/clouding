@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManager", "FileManager\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppForMySql", "WpfAppForMySql\WpfAppForMySql.csproj", "{108BCF3F-F7C7-4B6B-8103-7329A14552CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfControlTemplate", "WpfControlTemplate\WpfControlTemplate.csproj", "{438A5E8C-363B-4744-8596-077E2349A840}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{108BCF3F-F7C7-4B6B-8103-7329A14552CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{108BCF3F-F7C7-4B6B-8103-7329A14552CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{108BCF3F-F7C7-4B6B-8103-7329A14552CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438A5E8C-363B-4744-8596-077E2349A840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438A5E8C-363B-4744-8596-077E2349A840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438A5E8C-363B-4744-8596-077E2349A840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438A5E8C-363B-4744-8596-077E2349A840}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

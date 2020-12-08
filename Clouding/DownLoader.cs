@@ -147,7 +147,7 @@ namespace Clouding
                 netStream.ReadTimeout = 5000;
                 string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
                 string localFilePath = downLoadPath + item.packageName;
-                ofs = new FileStream(localFilePath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+                ofs = new FileStream(localFilePath, FileMode.Append, FileAccess.Write, FileShare.Delete);
                 byte[] read = new byte[1024 * 64];
                 int realReadLen = netStream.Read(read, 0, read.Length);
                 if (realReadLen > 0)
@@ -186,8 +186,9 @@ namespace Clouding
                             {
                                 //fix me,重复的代码
                                 UpdateState(State.Finished);
-                                long speed = UpdateSpeed(timeSpan);
-                                UpdateRemainingTime(speed);
+                                //long speed = UpdateSpeed(timeSpan);
+                                item.speed_ = "--";
+                                //UpdateRemainingTime(speed);
                                 UpdateProgress();
                                 bytesDownLastUpdate = bytesDown;
                                 //item.state_ = "下载完成";//break, or not?

@@ -7,6 +7,45 @@ namespace LoveCSharp
     {
         static void Main(string[] args)
         {
+            {
+                DateTime t=new DateTime(2022, 2, 3);
+                var ret=DateTime.IsLeapYear(2021);
+                ret = DateTime.IsLeapYear(2022);
+                ret = DateTime.IsLeapYear(2023);
+                ret = DateTime.IsLeapYear(2024);
+                ret = DateTime.IsLeapYear(2025);
+                //ret = DateTime.IsLeapYear(-1);
+            }
+            {
+                DateTime t = new DateTime(2009, 12, 25);
+                t = t.AddDays(1000);
+                var y=t.Year;
+            }
+            {
+                DateTime t = DateTime.Now;
+                FileInfo f = new FileInfo("2.txt");
+                //f.Delete();
+                var cT=f.CreationTime;
+                var tCount=cT.Ticks;
+                var cyT = f.CreationTimeUtc;
+            }
+            {
+                //FileStream stream = File.Create("1.txt");
+                //stream.Close();
+                var att = File.GetAttributes("2.txt");
+                File.SetAttributes("1.txt", FileAttributes.Normal);
+                //File.Replace
+            }
+            { 
+                var i = 3;
+                FileStream fs = new FileStream(
+                String.Format(@"C:\TEMP\TEST{0}.DAT", i),  // name of file
+                FileMode.Create,    // create or overwrite existing file
+                FileAccess.Write,   // write-only access
+                FileShare.None,     // no sharing
+                2 << 8,             // block transfer of i=18 -> size = 256 KB
+                FileOptions.None);
+            }
             Stream stm = new FileStream("1.txt", FileMode.Append, FileAccess.Write);
 
             string str = "电你好吗";

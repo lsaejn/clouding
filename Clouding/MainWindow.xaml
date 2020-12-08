@@ -287,7 +287,7 @@
 
                                                             <Button Padding="8,0,8,0" Name="downBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDownloadFile" Content="{Binding stopped_, Converter={StaticResource BtnConverter}}"></Button>
                                                             <Button Padding="8,0,8,0" Name="deleteBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnDeleteFile">删除</Button>
-                                                                <Button Padding="8,0,8,0" Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">安装</Button>
+                                                            <Button Padding="8,0,8,0" Name="updateBtn" Height="22" FontSize="12" Margin="5,0,5,0" Click="OnSetupFile">安装</Button>
                                                         <!--</StackPanel>-->
                                                         </StackPanel>
                                                         </Border>

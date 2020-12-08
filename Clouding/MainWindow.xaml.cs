@@ -351,6 +351,7 @@ namespace Clouding
         {
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
+            item.DeleteFile();
         }
 
         private void OnSetupFile(object sender, RoutedEventArgs e)
