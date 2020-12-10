@@ -8,6 +8,15 @@ namespace LoveCSharp
         static void Main(string[] args)
         {
             {
+                DateTime t = new DateTime(2022, 2, 3,3,22,43,223);
+                string localDateStr=t.ToLongDateString();
+                string lts = t.ToLongTimeString();
+                string st = t.ToShortDateString();
+                string sts=t.ToShortTimeString();
+                string ts = t.ToString();
+                Console.WriteLine(st);
+            }
+            {
                 DateTime t=new DateTime(2022, 2, 3);
                 var ret=DateTime.IsLeapYear(2021);
                 ret = DateTime.IsLeapYear(2022);

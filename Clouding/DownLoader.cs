@@ -147,6 +147,7 @@ namespace Clouding
                 netStream.ReadTimeout = 5000;
                 string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
                 string localFilePath = downLoadPath + item.packageName;
+                //为了不反复打开 ofs, 我们将文件属性设为 FileShare.Delete，方便删除本地文件
                 ofs = new FileStream(localFilePath, FileMode.Append, FileAccess.Write, FileShare.Delete);
                 byte[] read = new byte[1024 * 64];
                 int realReadLen = netStream.Read(read, 0, read.Length);

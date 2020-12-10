@@ -6,7 +6,39 @@
         xmlns:local="clr-namespace:WpfControlTemplate"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <Window.Triggers>
+        <EventTrigger SourceName="btnStart" RoutedEvent="Button.Click">
+            <BeginStoryboard Name="CircleAnimation">
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="Icircle" Storyboard.TargetProperty="(Canvas.Left)"
+                                     From="100" To="400" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True">
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase EasingMode="EaseInOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger SourceName="btnPause" RoutedEvent="Button.Click">
+            <PauseStoryboard BeginStoryboardName="CircleAnimation"/>
+        </EventTrigger>
+        <EventTrigger SourceName="btnResume" RoutedEvent="Button.Click">
+            <ResumeStoryboard BeginStoryboardName="CircleAnimation"/>
+        </EventTrigger>
+        <EventTrigger SourceName="btnStop" RoutedEvent="Button.Click">
+            <StopStoryboard BeginStoryboardName="CircleAnimation"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Label>
+        <Canvas>
+            <Ellipse x:Name="Icircle" Canvas.Top="10" Canvas.Left="10" Width="50" Height="50" Fill="#FF02C373"/>
+            <Button x:Name="btnStart" Canvas.Top="80" Canvas.Left="50" Canvas.Bottom="100" Width="100" Height="40" Content="开始" FontSize="28"/>
+            <Button x:Name="btnPause" Canvas.Top="80" Canvas.Left="180" Canvas.Bottom="100" Width="100" Height="40" Content="暂停" FontSize="28"/>
+            <Button x:Name="btnResume" Canvas.Top="80" Canvas.Left="350" Canvas.Bottom="100" Width="100" Height="40" Content="恢复" FontSize="28"/>
+            <Button x:Name="btnStop" Canvas.Top="80" Canvas.Left="550" Canvas.Bottom="100" Width="100" Height="40" Content="停止" FontSize="28"/>
+        </Canvas>
+    </Label>
+
+
 </Window>

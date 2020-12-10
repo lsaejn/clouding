@@ -257,7 +257,7 @@ namespace Clouding
         {
             if(task!=null)
             {
-                StopDownLoad();
+                //StopDownLoad();
             }
             string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
             string localFilePath = downLoadPath + packageName;
