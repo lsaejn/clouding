@@ -15,9 +15,6 @@ using System.Windows;
 namespace Clouding
 {
 
-
-
-
     public class StackWidgetItem: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -54,49 +51,6 @@ namespace Clouding
             }
         }
 
-        
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="timeLeft"></param>
-        /// <param name="speed"></param>
-        /// <param name="name">下载文件名</param>
-        /// <param name="progressValue"></param>
-        /// <param name="url">阿里云下载网址,阿里云只转义了中文</param>
-        /// <param name="lb">测试label</param>
-        public StackWidgetItem(string timeLeft, string speed, string name, double progressValue, string url, long bytesTotal)
-        {
-            timeLeft_ = timeLeft;
-            var str = System.Web.HttpUtility.UrlDecode(name);
-            packageName_ =str.Substring(str.LastIndexOf('/')+1);
-            speed_ = speed;
-            progressValue_ = progressValue;
-            state = "暂停中";
-            url_ = url;
-            bytesTotal_ = bytesTotal;
-            stopped = true;
-            ReadLocalFile();
-        }
-        public void ReadLocalFile()
-        {
-            string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase+"\\download\\";
-            string localFilePath = downLoadPath + packageName;
-            FileInfo info = new FileInfo(localFilePath);
-            if (info.Exists)
-                bytesDown = info.Length;
-            else
-                bytesDown = 0;
-            if(bytesDown== bytesTotal)
-                state = "下载完成";
-            else if(bytesDown > bytesTotal)
-                state = "文件大小错误";
-            //fix me, 下载速度格式化, 我们基本上都很大，MB就行了
-            fileSizeState_ = (bytesDown / (1024.0*1024)).ToString("f2") + "MB/"+ (bytesTotal / (1024.0 * 1024)).ToString("f2") +"MB";
-            progressValue_ = 100.0*bytesDown / bytesTotal;
-            //filesiz
-            //bytesTotal;
-    }
         public string packageName_
         {
             get { return packageName; }
@@ -128,6 +82,7 @@ namespace Clouding
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("bytesTotal_"));
             }
         }
+
         public double progressValue_
         {
             get { return progressValue; }
@@ -137,6 +92,7 @@ namespace Clouding
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("progressValue_"));
             }
         }
+
         public string state_
         {
             get { return state; }
@@ -146,6 +102,7 @@ namespace Clouding
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("state_"));
             }
         }
+
         public string fileSizeState_
         {
             get { return fileSizeState; }
@@ -155,6 +112,7 @@ namespace Clouding
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("fileSizeState_"));
             }
         }
+
         public string url_
         {
             get { return url; }
@@ -164,6 +122,7 @@ namespace Clouding
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("url_"));
             }
         }
+
         public string timeLeft_
         {
             get { return timeLeft; }
@@ -173,6 +132,7 @@ namespace Clouding
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("timeLeft_"));
             }
         }
+
         public string speed_
         {
             get { return speed; }
@@ -182,6 +142,7 @@ namespace Clouding
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("speed_"));
             }
         }
+
         public bool stopped_
         {
             get { return stopped; }
@@ -192,13 +153,58 @@ namespace Clouding
             }
         }
 
-        public DownLoadTask task { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="timeLeft"></param>
+        /// <param name="speed"></param>
+        /// <param name="name">下载文件名</param>
+        /// <param name="progressValue"></param>
+        /// <param name="url">阿里云下载网址,阿里云只转义了中文</param>
+        /// <param name="lb">测试label</param>
+        public StackWidgetItem(string timeLeft, string speed, string name, double progressValue, string url, long bytesTotal)
+        {
+            timeLeft_ = timeLeft;
+            var str = System.Web.HttpUtility.UrlDecode(name);
+            packageName_ =str.Substring(str.LastIndexOf('/')+1);
+            speed_ = speed;
+            progressValue_ = progressValue;
+            state = "暂停中";
+            url_ = url;
+            bytesTotal_ = bytesTotal;
+            stopped = true;
+            ReadLocalFile();
+        }
+
+        public void ReadLocalFile()
+        {
+            string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase+"\\download\\";
+            string localFilePath = downLoadPath + packageName;
+            FileInfo info = new FileInfo(localFilePath);
+            if (info.Exists)
+                bytesDown = info.Length;
+            else
+                bytesDown = 0;
+            if(bytesDown== bytesTotal)
+                state = "下载完成";
+            else if(bytesDown > bytesTotal)
+                state = "文件大小错误";
+            //fix me, 下载速度格式化, 我们基本上都很大，MB就行了
+            fileSizeState_ = (bytesDown / (1024.0*1024)).ToString("f2") + "MB/"+ (bytesTotal / (1024.0 * 1024)).ToString("f2") +"MB";
+            progressValue_ = 100.0*bytesDown / bytesTotal;
+            //filesiz
+            //bytesTotal;
+    }
+
+
+        public IDownLoadStrategy task { get; set; }
         Object lockObj=new Object();
 
         public void ResetUIWhenDownloadFinished()
         {
 
         }
+
         public void ResetUIWhenDownloadFailed()
         {
 
@@ -206,14 +212,16 @@ namespace Clouding
 
         public void OnClickDownloadBtn()
         {
-            if (true == stopped_)
+            if (stopped_)
             {
                 if(bytesDown == bytesTotal)
                 {
                     if (MessageBox.Show("确定要重新下载吗？", "提示：", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
                         return;
                     else
+                    {
                         DeleteFile();
+                    }       
                 }
                 state_ = "正在连接...";
                 StartDownLoad();

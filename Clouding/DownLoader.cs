@@ -8,14 +8,20 @@ using System.Threading.Tasks;
 
 namespace Clouding
 {
+    public interface IDownLoadStrategy
+    {
+        void DownloadFileImpl();
+    }
+
+
     /// <summary>
     /// 一次具体的下载。不用异步是为了避免和之前c++版本一样混乱。
     /// 由于要下载的文件数量极少，根本不需要使用缓冲区
     /// 统一updateTime可能导致的一个问题是，有的任务一直收不到数据包时，速度得不到更新
     /// </summary>
-    public class DownLoadTask
+    public class DownLoadTask : IDownLoadStrategy
     {
-        /*static */DateTime updateTime;
+        DateTime updateTime;
         long bytesDownLastUpdate;//上一次更新时的下载量
         StackWidgetItem item;
         bool stopped;
