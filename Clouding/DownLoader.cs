@@ -10,7 +10,7 @@ namespace Clouding
 {
     public interface IDownLoadStrategy
     {
-        void DownloadFileImpl();
+        void Start();
         void Stop();
     }
 
@@ -134,7 +134,7 @@ namespace Clouding
             }
         }
 
-        public void DownloadFileImpl()
+        public void Start()
         {
             //这么写最简单，
             //1.如果FileStream让item控制，那么下载完成时，我们还要同步item。繁琐。

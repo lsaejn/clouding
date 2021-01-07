@@ -234,11 +234,11 @@ namespace Clouding
             } 
         }
 
-        private void DownloadFile()
+        private void DownloadFileImpl()
         {
             stopped_ = false;
             task = new DownLoadTask(this);
-            new Thread(task.DownloadFileImpl).Start();
+            new Thread(task.Start).Start();
         }
 
         public void StopDownLoad()
@@ -258,7 +258,7 @@ namespace Clouding
 
         public void StartDownLoad()
         {
-            DownloadFile();
+            DownloadFileImpl();
         }
 
         public void DeleteFile()
