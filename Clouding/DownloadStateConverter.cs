@@ -9,7 +9,7 @@ using System.Windows.Data;
 namespace Clouding
 {
     [ValueConversion(typeof(bool), typeof(string))]
-    public class boolDateConverter : IValueConverter
+    public class DownloadStateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

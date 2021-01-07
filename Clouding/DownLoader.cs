@@ -11,6 +11,7 @@ namespace Clouding
     public interface IDownLoadStrategy
     {
         void DownloadFileImpl();
+        void Stop();
     }
 
 

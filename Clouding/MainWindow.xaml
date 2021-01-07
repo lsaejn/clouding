@@ -21,7 +21,7 @@
     <!--resources-->
     
     <Window.Resources>
-        <local:boolDateConverter x:Key="BtnConverter"/>
+        <local:DownloadStateConverter x:Key="BtnConverter"/>
         <Style x:Key="menuButtonTemplate" TargetType="{x:Type Button}">
             <!--焦点视觉样式-->
             <Setter Property="FocusVisualStyle">
