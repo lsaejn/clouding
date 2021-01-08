@@ -1,15 +1,17 @@
 {
-  "downloadDir": "download/",
+  "downloadDir": "download\\",
   "maxTaskNum": 5,
-  "logFilePath": "log/pkpmUpdate_log.txt",
+  "logFilePath": "log\\pkpmUpdate_log.txt",
   "logLever": "Debug",
   "logFileRollSize": 52428800,
   "assistantDll": "Alime.dll",
-  "updateInfoUrl": "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/packsInfoWpf.json",
-  "pkgRootFolder": "http://update.pkpm.cn/PKPM2010/Info/pkpmSoft/",
+  "server":"update.pkpm.cn",
+  "updateInfoUrl": "packsInfoWpf.json",
+  "pkgRootFolder": "/PKPM2010/Info/pkpmSoft/",
   "fixPackFolder": "FixPacks/",
   "updatePackFolder": "UpdatePacks/",
-  "IntegralImageFileFolder": "IntegralImageFiles/",
-  "useLocalPackInfo": false,
-  "localPackInfo": "packsInfo.json"
+  "integralImageFileFolder": "IntegralImageFiles/",
+  "useLocalPackInfo": true,
+  "useHttp":true,
+  "localPackInfo": "packsInfoWpf.json"
 }

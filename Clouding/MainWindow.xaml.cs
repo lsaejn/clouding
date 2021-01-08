@@ -160,13 +160,13 @@ namespace Clouding
         {
             //test();
             // write to config
-            string serverFilePath = ConfigFileRW.GetInstance.updateInfoUrl;
+            string serverFilePath = ConfigFileRW.GetInstance.UpdateInfoUrl;
             //packCtn = await ReadPackInfo(serverFilePath);
-            if(ConfigFileRW.GetInstance.useLocalPackInfo)
+            if(ConfigFileRW.GetInstance.UseLocalPackInfo)
             {
                 try
                 {
-                    FileStream fs = File.Open(System.AppDomain.CurrentDomain.BaseDirectory+ConfigFileRW.GetInstance.localPackInfo, FileMode.Open);
+                    FileStream fs = File.Open(ConfigFileRW.GetInstance.LocalPackInfo, FileMode.Open);
                     StreamReader sr = new StreamReader(fs, Encoding.UTF8);
                     packCtn = sr.ReadToEnd();
                 }
@@ -234,7 +234,7 @@ namespace Clouding
             foreach (var fixFile in fixs)
             {
                 //配置文件里必须是从网站拷贝的严格的阿里云url，维护人员可能会犯错
-                string urlBase64 = ins.pkgRootFolder + ins.fixPackFolder + fixFile.info.relativePath;
+                string urlBase64 = ins.FixPackFolder + fixFile.info.relativePath;
                 var sz=QueryFileSize(urlBase64);
                 if(sz==-1)
                 {
@@ -243,12 +243,12 @@ namespace Clouding
                 else
                 {
                     fixItemList.Add(new StackWidgetItem("--:--:--",  "0KB/S", fixFile.info.fileName, 0,
-                        ins.pkgRootFolder + ins.fixPackFolder + fixFile.info.relativePath, sz));
+                        ins.FixPackFolder + fixFile.info.relativePath, sz));
                 }
             }
 
             //var sz = QueryFileSize(urlBase64);
-            var updateFIleUrl = ins.pkgRootFolder + ins.updatePackFolder + updatepk.relativePath;
+            var updateFIleUrl = ins.UpdatePackFolder + updatepk.relativePath;
             var fsz = QueryFileSize(updateFIleUrl);
             if(fsz>0)
             {

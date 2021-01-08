@@ -20,32 +20,37 @@ namespace Clouding
         public string logLever;
         public string logFileRollSize;
         public string assistantDll;
+        public string server;
         public string updateInfoUrl;
         public string pkgRootFolder;
         public string fixPackFolder;
         public string updatePackFolder;
-        public string IntegralImageFileFolder;
+        public string integralImageFileFolder;
         public bool useLocalPackInfo;
+        public bool useHttp;
         public string localPackInfo;
     }
 
+    /// <summary>
+    /// 路径皆为全路径
+    /// </summary>
     public sealed class ConfigFileRW
     {
         public ConfigFile config_;
         public static ConfigFileRW GetInstance { get; } = new ConfigFileRW();
 
-        public string downloadDir
+        public string DownloadDir
         {
             get
             {
-                return config_.downloadDir;
+                return System.AppDomain.CurrentDomain.BaseDirectory+config_.downloadDir;
             }
         }
-        public string logFilePath
+        public string LogFilePath
         {
             get
             {
-                return config_.logFilePath;
+                return DownloadDir+config_.logFilePath;
             }
         }
         public string logLever
@@ -62,46 +67,66 @@ namespace Clouding
                 return config_.logFileRollSize;
             }
         }
-        public string updateInfoUrl
+        public string UpdateInfoUrl
         {
             get
             {
-                return config_.updateInfoUrl;
+                return PkgRootFolder + config_.updateInfoUrl;
             }
         }
-        public string pkgRootFolder
+        public string PkgRootFolder
         {
             get
             {
-                return config_.pkgRootFolder;
+                string url = string.Empty;
+                if (UseHttp)
+                    url += "http://";
+                else
+                    url += "https://";
+                url += Server;
+                return url+config_.pkgRootFolder;
             }
         }
-        public string fixPackFolder
+        public string FixPackFolder
         {
             get
             {
-                return config_.fixPackFolder;
+                return PkgRootFolder+config_.fixPackFolder;
             }
         }
-        public string updatePackFolder
+        public string UpdatePackFolder
         {
             get
             {
-                return config_.updatePackFolder;
+                return PkgRootFolder+config_.updatePackFolder;
             }
         }
-        public bool useLocalPackInfo
+        public bool UseLocalPackInfo
         {
             get
             {
                 return config_.useLocalPackInfo;
             }
         }
-        public string localPackInfo
+        public bool UseHttp
+        {
+            get
+            {
+                return config_.useHttp;
+            }
+        }
+        public string LocalPackInfo
         {
             get
             {
                 return config_.localPackInfo;
+            }
+        }
+        public string Server
+        {
+            get
+            {
+                return config_.server;
             }
         }
 
@@ -109,15 +134,16 @@ namespace Clouding
         private ConfigFileRW()
         {
             string appPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            string configFile = appPath + "/config.json";
+            string configFile = appPath + "config.json";
             try
             {
                 string str = File.ReadAllText(configFile, Encoding.UTF8);
                 var serializer = new JavaScriptSerializer();
                 config_ = serializer.Deserialize<ConfigFile>(str);
             }
-            catch
+            catch(Exception e)
             {
+                //Logger.Log().Debug(e.Message);
                 MessageBox.Show("配置文件错误，程序即将关闭");
                 System.Environment.Exit(0);
             }

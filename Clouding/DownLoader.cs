@@ -58,23 +58,9 @@ namespace Clouding
             {
                 Logger.Log().Error($"bytesAdd<=0, bytesDown={bytesDown}, bytesDownLastUpdate={bytesDownLastUpdate}");
             }
-            if (bytesAdd < BYTES_PER_KB)
-            {
-                item.speed_ = ((bytesDown - bytesDownLastUpdate) / timeSpan).ToString("f2") + "B/s";
-            }
-            else if (bytesAdd < BYTES_PER_MB)
-            {
-                item.speed_ = ((bytesDown - bytesDownLastUpdate) / timeSpan / BYTES_PER_KB).ToString("f2") + "KB/s";
-            }
-            else if (bytesAdd < BYTES_PER_GB)
-            {
-                item.speed_ = ((bytesDown - bytesDownLastUpdate) / timeSpan / BYTES_PER_MB).ToString("f2") + "MB/s";
-            }
-            else//.....
-            {
-                item.speed_ = ((bytesDown - bytesDownLastUpdate) / timeSpan / BYTES_PER_GB).ToString("f2") + "GB/s";
-            }
-            return (long)((bytesDown - bytesDownLastUpdate) / timeSpan);
+            var speed=SpeedFormat.GetSpeedString(bytesAdd, timeSpan);
+            item.speed_ = speed;
+            return SpeedFormat.CalSpeed(bytesAdd, timeSpan);
         }
 
         private void UpdateFileSizeState()
