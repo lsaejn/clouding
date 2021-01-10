@@ -18,6 +18,7 @@ namespace Clouding
     public class StackWidgetItem: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         public string packageName;
         public string speed;
         public string timeLeft;
@@ -28,6 +29,8 @@ namespace Clouding
         public bool stopped;
         public long bytesDown;
         public long bytesTotal;
+        public IDownLoadStrategy task { get; set; }
+        Object lockObj = new Object();
         public string imageSrc
         {
             get
@@ -196,10 +199,6 @@ namespace Clouding
             //bytesTotal;
     }
 
-
-        public IDownLoadStrategy task { get; set; }
-        Object lockObj=new Object();
-
         public void ResetUIWhenDownloadFinished()
         {
 
@@ -267,7 +266,7 @@ namespace Clouding
             {
                 //StopDownLoad();
             }
-            string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "\\download\\";
+            string downLoadPath = ConfigFileRW.GetInstance.DownloadDir;
             string localFilePath = downLoadPath + packageName;
             try
             {
@@ -282,7 +281,7 @@ namespace Clouding
 
         public void OpenFolder()
         {
-            string downLoadPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "download\\";
+            string downLoadPath = ConfigFileRW.GetInstance.DownloadDir;
             string localFilePath = downLoadPath + packageName;
             if (File.Exists(localFilePath))
             {
@@ -301,6 +300,7 @@ namespace Clouding
 
         public bool InstallFile()
         {
+            MessageBox.Show("这个功能没有完成");
             return true;
         }
 

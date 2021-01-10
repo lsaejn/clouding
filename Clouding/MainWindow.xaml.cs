@@ -358,6 +358,7 @@ namespace Clouding
         {
             var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.Button)sender)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
+            item.InstallFile();
         }
 
         private void OnClickOneKeyUpdate(object sender, RoutedEventArgs e)
@@ -372,8 +373,23 @@ namespace Clouding
 
         private void listItem_clicked(object sender, RoutedEventArgs e)
         {
-            var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.StackPanel)sender)).Content;
+            //var curItem = ((ListBoxItem)StackWidget.ContainerFromElement((System.Windows.Controls.StackPanel)sender)).Content;
+            var sd= (System.Windows.Controls.ContextMenu)sender;
+            var curItem = ((ListBoxItem)StackWidget.ContainerFromElement(sd)).Content;
             StackWidgetItem item = (StackWidgetItem)curItem;
+            var menuItem = (System.Windows.Controls.MenuItem)e.OriginalSource;
+            if (menuItem.Header.ToString()== "打开文件夹")
+            {
+                item.OpenFolder();
+            }
+            else if(menuItem.Header.ToString() == "删除文件")
+            {
+                item.DeleteFile();
+            }
+            else
+            {
+                item.InstallFile();
+            }
         }
 
         private void test(object sender, RoutedEventArgs e)
