@@ -264,7 +264,10 @@ namespace Clouding
         {
             if(task!=null)
             {
-                //StopDownLoad();
+                var result=MessageBox.Show("really want to stop a running task?");
+                if (result== MessageBoxResult.No)
+                    return;
+                StopDownLoad();
             }
             string downLoadPath = ConfigFileRW.GetInstance.DownloadDir;
             string localFilePath = downLoadPath + packageName;
