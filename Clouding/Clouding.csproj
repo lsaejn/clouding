@@ -85,9 +85,6 @@
     </Compile>
     <Compile Include="SpeedFormat.cs" />
     <Compile Include="StackWidgetItem.cs" />
-    <Compile Include="UpdatePage.xaml.cs">
-      <DependentUpon>UpdatePage.xaml</DependentUpon>
-    </Compile>
     <Page Include="CirclePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,10 +112,6 @@
     <Page Include="styles\RadioButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UpdatePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
