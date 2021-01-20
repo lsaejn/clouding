@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clouding
 {
-    class SpeedFormat
+    class FormatHelper
     {
         const int BYTES_PER_KB = 1024;
         const int BYTES_PER_MB = 1024 * 1024;
@@ -33,6 +33,31 @@ namespace Clouding
         public static long CalSpeed(long bytesAdd, double timeSpan)
         {
             return (long)(bytesAdd / timeSpan);
+        }
+
+        public static string FormatFileSize(long bytesTotal, long bytesDown)
+        {
+            var bytesTotalInMB = (bytesTotal / 1024.0 / 1024).ToString("f2") + "MB";
+            string result = string.Empty;
+            if (bytesDown < BYTES_PER_KB)
+            {
+                result = (bytesDown * 1.0).ToString("f2") + "B/" + bytesTotalInMB;
+            }
+            else if (bytesDown < BYTES_PER_MB)
+            {
+                result = (bytesDown * 1.0 / BYTES_PER_KB).ToString("f2") + "KB/" + bytesTotalInMB;
+            }
+            else if (bytesDown < BYTES_PER_GB)
+            {
+                result = (bytesDown * 1.0 / BYTES_PER_MB).ToString("f2") + "MB/" + bytesTotalInMB;
+            }
+            else//有生之年怕是看不见
+            {
+                result = (bytesDown * 1.0 / BYTES_PER_MB).ToString("f2") + "MB/" + bytesTotalInMB;
+            }
+            //fix me
+            // wrap string here again
+            return result;
         }
     }
 }

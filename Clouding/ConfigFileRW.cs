@@ -130,7 +130,6 @@ namespace Clouding
             }
         }
 
-
         private ConfigFileRW()
         {
             string appPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
@@ -143,7 +142,7 @@ namespace Clouding
             }
             catch(Exception e)
             {
-                //Logger.Log().Debug(e.Message);
+                Logger.Log().Debug(e.Message);
                 MessageBox.Show("配置文件错误，程序即将关闭");
                 System.Environment.Exit(0);
             }

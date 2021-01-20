@@ -58,32 +58,14 @@ namespace Clouding
             {
                 Logger.Log().Error($"bytesAdd<=0, bytesDown={bytesDown}, bytesDownLastUpdate={bytesDownLastUpdate}");
             }
-            var speed=SpeedFormat.GetSpeedString(bytesAdd, timeSpan);
+            var speed= FormatHelper.GetSpeedString(bytesAdd, timeSpan);
             item.speed_ = speed;
-            return SpeedFormat.CalSpeed(bytesAdd, timeSpan);
+            return FormatHelper.CalSpeed(bytesAdd, timeSpan);
         }
 
         private void UpdateFileSizeState()
         {
-            //文件大小一般是MB-GB, 当然我也预料不了未来
-            var bytesTotalInMB = (bytesTotal / 1024.0 / 1024).ToString("f2") + "MB";
-            //fix me, 需要封装
-            if (bytesDown < BYTES_PER_KB)
-            {
-                item.fileSizeState_ = (bytesDown * 1.0).ToString("f2") + "B/" + bytesTotalInMB;
-            }
-            else if (bytesDown < BYTES_PER_MB)
-            {
-                item.fileSizeState_ = (bytesDown * 1.0 / BYTES_PER_KB).ToString("f2") + "KB/" + bytesTotalInMB;
-            }
-            else if (bytesDown < BYTES_PER_GB)
-            {
-                item.fileSizeState_ = (bytesDown * 1.0 / BYTES_PER_MB).ToString("f2") + "MB/" + bytesTotalInMB;
-            }
-            else//有生之年怕是看不见
-            {
-                item.fileSizeState_ = (bytesDown * 1.0 / BYTES_PER_MB).ToString("f2") + "MB/" + bytesTotalInMB;
-            }
+            item.fileSizeState_=FormatHelper.FormatFileSize(bytesTotal, bytesDown);
         }
 
         //fix me, 我没有想好
