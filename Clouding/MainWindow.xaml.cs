@@ -185,7 +185,7 @@ namespace Clouding
             }
 
             //不好的味道
-            CirclePage circlePage = (CirclePage)this.circleFrame.Content;
+            CirclePage circlePage = (CirclePage)this.circleFrame;
             if (0==packCtn.Length)
             {
                 circlePage.HideProgressBar();

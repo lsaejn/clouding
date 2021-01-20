@@ -245,7 +245,7 @@
                                         <!--<ContentControl Grid.Row="1" Grid.Column="2" x:Name="ContentControl">-->
                                         <!--原本是打算用frame, 为了方便访问StackWidget，这里省事来-->
                                         <StackPanel>
-                                            <Frame Name="circleFrame" Source="CirclePage.xaml" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="480" ></Frame>
+                                            <local:CirclePage x:Name="circleFrame" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="480" ></local:CirclePage>
                                             <!--ItemsSource="{Binding Path=ItemList}"-->
                                             <ListBox Name="StackWidget" Height="450" ScrollViewer.VerticalScrollBarVisibility="auto" Visibility="Collapsed">
                                                 <ListBox.ItemTemplate>
@@ -263,12 +263,9 @@
 
                                                             <Image Source="{Binding Path=imageSrc}" Width="30" Height="30"/>
                                                             <!--Width="220"-->
-                                                            <TextBlock Margin="5,0,0,0" Width="220" VerticalAlignment="Center" Text="{Binding Path=packageName_}" 
-                                                                       TextTrimming= "CharacterEllipsis" ToolTip="{Binding Path=packageName_}">
-
-                                                            </TextBlock>
-
-                                                            <StackPanel VerticalAlignment="Center" Width="70">
+                                                                <TextBlock Margin="5,0,0,0" Width="220" VerticalAlignment="Center" Text="{Binding Path=packageName_}" 
+                                                                       TextTrimming= "CharacterEllipsis" ToolTip="{Binding Path=packageName_}"/>
+                                                                <StackPanel VerticalAlignment="Center" Width="70">
                                                                 <Label FontSize="11"  Content="{Binding Path=speed_}"></Label>
                                                                 <Label FontSize="11"  Content="{Binding Path=timeLeft_}"></Label>
                                                             </StackPanel>

@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize"
         Title="MainWindow" Height="690" Width="1020">
+    <Window.Resources>
+        <local:Music x:Key="defaultMusic" Name="谢谢你的爱" Artist="谢霆锋"></local:Music>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"></ColumnDefinition>
@@ -28,8 +31,12 @@
             </Label>
             <StackPanel Grid.Row="1">
                 <Label Margin="20, 0, 0, 0">在线音乐</Label>
-                <ListBox Margin="20, 0, 0, 0">
-                    <Button>音乐馆</Button>
+                <ListBox Margin="20, 0, 0, 0" Background="Transparent" BorderThickness="0">
+                    <Button BorderThickness="0">
+                        <Button.Content>
+                            <TextBlock>hello</TextBlock>
+                        </Button.Content>
+                    </Button>
                     <Button>视频</Button>
                     <Button>电台</Button>
                 </ListBox>
@@ -40,8 +47,9 @@
                 <ListBox Margin="20, 0, 0, 0" Background="Transparent" BorderThickness="0">
                     <Button>我喜欢</Button>
                     <Button>本地和下载</Button>
-                    <Button>播放历史</Button>
-                    <Button>试听列表</Button>
+                    <Button Click="Button_Click">播放历史</Button>
+                    <Button Content="{Binding }">
+                    </Button>
                 </ListBox>
             </StackPanel>
         </Grid>
@@ -75,8 +83,8 @@
                             </Border>
                         </ControlTemplate>
                         </Button.Template >
-                    <Button.Content>
-                        fuck
+                    <Button.Content >
+                        hello
                     </Button.Content>
                 </Button>
             </Grid>

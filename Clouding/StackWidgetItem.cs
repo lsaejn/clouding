@@ -73,8 +73,9 @@ namespace Clouding
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("bytesDown_"));
             }
         }
+
         /// <summary>
-        /// fix me, bytesTotal_没什么机会变化
+        /// 始终表示目标文件大小
         /// </summary>
         public long bytesTotal_
         {

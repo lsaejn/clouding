@@ -18,7 +18,7 @@ namespace Clouding
     /// <summary>
     /// 只使用一次，每次登录时，我们会将更新信息保存。
     /// </summary>
-    public partial class CirclePage : Page
+    public partial class CirclePage : UserControl
     {
         public CirclePage()
         {
