@@ -1,0 +1,35 @@
+{
+  "LatestVersion": "V5.2.2",
+  "FixPacks": [
+    {
+      "version": "V5.1.3",
+      "info": {
+        "patchFile": "Patch5.1.3.ini",
+        "fileName": "PKPM-V513-20200525-SAT-0916-002.rar",
+        "relativePath": "PKPM-V513-20200525-SAT-0916-002.rar"
+      }
+    },
+    {
+      "version": "V5.2.1",
+      "info": {
+        "patchFile": "Patch5.2.1.1.ini",
+        "fileName": "V521SetUpPatch.exe",
+        "relativePath": "V521/V521SetUpPatch.exe"
+      }
+    },
+    {
+      "version": "V5.2.2",
+      "info": {
+        "patchFile": "Patch5.2.2.1.ini",
+        "fileName": "V522SetUpPatch.exe",
+        "relativePath": "V522SetUpPatch.exe"
+      }
+    }
+  ],
+  "UpdatePacks": {
+    "version": "V5.2.2",
+    "fileName": "V5.2.2.Setup.exe",
+    "relativePath": "V5.2.2Setup.exe"
+  },
+  "LatestIsoUrl": "http://update.pkpm.cn/PKPM2010/Soft/V5/V521/PKPM2010_v52_1_20201023.iso"
+}

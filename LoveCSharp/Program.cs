@@ -8,6 +8,18 @@ namespace LoveCSharp
         static void Main(string[] args)
         {
             {
+               // TextReader tr = new TextReader();
+            }
+            {
+                FileStream fs = new FileStream("D:\\wpfAutoUpdate\\LoveCSharp\\Program.cs", FileMode.Open, FileAccess.Read);
+                StreamReader sr = new StreamReader(fs, System.Text.Encoding.Unicode, true);
+                string str_=sr.ReadToEnd();
+            }
+            {
+                DirectoryInfo info = new DirectoryInfo("D:\\wpfAutoUpdate\\LoveCSharp\\Program.cs");
+                var rootInfo=info.Root;
+            }
+            {
                 DateTime t = new DateTime(2022, 2, 3,3,22,43,223);
                 string localDateStr=t.ToLongDateString();
                 string lts = t.ToLongTimeString();
