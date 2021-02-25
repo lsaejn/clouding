@@ -158,6 +158,7 @@ namespace Clouding
         }
         private async void InitUI()
         {
+            this.circleFrame.Visibility = Visibility.Visible;
             //test();
             // write to config
             string serverFilePath = ConfigFileRW.GetInstance.UpdateInfoUrl;
