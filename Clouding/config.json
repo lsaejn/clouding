@@ -12,6 +12,6 @@
   "updatePackFolder": "UpdatePacks/",
   "integralImageFileFolder": "IntegralImageFiles/",
   "useLocalPackInfo": true,
-  "useHttp":true,
+  "useHttp": true,
   "localPackInfo": "packsInfoWpf.json"
 }
