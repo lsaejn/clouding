@@ -19,15 +19,15 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="{StaticResource ResourceKey=PrimaryDarkBlueBrush}">
 
         </Grid>
         <Grid Grid.Row="1" Background="{StaticResource ResourceKey=PrimaryBlueBrush}">
-            <Button x:Name="Root" ToolTip="Wiki Article" ToolTipService.InitialShowDelay="0" 
+            <!--<Button x:Name="Root" ToolTip="Wiki Article" ToolTipService.InitialShowDelay="0" 
                         Style="{DynamicResource MaterialDesignFlatButton}"
                     HorizontalAlignment="Left"
                         Command="{Binding Open}">
@@ -36,7 +36,24 @@
                     <TextBlock Margin="8 0 0 0" Style="{StaticResource MaterialDesignBody1TextBlock}"
                                    Text="fuck me" />
                 </StackPanel>
-            </Button>
+            </Button>-->
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="120, 0, 100, 0">
+                <Button Style="{DynamicResource NaviMenuButtonStyle}">结构</Button>
+                <Button Style="{DynamicResource NaviMenuButtonStyle}">砌体</Button>
+                <Button Style="{DynamicResource NaviMenuButtonStyle}">钢结构</Button>
+                <Button Style="{DynamicResource NaviMenuButtonStyle}">施工图审查</Button>
+                <Button Style="{DynamicResource NaviMenuButtonStyle}" >预应力</Button>
+                <Button Style="{DynamicResource NaviMenuButtonStyle}">工具工业</Button>
+                <Button Style="{DynamicResource NaviMenuButtonStyle}">鉴定加固</Button>
+                <Button Style="{DynamicResource NaviMenuButtonStyle}">BIM软件</Button>
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

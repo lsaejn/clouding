@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace LoveCSharp
 {
@@ -8,7 +9,14 @@ namespace LoveCSharp
         static void Main(string[] args)
         {
             {
-               // TextReader tr = new TextReader();
+                FileStream fs = new FileStream("1.txt", FileMode.OpenOrCreate);
+                StreamReader sr = new StreamReader(fs, System.Text.Encoding.UTF8);
+
+                Decoder d = Encoding.UTF8.GetDecoder();
+                Encoder e = Encoding.UTF8.GetEncoder();
+                System.Text.DecoderNLS
+                //d.GetChars()
+                // TextReader tr = new TextReader();
             }
             {
                 FileStream fs = new FileStream("D:\\wpfAutoUpdate\\LoveCSharp\\Program.cs", FileMode.Open, FileAccess.Read);
