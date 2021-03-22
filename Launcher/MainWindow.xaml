@@ -10,13 +10,6 @@
         ResizeMode="NoResize"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="MainWindow" Height="580" Width="900">
-    <Window.Resources>
-        <SolidColorBrush x:Key="PrimaryBlueBrush" Color="#1594ED" />
-        <SolidColorBrush x:Key="PrimaryDarkBlueBrush" Color="#02304F" />
-        <SolidColorBrush x:Key="PrimaryBlackBrush" Color="#2D2D2D" />
-        <SolidColorBrush x:Key="PrimaryGrayBrush" Color="#F5F5F5" />
-        
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -59,6 +52,10 @@
                             <Line Stroke="White" X1="5" Y1="5" X2="15" Y2="15"></Line>
                             <Line Stroke="White" X1="15" Y1="5" X2="5" Y2="15"></Line>
                         </Canvas>
+                    </Button>
+                    <Button Width="20" BorderThickness="0" Background="Transparent" Foreground="White" Style="{x:Null}"
+                            Click="ApplySkin">
+                        换肤
                     </Button>
                 </StackPanel>
             </Grid>

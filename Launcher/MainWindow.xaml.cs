@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,32 @@ namespace Launcher
         private void Title_LButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void ApplySkin(object sender, RoutedEventArgs e)
+        {
+            string skinDictPath = ".\\styles\\Dark.xaml";
+            Uri skinDictUri = new Uri(skinDictPath, UriKind.Relative);
+
+            // Tell the Application to load the skin resources.
+            Launcher.App app = Application.Current as Launcher.App;
+            // Load the ResourceDictionary into memory.
+            ResourceDictionary skinDict =
+              Application.LoadComponent(skinDictUri) as ResourceDictionary;
+
+            Collection<ResourceDictionary> mergedDicts =
+              base.Resources.MergedDictionaries;
+
+            // Remove the existing skin dictionary, if one exists.
+            // NOTE: In a real application, this logic might need
+            // to be more complex, because there might be dictionaries
+            // which should not be removed.
+            if (mergedDicts.Count > 0)
+                mergedDicts.Clear();
+
+            // Apply the selected skin so that all elements in the
+            // application will honor the new look and feel.
+
         }
     }
 }
