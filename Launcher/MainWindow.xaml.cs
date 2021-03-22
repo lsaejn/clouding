@@ -23,11 +23,17 @@ namespace Launcher
         public MainWindow()
         {
             InitializeComponent();
+            this.MaxHeight = System.Windows.SystemParameters.WorkArea.Height;
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("fff");
+        }
+
+        private void Title_LButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

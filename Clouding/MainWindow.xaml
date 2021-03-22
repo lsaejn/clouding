@@ -213,7 +213,6 @@
                                                     </Viewbox>
                                                 </Button>
                                             </Grid>
-
                                             <Grid Grid.Column="3">
                                                 <Button Height="40" Background="{x:Null}" BorderBrush="{x:Null}"
                                 materialDesign:ShadowAssist.ShadowDepth="Depth1" Command="ApplicationCommands.Close" Padding="0">
