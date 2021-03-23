@@ -61,6 +61,8 @@ namespace Launcher
             // Apply the selected skin so that all elements in the
             // application will honor the new look and feel.
 
+            Application.Current.Resources.MergedDictionaries.Add(skinDict);
+
         }
     }
 }
