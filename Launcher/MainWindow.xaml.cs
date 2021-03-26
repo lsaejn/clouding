@@ -48,6 +48,7 @@ namespace Launcher
             ResourceDictionary skinDict =
               Application.LoadComponent(skinDictUri) as ResourceDictionary;
 
+            //我们加载到windowResourse里
             Collection<ResourceDictionary> mergedDicts =
               base.Resources.MergedDictionaries;
 
@@ -60,8 +61,15 @@ namespace Launcher
 
             // Apply the selected skin so that all elements in the
             // application will honor the new look and feel.
+            mergedDicts.Add(skinDict);
 
-            Application.Current.Resources.MergedDictionaries.Add(skinDict);
+            //这里演示加载到app(App.xaml)的MergedDictionaries
+            //Application.Current.Resources.MergedDictionaries.Add(skinDict);
+
+            ResourceDictionary rd = new ResourceDictionary();
+            //pack://application:,,,/Launcher;component/styles/Blue.xaml
+            //rd.Source = new Uri(@"/Launcher;Component/styles/Dark.xaml", UriKind.RelativeOrAbsolute);
+            //this.Resources.MergedDictionaries.Add(rd);
 
         }
     }

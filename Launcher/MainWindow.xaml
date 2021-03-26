@@ -16,7 +16,8 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="{StaticResource ResourceKey=PrimaryDarkBlueBrush}" MouseLeftButtonDown="Title_LButtonDown">
+        <Grid Grid.Row="0" Background="{DynamicResource PrimaryDarkBlueBrush}" 
+              MouseLeftButtonDown="Title_LButtonDown">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -42,7 +43,7 @@
                             </Canvas>
                             <Canvas Name="restoreButton" Width="20" Height="20" Visibility="Visible">
                                 <Rectangle  Height="10" Width="10" Canvas.Left="3" Canvas.Top="5" Stroke="White"
-                                            Fill="{StaticResource ResourceKey=PrimaryDarkBlueBrush}"  Panel.ZIndex="1"/>
+                                            Fill="{DynamicResource PrimaryDarkBlueBrush}"  Panel.ZIndex="1"/>
                                 <Rectangle  Height="10" Width="10" Canvas.Left="5" Canvas.Top="3" Stroke="White"/>
                             </Canvas>
                         </StackPanel>
@@ -60,7 +61,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" Background="{StaticResource ResourceKey=PrimaryBlueBrush}">
+        <Grid Grid.Row="1" Background="{DynamicResource PrimaryBlueBrush}">
             <!--<Button x:Name="Root" ToolTip="Wiki Article" ToolTipService.InitialShowDelay="0" 
                         Style="{DynamicResource MaterialDesignFlatButton}"
                     HorizontalAlignment="Left"
@@ -95,7 +96,7 @@
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Background="{StaticResource PrimaryGrayBrush}">
+            <StackPanel Background="{DynamicResource PrimaryGrayBrush}">
                 <Button Background="Transparent" BorderThickness="0" Foreground="Black" Margin="0,50,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="10" Width="10" Source="/images/other10.png"/>
