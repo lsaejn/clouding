@@ -77,5 +77,25 @@ namespace Launcher
         {
 
         }
+
+        private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void MenuToggleButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuDarkModeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuPopupButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
