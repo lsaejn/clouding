@@ -24,7 +24,10 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Image Source="images/logo2k.png"></Image>
+                <Button Background="Transparent" Click="Button_Click">
+                    <Image Source="images/logo2k.png"></Image>
+                </Button>
+                
             </Grid>
             <Grid Grid.Column="1">
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">此处应有标题栏</Label>

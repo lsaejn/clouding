@@ -72,5 +72,10 @@ namespace Launcher
             //this.Resources.MergedDictionaries.Add(rd);
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
