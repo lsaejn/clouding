@@ -64,7 +64,7 @@
             IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
 
             <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="220">
+                <DockPanel MinWidth="220" Background="AliceBlue">
                     <ToggleButton 
                         Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                         DockPanel.Dock="Top"
@@ -118,7 +118,9 @@
                         <Image Source="images/logo2k.png" Stretch="Uniform" Margin="6"></Image>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">此处应有标题栏</Label>
+                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">
+                            此处应有标题栏此处应有标题栏
+                        </Label>
                     </Grid>
                     <Grid Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
@@ -151,7 +153,7 @@
 
 
                 <materialDesign:ColorZone
-                    Padding="16"
+                    Height="50"
                     materialDesign:ShadowAssist.ShadowDepth="Depth0"
                     Mode="PrimaryMid"
                     Background="{DynamicResource PrimaryBlueBrush}"
@@ -205,7 +207,7 @@
                                     Click="MenuPopupButton_OnClick"/>
                             </StackPanel>
                         </materialDesign:PopupBox>-->
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="120, 0, 100, 0">
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="120, 0, 0, 0">
                             <Button Style="{DynamicResource NaviMenuButtonStyle}">结构</Button>
                             <Button Style="{DynamicResource NaviMenuButtonStyle}">砌体</Button>
                             <Button Style="{DynamicResource NaviMenuButtonStyle}">钢结构</Button>
@@ -236,7 +238,7 @@
 
 
 
-                    <TreeView Grid.Column="0" MinWidth="220">
+                    <TreeView Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
                         <TreeViewItem Header="Fruit">
                             <TreeViewItem>
                                 <TreeViewItem.Header>
@@ -311,14 +313,41 @@
                         <TreeViewItem Header="Empty" />
                     </TreeView>
 
-                    <ScrollViewer Grid.Column="1" x:Name="scrList" Margin="0"  VerticalScrollBarVisibility="Auto">
-                        <WrapPanel Grid.Column="1" Margin="20">
+                    <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="0">新建</Button>
+                                    <Label VerticalAlignment="Center" Margin="20,0,0,0">授权码即将期</Label>
+                                </StackPanel>
+                                <ItemsControl  x:Name="itemsControl"  Background="white" Margin="0,20,0,0">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="3">
+                                                <WrapPanel>
+                                                    <StackPanel Margin="15">
+                                                        <Image Stretch="Fill" Width="105" Height="80" Style="{DynamicResource ImageStyle}"></Image>
+                                                        <TextBlock Margin="0,5,0,0">2010.09.10</TextBlock>
+                                                        <TextBlock Margin="0,5,0,0">就是一个测试的工程</TextBlock>
+                                                    </StackPanel>
+                                                </WrapPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                            
+                            <!--<WrapPanel Grid.Column="1" Margin="20">
                             <StackPanel Margin="10">
                                 <Image Stretch="Fill" Width="104" Height="72" Style="{DynamicResource ImageStyle}"></Image>
                                 <TextBlock Margin="0,5,0,0">2010.09.10</TextBlock>
                                 <TextBlock Margin="0,5,0,0">就是一个测试的工程</TextBlock>
                             </StackPanel>
-                        </WrapPanel>
+                        </WrapPanel>-->
                     </ScrollViewer>
                 </Grid>
                 </Border>

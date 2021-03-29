@@ -16,6 +16,10 @@ using System.Windows.Shapes;
 
 namespace Launcher
 {
+    public class business
+    {
+        public string txt { get; set; }
+    }
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
@@ -25,6 +29,21 @@ namespace Launcher
         {
             InitializeComponent();
             this.MaxHeight = System.Windows.SystemParameters.WorkArea.Height;
+
+            this.InitializeComponent();
+            List<business> che = new List<business>()
+     {
+        new business() { txt = "选项1"},
+        new business() { txt = "选项2"},
+        new business() { txt = "选项3"},
+        new business() { txt = "选项4"},
+        new business() { txt = "选项5"},
+        new business() { txt = "选项6"},
+        new business() { txt = "选项7"}
+     };
+           //var sl= this.scrList;
+            this.itemsControl.ItemsSource = che;
+
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
