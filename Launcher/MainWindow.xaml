@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Launcher"
+    xmlns:domain="clr-namespace:Launcher.Domain"
+    d:DataContext="{d:DesignInstance domain:TreesViewModel}"
     mc:Ignorable="d"
     WindowStyle="None"
     ResizeMode="NoResize"
@@ -233,19 +235,22 @@
                             <ColumnDefinition Width="4*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <!--<TreeView x:Name="treeView" ItemsSource="{Binding TypeList}" 
+                        <TreeView x:Name="treeView" ItemsSource="{Binding _professionalCategory}" 
                                   Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
                             <TreeView.Resources>
-                                <HierarchicalDataTemplate DataType="{x:Type vm:TypeTreeModel}" ItemsSource="{Binding ChildList}">
+                                <HierarchicalDataTemplate DataType="{x:Type domain:ProfessionalCategory}" ItemsSource="{Binding SubMenus}">
                                     <TextBlock Text="{Binding Name}" Margin="3 2"/>
                                 </HierarchicalDataTemplate>
-                                <DataTemplate DataType="{x:Type vm:TypeModel}">
-                                    <TextBlock Text="{Binding Name}" ToolTip="{Binding Id}" Margin="3 2"></TextBlock>
+                                <DataTemplate DataType="{x:Type domain:SubMenu}">
+                                    <TextBlock
+                                        Text="{Binding Name}"
+                                        Margin="3 2"
+                                        ToolTip="{Binding ImageSrc}"/>
                                 </DataTemplate>
                             </TreeView.Resources>
-                        </TreeView>-->
+                        </TreeView>
 
-                        <TreeView Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
+                        <!--<TreeView Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
                         <TreeViewItem Header="Fruit">
                             <TreeViewItem>
                                 <TreeViewItem.Header>
@@ -318,9 +323,9 @@
                             </TreeViewItem>
                         </TreeViewItem>
                         <TreeViewItem Header="Empty" />
-                    </TreeView>
+                    </TreeView>-->
 
-                    <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
+                        <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="0">新建</Button>

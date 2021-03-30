@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Launcher.Domain;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace Launcher
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly TreesViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
@@ -44,6 +46,9 @@ namespace Launcher
              };
            //var sl= this.scrList;
             this.itemsControl.ItemsSource = pjs;
+
+            _viewModel = new TreesViewModel();
+            DataContext = _viewModel;
 
         }
 

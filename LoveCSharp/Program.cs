@@ -14,7 +14,7 @@ namespace LoveCSharp
 
                 Decoder d = Encoding.UTF8.GetDecoder();
                 Encoder e = Encoding.UTF8.GetEncoder();
-                System.Text.DecoderNLS
+                //System.Text.DecoderNLS
                 //d.GetChars()
                 // TextReader tr = new TextReader();
             }
