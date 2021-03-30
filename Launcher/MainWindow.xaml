@@ -230,15 +230,22 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="4*"></ColumnDefinition>
+                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-                    </Grid.ColumnDefinitions>
+                        <!--<TreeView x:Name="treeView" ItemsSource="{Binding TypeList}" 
+                                  Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
+                            <TreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type vm:TypeTreeModel}" ItemsSource="{Binding ChildList}">
+                                    <TextBlock Text="{Binding Name}" Margin="3 2"/>
+                                </HierarchicalDataTemplate>
+                                <DataTemplate DataType="{x:Type vm:TypeModel}">
+                                    <TextBlock Text="{Binding Name}" ToolTip="{Binding Id}" Margin="3 2"></TextBlock>
+                                </DataTemplate>
+                            </TreeView.Resources>
+                        </TreeView>-->
 
-
-
-
-
-                    <TreeView Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
+                        <TreeView Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
                         <TreeViewItem Header="Fruit">
                             <TreeViewItem>
                                 <TreeViewItem.Header>
@@ -319,6 +326,7 @@
                                     <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="0">新建</Button>
                                     <Label VerticalAlignment="Center" Margin="20,0,0,0">授权码即将期</Label>
                                 </StackPanel>
+                                
                                 <ItemsControl  x:Name="itemsControl"  Background="white" Margin="0,20,0,0">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -331,8 +339,8 @@
                                                 <WrapPanel>
                                                     <StackPanel Margin="15">
                                                         <Image Stretch="Fill" Width="105" Height="80" Style="{DynamicResource ImageStyle}"></Image>
-                                                        <TextBlock Margin="0,5,0,0">2010.09.10</TextBlock>
-                                                        <TextBlock Margin="0,5,0,0">就是一个测试的工程</TextBlock>
+                                                        <TextBlock Margin="0,5,0,0" Text="{Binding timeCreate}"></TextBlock>
+                                                        <TextBlock Margin="0,5,0,0" Text="{Binding projectName}"></TextBlock>
                                                     </StackPanel>
                                                 </WrapPanel>
                                             </Border>
