@@ -124,7 +124,9 @@
                     </Grid>
                     <Grid Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
-                            <Button Width="40" BorderThickness="0" Background="Transparent" Foreground="White" Style="{x:Null}">
+                            <Button Width="40" BorderThickness="0" Background="Transparent" Foreground="White"
+                                    Style="{DynamicResource SystemButtonStyle}"
+                                    >
                                 <Canvas Width="20" Height="20">
                                     <Line Stroke="White" X1="5" Y1="10" X2="15" Y2="10"></Line>
                                 </Canvas>
