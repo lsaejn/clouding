@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Menus>
+  <NaviMenu text="结构">
+    <ProfessionalCategory>
+      <text>二级菜单1</text>
+      <SubMenus>
+        <SubMenu>SATWE</SubMenu>
+        <SubMenu>PMSAP</SubMenu>
+        <SubMenu>GGDGD</SubMenu>
+        <SubMenu>JJJJJ</SubMenu>
+      </SubMenus>
+    </ProfessionalCategory>
+    <ProfessionalCategory>
+      <text>二级菜单1</text>
+      <SubMenus>
+        <SubMenu>SATWE</SubMenu>
+        <SubMenu>PMSAP</SubMenu>
+        <SubMenu>GGDGD</SubMenu>
+        <SubMenu>JJJJJ</SubMenu>
+      </SubMenus>
+    </ProfessionalCategory>
+  </NaviMenu>
+  <NaviMenu text="结构">
+    <ProfessionalCategory>
+      <text>二级菜单1</text>
+      <SubMenus>
+        <SubMenu>SATWE</SubMenu>
+        <SubMenu>PMSAP</SubMenu>
+        <SubMenu>GGDGD</SubMenu>
+        <SubMenu>JJJJJ</SubMenu>
+      </SubMenus>
+    </ProfessionalCategory>
+  </NaviMenu>
+</Menus>

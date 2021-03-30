@@ -237,7 +237,7 @@
                             <ColumnDefinition Width="4*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <TreeView x:Name="treeView" ItemsSource="{Binding _professionalCategory}" 
+                        <TreeView x:Name="treeView" ItemsSource="{Binding ProfessionalCategories}" 
                                   Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
                             <TreeView.Resources>
                                 <HierarchicalDataTemplate DataType="{x:Type domain:ProfessionalCategory}" ItemsSource="{Binding SubMenus}">
@@ -330,7 +330,8 @@
                         <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="0">新建</Button>
+                                    <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="0"
+                                            Click="Button_Click_1">新建</Button>
                                     <Label VerticalAlignment="Center" Margin="20,0,0,0">授权码即将期</Label>
                                 </StackPanel>
                                 

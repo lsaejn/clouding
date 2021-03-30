@@ -28,7 +28,7 @@ namespace Launcher
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly TreesViewModel _viewModel;
+        private /*readonly*/ TreesViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
@@ -47,7 +47,8 @@ namespace Launcher
            //var sl= this.scrList;
             this.itemsControl.ItemsSource = pjs;
 
-            _viewModel = new TreesViewModel();
+            _viewModel = new TreesViewModel("");
+            
             DataContext = _viewModel;
 
         }
@@ -121,6 +122,14 @@ namespace Launcher
         private void MenuPopupButton_OnClick(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //_viewModel.ProfessionalCategories = null;
+            //_viewModel = null;
+            _viewModel = new TreesViewModel("test");
+            DataContext = _viewModel;
         }
     }
 }

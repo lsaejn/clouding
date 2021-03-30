@@ -116,7 +116,7 @@ namespace Launcher.Domain
     {
         private object _selectedItem;
 
-        public ObservableCollection<ProfessionalCategory> _professionalCategory { get; }
+        public ObservableCollection<ProfessionalCategory> ProfessionalCategories { get; }
 
         public AnotherCommandImplementation AddCommand { get; }
 
@@ -128,9 +128,26 @@ namespace Launcher.Domain
             set => SetProperty(ref _selectedItem, value);
         }
 
-        public TreesViewModel()
+        static int i = 0;
+        public TreesViewModel(string xmlString)
         {
-            _professionalCategory = new ObservableCollection<ProfessionalCategory>
+            if(xmlString=="test")
+            {
+                ProfessionalCategories = new ObservableCollection<ProfessionalCategory>
+                {
+                    new ProfessionalCategory("Actionoooooo",
+                        new SubMenu("Predator", "John McTiernan"),
+                        new SubMenu("Alien", "Ridley Scott"),
+                        new SubMenu("Prometheus", "Ridley Scott")),
+                    new ProfessionalCategory("Comedy",
+                        new SubMenu("EuroTrip", "Jeff Schaffer"),
+                        new SubMenu("EuroTrip", "Jeff Schaffer")
+                    )
+                };
+                return;
+            }
+
+            ProfessionalCategories = new ObservableCollection<ProfessionalCategory>
             {
                 new ProfessionalCategory("Action",
                     new SubMenu("Predator", "John McTiernan"),
@@ -145,15 +162,15 @@ namespace Launcher.Domain
             AddCommand = new AnotherCommandImplementation(
                 _ =>
                 {
-                    if (!_professionalCategory.Any())
+                    if (!ProfessionalCategories.Any())
                     {
-                        _professionalCategory.Add(new ProfessionalCategory(GenerateString(15)));
+                        ProfessionalCategories.Add(new ProfessionalCategory(GenerateString(15)));
                     }
                     else
                     {
-                        var index = new Random().Next(0, _professionalCategory.Count);
+                        var index = new Random().Next(0, ProfessionalCategories.Count);
 
-                        _professionalCategory[index].SubMenus.Add(
+                        ProfessionalCategories[index].SubMenus.Add(
                             new SubMenu(GenerateString(15), GenerateString(20)));
                     }
                 });
@@ -164,13 +181,13 @@ namespace Launcher.Domain
                     var category = SelectedItem as ProfessionalCategory;
                     if (category != null)
                     {
-                        _professionalCategory.Remove(category);
+                        ProfessionalCategories.Remove(category);
                     }
                     else
                     {
                         var m = SelectedItem as SubMenu;
                         if (m == null) return;
-                        _professionalCategory.FirstOrDefault(v => v.SubMenus.Contains(m))?.SubMenus.Remove(m);
+                        ProfessionalCategories.FirstOrDefault(v => v.SubMenus.Contains(m))?.SubMenus.Remove(m);
                     }
                 },
                 _ => SelectedItem != null);
