@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Launcher.Domain;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,33 +17,38 @@ using System.Windows.Shapes;
 
 namespace Launcher
 {
-    public class business
+    public class ProjectInfo
     {
         public string txt { get; set; }
+        public string timeCreate { get; set; }
+        public string projectName { get; set; }
     }
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly TreesViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
             this.MaxHeight = System.Windows.SystemParameters.WorkArea.Height;
 
             this.InitializeComponent();
-            List<business> che = new List<business>()
-     {
-        new business() { txt = "选项1"},
-        new business() { txt = "选项2"},
-        new business() { txt = "选项3"},
-        new business() { txt = "选项4"},
-        new business() { txt = "选项5"},
-        new business() { txt = "选项6"},
-        new business() { txt = "选项7"}
-     };
+            List<ProjectInfo> pjs = new List<ProjectInfo>() {
+                new ProjectInfo() { txt = "选项1", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new ProjectInfo() { txt = "选项2", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new ProjectInfo() { txt = "选项3", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new ProjectInfo() { txt = "选项4", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new ProjectInfo() { txt = "选项5", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new ProjectInfo() { txt = "选项6", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new ProjectInfo() { txt = "选项7", timeCreate="2010-03-02 14:00", projectName="just a test prj"}
+             };
            //var sl= this.scrList;
-            this.itemsControl.ItemsSource = che;
+            this.itemsControl.ItemsSource = pjs;
+
+            _viewModel = new TreesViewModel();
+            DataContext = _viewModel;
 
         }
 

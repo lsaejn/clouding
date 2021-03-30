@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Launcher"
+    xmlns:domain="clr-namespace:Launcher.Domain"
+    d:DataContext="{d:DesignInstance domain:TreesViewModel}"
     mc:Ignorable="d"
     WindowStyle="None"
     ResizeMode="NoResize"
@@ -232,15 +234,25 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="4*"></ColumnDefinition>
+                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-                    </Grid.ColumnDefinitions>
+                        <TreeView x:Name="treeView" ItemsSource="{Binding _professionalCategory}" 
+                                  Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
+                            <TreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type domain:ProfessionalCategory}" ItemsSource="{Binding SubMenus}">
+                                    <TextBlock Text="{Binding Name}" Margin="3 2"/>
+                                </HierarchicalDataTemplate>
+                                <DataTemplate DataType="{x:Type domain:SubMenu}">
+                                    <TextBlock
+                                        Text="{Binding Name}"
+                                        Margin="3 2"
+                                        ToolTip="{Binding ImageSrc}"/>
+                                </DataTemplate>
+                            </TreeView.Resources>
+                        </TreeView>
 
-
-
-
-
-                    <TreeView Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
+                        <!--<TreeView Grid.Column="0" MinWidth="220" Margin="5,10,0,0">
                         <TreeViewItem Header="Fruit">
                             <TreeViewItem>
                                 <TreeViewItem.Header>
@@ -313,14 +325,15 @@
                             </TreeViewItem>
                         </TreeViewItem>
                         <TreeViewItem Header="Empty" />
-                    </TreeView>
+                    </TreeView>-->
 
-                    <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
+                        <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="0">新建</Button>
                                     <Label VerticalAlignment="Center" Margin="20,0,0,0">授权码即将期</Label>
                                 </StackPanel>
+                                
                                 <ItemsControl  x:Name="itemsControl"  Background="white" Margin="0,20,0,0">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -333,8 +346,8 @@
                                                 <WrapPanel>
                                                     <StackPanel Margin="15">
                                                         <Image Stretch="Fill" Width="105" Height="80" Style="{DynamicResource ImageStyle}"></Image>
-                                                        <TextBlock Margin="0,5,0,0">2010.09.10</TextBlock>
-                                                        <TextBlock Margin="0,5,0,0">就是一个测试的工程</TextBlock>
+                                                        <TextBlock Margin="0,5,0,0" Text="{Binding timeCreate}"></TextBlock>
+                                                        <TextBlock Margin="0,5,0,0" Text="{Binding projectName}"></TextBlock>
                                                     </StackPanel>
                                                 </WrapPanel>
                                             </Border>
