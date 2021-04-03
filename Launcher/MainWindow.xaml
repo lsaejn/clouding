@@ -145,7 +145,8 @@
                                     </Canvas>
                                 </StackPanel>
                             </Button>-->
-                            <Button Width="40"  BorderThickness="0" Margin="0" Background="Transparent" Foreground="White" Style="{x:Null}">
+                            <Button Width="40"  BorderThickness="0" Margin="0" Background="Transparent"
+                                    Foreground="White" Style="{DynamicResource SystemButtonStyle}">
                                 <Canvas Width="20" Height="20">
                                     <Line Stroke="White" X1="5" Y1="5" X2="15" Y2="15"></Line>
                                     <Line Stroke="White" X1="15" Y1="5" X2="5" Y2="15"></Line>
@@ -212,20 +213,15 @@
                             </StackPanel>
                         </materialDesign:PopupBox>-->
                         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="120, 0, 0, 0">
-                            <Button Style="{DynamicResource NaviMenuButtonStyle}">结构</Button>
-                            <Button Style="{DynamicResource NaviMenuButtonStyle}">砌体</Button>
-                            <Button Style="{DynamicResource NaviMenuButtonStyle}">钢结构</Button>
-                            <Button Style="{DynamicResource NaviMenuButtonStyle}">施工图审查</Button>
-                            <Button Style="{DynamicResource NaviMenuButtonStyle}" >预应力</Button>
-                            <Button Style="{DynamicResource NaviMenuButtonStyle}">工具工业</Button>
-                            <Button Style="{DynamicResource NaviMenuButtonStyle}">鉴定加固</Button>
-                            <Button Style="{DynamicResource NaviMenuButtonStyle}">BIM软件</Button>
+                            <RadioButton Style="{StaticResource NaviRadioButton}">结构</RadioButton>
+                            <RadioButton Style="{StaticResource NaviRadioButton}">砌体</RadioButton>
+                            <RadioButton Style="{StaticResource NaviRadioButton}">钢结构</RadioButton>
+                            <RadioButton Style="{StaticResource NaviRadioButton}">施工图审查</RadioButton>
+                            <RadioButton Style="{StaticResource NaviRadioButton}" >预应力</RadioButton>
+                            <RadioButton Style="{StaticResource NaviRadioButton}">工具工业</RadioButton>
+                            <RadioButton Style="{StaticResource NaviRadioButton}">鉴定加固</RadioButton>
+                            <RadioButton Style="{StaticResource NaviRadioButton}">BIM软件</RadioButton>
                         </StackPanel>
-
-
-
-
-
                     </DockPanel>
 
                 </materialDesign:ColorZone>
