@@ -129,9 +129,9 @@ namespace Launcher.Domain
         }
 
         static int i = 0;
-        public TreesViewModel(string xmlString)
+        public TreesViewModel(ObservableCollection<ProfessionalCategory> cates)
         {
-            if(xmlString=="test")
+            if(false)
             {
                 ProfessionalCategories = new ObservableCollection<ProfessionalCategory>
                 {

@@ -23,18 +23,23 @@ namespace Launcher
         public string timeCreate { get; set; }
         public string projectName { get; set; }
     }
+
+    public class testItem
+    {
+        public string name { get; set; }
+    }
+    
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : Window
     {
-        private /*readonly*/ TreesViewModel _viewModel;
+        List<testItem> mytest;
         public MainWindow()
         {
             InitializeComponent();
             this.MaxHeight = System.Windows.SystemParameters.WorkArea.Height;
 
-            this.InitializeComponent();
             List<ProjectInfo> pjs = new List<ProjectInfo>() {
                 new ProjectInfo() { txt = "选项1", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
                 new ProjectInfo() { txt = "选项2", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
@@ -46,11 +51,16 @@ namespace Launcher
              };
            //var sl= this.scrList;
             this.itemsControl.ItemsSource = pjs;
-
-            _viewModel = new TreesViewModel("");
+            //this.NaviBar.ItemsSource=
             
-            DataContext = _viewModel;
+            DataContext = new MainWindowViewModel();
 
+            //mytest = new List<testItem>()
+            //{
+            //    new testItem{name="ffff"},
+            //    new testItem{name="ffff2"}
+            //};
+            //NaviBar.ItemsSource = mytest;
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -128,8 +138,7 @@ namespace Launcher
         {
             //_viewModel.ProfessionalCategories = null;
             //_viewModel = null;
-            _viewModel = new TreesViewModel("test");
-            DataContext = _viewModel;
+            this.treeView.DataContext= new TreesViewModel(null);
         }
     }
 }
