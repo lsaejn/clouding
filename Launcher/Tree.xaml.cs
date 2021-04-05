@@ -24,7 +24,7 @@ namespace Launcher
         public Tree()
         {
             InitializeComponent();
-            DataContext = new TreesViewModel(null);
+            //DataContext = new TreesViewModel(null);
         }
     }
 }

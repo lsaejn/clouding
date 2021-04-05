@@ -88,17 +88,6 @@ namespace Launcher.Domain
         public string ImageSrc { get; }
     }
 
-    //public class Planet
-    //{
-    //    public string Name { get; set; }
-
-    //    public double DistanceFromSun { get; set; }
-
-    //    public double DistanceFromEarth { get; set; }
-
-    //    public double Velocity { get; set; }
-    //}
-
     public sealed class ProfessionalCategory
     {
         public ProfessionalCategory(string name, params SubMenu[] subMenu)
@@ -131,33 +120,34 @@ namespace Launcher.Domain
         static int i = 0;
         public TreesViewModel(ObservableCollection<ProfessionalCategory> cates)
         {
-            if(false)
-            {
-                ProfessionalCategories = new ObservableCollection<ProfessionalCategory>
-                {
-                    new ProfessionalCategory("Actionoooooo",
-                        new SubMenu("Predator", "John McTiernan"),
-                        new SubMenu("Alien", "Ridley Scott"),
-                        new SubMenu("Prometheus", "Ridley Scott")),
-                    new ProfessionalCategory("Comedy",
-                        new SubMenu("EuroTrip", "Jeff Schaffer"),
-                        new SubMenu("EuroTrip", "Jeff Schaffer")
-                    )
-                };
-                return;
-            }
+            ProfessionalCategories = cates;
+            //if(false)
+            //{
+            //    ProfessionalCategories = new ObservableCollection<ProfessionalCategory>
+            //    {
+            //        new ProfessionalCategory("Actionoooooo",
+            //            new SubMenu("Predator", "John McTiernan"),
+            //            new SubMenu("Alien", "Ridley Scott"),
+            //            new SubMenu("Prometheus", "Ridley Scott")),
+            //        new ProfessionalCategory("Comedy",
+            //            new SubMenu("EuroTrip", "Jeff Schaffer"),
+            //            new SubMenu("EuroTrip", "Jeff Schaffer")
+            //        )
+            //    };
+            //    return;
+            //}
 
-            ProfessionalCategories = new ObservableCollection<ProfessionalCategory>
-            {
-                new ProfessionalCategory("Action",
-                    new SubMenu("Predator", "John McTiernan"),
-                    new SubMenu("Alien", "Ridley Scott"),
-                    new SubMenu("Prometheus", "Ridley Scott")),
-                new ProfessionalCategory("Comedy",
-                    new SubMenu("EuroTrip", "Jeff Schaffer"),
-                    new SubMenu("EuroTrip", "Jeff Schaffer")
-                )
-            };
+            //ProfessionalCategories = new ObservableCollection<ProfessionalCategory>
+            //{
+            //    new ProfessionalCategory("Action",
+            //        new SubMenu("Predator", "John McTiernan"),
+            //        new SubMenu("Alien", "Ridley Scott"),
+            //        new SubMenu("Prometheus", "Ridley Scott")),
+            //    new ProfessionalCategory("Comedy",
+            //        new SubMenu("EuroTrip", "Jeff Schaffer"),
+            //        new SubMenu("EuroTrip", "Jeff Schaffer")
+            //    )
+            //};
 
             AddCommand = new AnotherCommandImplementation(
                 _ =>
@@ -201,7 +191,5 @@ namespace Launcher.Domain
                 Enumerable.Range(0, length)
                 .Select(v => (char)random.Next('a', 'z' + 1)));
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

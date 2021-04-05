@@ -17,50 +17,30 @@ using System.Windows.Shapes;
 
 namespace Launcher
 {
-    public class ProjectInfo
-    {
-        public string txt { get; set; }
-        public string timeCreate { get; set; }
-        public string projectName { get; set; }
-    }
-
-    public class testItem
-    {
-        public string name { get; set; }
-    }
-    
-    /// <summary>
-    /// MainWindow.xaml 的交互逻辑
-    /// </summary>
     public partial class MainWindow : Window
     {
-        List<testItem> mytest;
+
         public MainWindow()
         {
             InitializeComponent();
             this.MaxHeight = System.Windows.SystemParameters.WorkArea.Height;
 
-            List<ProjectInfo> pjs = new List<ProjectInfo>() {
-                new ProjectInfo() { txt = "选项1", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项2", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项3", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项4", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项5", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项6", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项7", timeCreate="2010-03-02 14:00", projectName="just a test prj"}
+            List<Project> pjs = new List<Project>() {
+                new Project() { txt = "选项1", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new Project() { txt = "选项2", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new Project() { txt = "选项3", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new Project() { txt = "选项4", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new Project() { txt = "选项5", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new Project() { txt = "选项6", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
+                new Project() { txt = "选项7", timeCreate="2010-03-02 14:00", projectName="just a test prj"}
              };
            //var sl= this.scrList;
             this.itemsControl.ItemsSource = pjs;
             //this.NaviBar.ItemsSource=
-            
-            DataContext = new MainWindowViewModel();
-
-            //mytest = new List<testItem>()
-            //{
-            //    new testItem{name="ffff"},
-            //    new testItem{name="ffff2"}
-            //};
-            //NaviBar.ItemsSource = mytest;
+            var mvm = new MainWindowViewModel();
+            var tree=this.treeView;
+            mvm.tr = tree;
+            DataContext = mvm;
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
