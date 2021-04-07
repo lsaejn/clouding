@@ -9,26 +9,54 @@ using System.Threading.Tasks;
 
 namespace Launcher
 {
-    public class Project
+    public class ShortCutItem
     {
+        public string Name { get; set; }
+    }
+
+    
+
+
+    public class Project : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public string txt { get; set; }
         public string timeCreate { get; set; }
         public string projectName { get; set; }
+
     }
 
     class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        private List<ShortCutItem> _shortCutItems;
+        public  List<ShortCutItem> ShortCutItems
+        {
+            get => _shortCutItems;
+            set
+            {
+                _shortCutItems = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShortCutItems)));
+            }
+        }
+
         private ObservableCollection<NaviMenuItem>? _naviMenuItems;
         private NaviMenuItem? _selectedItem;
         private int _selectedIndex;
 
         private ObservableCollection<Project> _projects;
-        private Project __selectedproject;
+        private Project _selectedProject;
         private int _selectedProjectIndex;
 
         public Tree tr;
+
+        //我还没弄明白怎么动态加载一段xaml，跨窗口的时候，里面有一些坑
+        public void ReadNaviMenu(string fileName)
+        {
+
+        }
 
         public MainWindowViewModel()
         {
@@ -39,6 +67,15 @@ namespace Launcher
                 new NaviMenuItem() { Name = "结构3", Index = 2, MenuFile = "heelo" }
             };
             SelectedIndex = 0;
+
+
+            ShortCutItems = new List<ShortCutItem>()
+            {
+                new ShortCutItem(){Name="ffff"},
+                new ShortCutItem(){Name="ffff"},
+                new ShortCutItem(){Name="ffff"},
+                new ShortCutItem(){Name="ffff"}
+            };
             //SelectedItem = _naviMenuItems[0];
         }
 
@@ -72,6 +109,17 @@ namespace Launcher
             {
                 _selectedIndex = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedIndex)));
+            }
+        }
+
+        public Project SelectedProject
+        {
+            get => _selectedProject;
+            set 
+            {
+                _selectedProject = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedProject)));
+               // PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedProject.projectName)));
             }
         }
     }

@@ -7,17 +7,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Launcher"
     xmlns:domain="clr-namespace:Launcher.Domain"
+    
     mc:Ignorable="d"
     WindowStyle="None"
     ResizeMode="NoResize"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     WindowStartupLocation="CenterScreen"
-    Title="Material Design in XAML" 
+    Title="Pkpm Launcher" 
     AutomationProperties.Name="{Binding Title, RelativeSource={RelativeSource Self}}"
     Height="560"
     Width="840"
+    Name="wnd"
     >
-
+    <!--DataContext="{Binding MainWindowViewModel}"-->
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,22 +27,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <!-- data template used for the dialogs example, defines a View for a ViewModel of type DateTime  -->
-            <DataTemplate DataType="{x:Type system:DateTime}">
-                <StackPanel Margin="16">
-                    <TextBlock Text="England win the World Cup:"/>
-                    <TextBlock Margin="0 8 0 0" Text="{Binding}"/>
-                    <TextBlock Margin="0 8 0 0" Text="You will never see that again."/>
-                    <Button
-                        Margin="0 8 0 0"
-                        IsDefault="True"
-                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                        Style="{DynamicResource MaterialDesignFlatButton}"
-                        Content="AWESOME"/>
-                </StackPanel>
-            </DataTemplate>
-
 
             <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
                 <Setter Property="Source" Value="images/addCard.png"/>
@@ -99,7 +85,8 @@
                         </ListBox.Resources>
 
                         <ListBox.ItemTemplate>
-                            <DataTemplate DataType="domain:DemoItem">
+                            <!--<DataTemplate DataType="domain:DemoItem">-->
+                            <DataTemplate>
                                 <TextBlock Text="{Binding Name}" Margin="32 0 32 0" AutomationProperties.AutomationId="DemoItemPage"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -119,15 +106,15 @@
                         <Image Source="images/logo2k.png" Stretch="Uniform" Margin="6"></Image>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">
-                            此处应有标题栏此处应有标题栏
+                        <!--我这里只是演示怎么复杂绑定，实际项目不要这么玩-->
+                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"
+                               Content="{Binding ElementName=wnd, Path=DataContext.SelectedProject.projectName}">
                         </Label>
                     </Grid>
                     <Grid Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
                             <Button Width="40" BorderThickness="0" Background="Transparent" Foreground="White"
-                                    Style="{DynamicResource SystemButtonStyle}"
-                                    >
+                                    Style="{DynamicResource SystemButtonStyle}">
                                 <Canvas Width="20" Height="20">
                                     <Line Stroke="White" X1="5" Y1="10" X2="15" Y2="10"></Line>
                                 </Canvas>
@@ -247,7 +234,7 @@
                                         <DataTemplate>
                                             <Border Padding="3">
                                                 <WrapPanel>
-                                                    <StackPanel Margin="15">
+                                                    <StackPanel Margin="15" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
                                                         <Image Stretch="Fill" Width="105" Height="80" Style="{DynamicResource ImageStyle}"></Image>
                                                         <TextBlock Margin="0,5,0,0" Text="{Binding timeCreate}"></TextBlock>
                                                         <TextBlock Margin="0,5,0,0" Text="{Binding projectName}"></TextBlock>
