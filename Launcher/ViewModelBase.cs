@@ -6,7 +6,7 @@ namespace Launcher.Domain
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Sets property if it does not equal existing value. Notifies listeners if change occurs.
