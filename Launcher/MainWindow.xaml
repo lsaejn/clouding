@@ -106,7 +106,7 @@
                         <Image Source="images/logo2k.png" Stretch="Uniform" Margin="6"></Image>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <!--我这里只是演示怎么复杂绑定，实际项目不要这么玩-->
+                        <!--只是一个演示-->
                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"
                                Content="{Binding ElementName=wnd, Path=DataContext.SelectedProject.projectName}">
                         </Label>
@@ -214,7 +214,8 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition Width="4*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <local:Tree x:Name="treeView" Grid.Column="0" Margin="0,30,0,0"/>
+                        <local:Tree x:Name="treeView" Grid.Column="0"
+                                     Margin="0,30,0,0"/> <!--fix me-->
 
                         <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
                             <StackPanel>
