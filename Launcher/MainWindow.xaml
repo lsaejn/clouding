@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Launcher"
     xmlns:domain="clr-namespace:Launcher.Domain"
-    
     mc:Ignorable="d"
     WindowStyle="None"
     ResizeMode="NoResize"
@@ -44,8 +43,7 @@
     <!--<Border BorderThickness="1" BorderBrush="{DynamicResource PrimaryBlueBrush}">-->
     <materialDesign:DialogHost
         Identifier="RootDialog"
-        DialogTheme="Inherit"
-        SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+        DialogTheme="Inherit">
 
         <materialDesign:DrawerHost
             IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
@@ -61,7 +59,6 @@
 
                     <TextBox 
                         x:Name="DemoItemsSearchBox"
-                        Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
                         DockPanel.Dock="Top"
                         Margin="16, 4"
                         Width="200"
@@ -72,14 +69,11 @@
                         materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
                         materialDesign:TextFieldAssist.TextFieldCornerRadius="4"/>
 
-                    <ListBox 
-                        x:Name="DemoItemsListBox" 
+                    <ListBox x:Name="LeftDrawerListBox" 
                         Margin="0 16 0 16"
-                        SelectedIndex="{Binding SelectedIndex}"
-                        SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding ShortCutItems}"
                         PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
-                        AutomationProperties.Name="DemoPagesListBox">
+                        AutomationProperties.Name="DemoPagesListBox" >
                         <ListBox.Resources>
                             <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
                         </ListBox.Resources>
