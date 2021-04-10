@@ -17,40 +17,34 @@ using System.Windows.Shapes;
 
 namespace Launcher
 {
-    public class ProjectInfo
-    {
-        public string txt { get; set; }
-        public string timeCreate { get; set; }
-        public string projectName { get; set; }
-    }
-    /// <summary>
-    /// MainWindow.xaml 的交互逻辑
-    /// </summary>
     public partial class MainWindow : Window
     {
-        private /*readonly*/ TreesViewModel _viewModel;
+        
+        //fix me, should not expose
+        private MainWindowViewModel mvm;
         public MainWindow()
         {
             InitializeComponent();
             this.MaxHeight = System.Windows.SystemParameters.WorkArea.Height;
+            //DemoItemsListBox.ItemsSource = ShortCutItems;
 
-            this.InitializeComponent();
-            List<ProjectInfo> pjs = new List<ProjectInfo>() {
-                new ProjectInfo() { txt = "选项1", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项2", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项3", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项4", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项5", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项6", timeCreate="2010-03-02 14:00", projectName="just a test prj"},
-                new ProjectInfo() { txt = "选项7", timeCreate="2010-03-02 14:00", projectName="just a test prj"}
+            List<Project> pjs = new List<Project>() {
+                new Project() { txt = "选项1", timeCreate="2010-03-02 14:00", projectName="just a1 test prj"},
+                new Project() { txt = "选项2", timeCreate="2010-03-02 14:00", projectName="just a2 test prj"},
+                new Project() { txt = "选项3", timeCreate="2010-03-02 14:00", projectName="just a3 test prj"},
+                new Project() { txt = "选项4", timeCreate="2010-03-02 14:00", projectName="just a4 test prj"},
+                new Project() { txt = "选项5", timeCreate="2010-03-02 14:00", projectName="just a5 test prj"},
+                new Project() { txt = "选项6", timeCreate="2010-03-02 14:00", projectName="just a6 test prj"},
+                new Project() { txt = "选项7", timeCreate="2010-03-02 14:00", projectName="just a7 test prj"}
              };
            //var sl= this.scrList;
             this.itemsControl.ItemsSource = pjs;
-
-            _viewModel = new TreesViewModel("");
+            //this.NaviBar.ItemsSource=
             
-            DataContext = _viewModel;
-
+            mvm = new MainWindowViewModel();
+            var tree=this.treeView;
+            mvm.tr = tree;
+            DataContext = mvm;
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -128,8 +122,17 @@ namespace Launcher
         {
             //_viewModel.ProfessionalCategories = null;
             //_viewModel = null;
-            _viewModel = new TreesViewModel("test");
-            DataContext = _viewModel;
+            this.treeView.DataContext= new TreesViewModel(null);
+        }
+
+        private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            //mvm.SelectedProject = ()sender;
+            var panel=(StackPanel)sender;
+            var p=(Project)panel.DataContext;
+            mvm.SelectedProject = p;
+            //mvm.SelectedProject.ProjectName = p.ProjectName;
+            //mvm._selectedProjectString = p.projectName;
         }
     }
 }
