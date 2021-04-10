@@ -74,6 +74,7 @@
       <DependentUpon>Tree.xaml</DependentUpon>
     </Compile>
     <Compile Include="TreeViewModel.cs" />
+    <Compile Include="TreeViewModelConverter.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

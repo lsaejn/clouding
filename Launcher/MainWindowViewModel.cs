@@ -98,7 +98,7 @@ namespace Launcher
 
                 _selectedItem = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
-                tr.DataContext = new TreesViewModel(_selectedItem._cates);
+                //tr.DataContext = new TreesViewModel(_selectedItem._cates);
             }
         }
 

@@ -27,6 +27,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <local:TreeViewModelConverter x:Key="ItemConverter"/>
+
             <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
                 <Setter Property="Source" Value="images/addCard.png"/>
                 <Style.Triggers>
@@ -151,39 +153,42 @@
                                 AutomationProperties.Name="HamburgerToggleButton"/>
 
                         <ListBox x:Name="NaviBar" Height="50" Style="{DynamicResource NaviListBoxStyle}" VerticalAlignment="Center" 
-                                 Background="Transparent" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" 
-                                 SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                 Background="Transparent" SelectedIndex="{Binding SelectedIndex}" 
+                                 SelectedItem="{Binding SelectedItem}"
                                  Margin="120,0,0,0" Padding="0"  ItemsSource="{Binding NaviMenuItems}" BorderThickness="0">
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="{x:Type ListBoxItem}">
-                                        <Setter Property="OverridesDefaultStyle" Value="True" />
-                                        <Setter Property="SnapsToDevicePixels" Value="True" />
-                                        <Setter Property="Foreground" Value="White" />
-                                        <Setter Property="Height" Value="50" />
-                                        <Setter Property="FontSize" Value="14" />
-                                        <Setter Property="Background" Value="Red" />
-                                        <Setter Property="VerticalContentAlignment" Value="Center" />
-                                        <Setter Property="BorderBrush" Value="Red" />
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                    <Border x:Name="border" CornerRadius="0" Margin="0" BorderThickness="0,0,0,4" Padding="0">
-                                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                            Margin="0,0,0,0" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsSelected" Value="True">
-                                                            <!--<Setter Property="Foreground" Value="#FF46679A" />-->
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                                    <Setter Property="Foreground" Value="#FFE2FFFF" />
+                                    <Setter Property="Height" Value="50" />
+                                    <Setter Property="FontSize" Value="14" />
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                <Border x:Name="border" CornerRadius="0" Margin="0" BorderThickness="0,0,0,4" Padding="0">
+                                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                        Margin="0,0,0,0"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
                                                         <Setter TargetName="border" Property="BorderBrush" Value="White" />
                                                     </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                                <ListBox.ItemsPanel>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Foreground" Value="white" />
+                                                        <Setter Property="Background" Value="#FF46679A" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Height="50" Margin="0" VerticalAlignment="Center" Orientation="Horizontal" IsItemsHost="True"/>
                                 </ItemsPanelTemplate>
@@ -197,11 +202,8 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-
                     </DockPanel>
-
                 </materialDesign:ColorZone>
-
                 <Border BorderThickness="1" BorderBrush="{DynamicResource PrimaryBlueBrush}">
                 <Grid>
                         <Grid.ColumnDefinitions>
@@ -209,6 +211,7 @@
                             <ColumnDefinition Width="4*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <local:Tree x:Name="treeView" Grid.Column="0"
+                                    DataContext="{Binding ElementName=NaviBar, Path=SelectedItem, Converter={StaticResource ItemConverter}}"
                                      Margin="0,30,0,0"/> <!--fix me-->
 
                         <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
