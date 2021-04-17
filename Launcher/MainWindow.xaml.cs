@@ -134,5 +134,40 @@ namespace Launcher
             //mvm.SelectedProject.ProjectName = p.ProjectName;
             //mvm._selectedProjectString = p.projectName;
         }
+
+        private void OnShortCut(object sender, MouseButtonEventArgs e)
+        {
+            string skinDictPath = ".\\styles\\Dark.xaml";
+            Uri skinDictUri = new Uri(skinDictPath, UriKind.Relative);
+
+            // Tell the Application to load the skin resources.
+            Launcher.App app = Application.Current as Launcher.App;
+            // Load the ResourceDictionary into memory.
+            ResourceDictionary skinDict =
+              Application.LoadComponent(skinDictUri) as ResourceDictionary;
+
+            //我们加载到windowResourse里
+            Collection<ResourceDictionary> mergedDicts =
+              base.Resources.MergedDictionaries;
+
+            // Remove the existing skin dictionary, if one exists.
+            // NOTE: In a real application, this logic might need
+            // to be more complex, because there might be dictionaries
+            // which should not be removed.
+            if (mergedDicts.Count > 0)
+                mergedDicts.Clear();
+
+            // Apply the selected skin so that all elements in the
+            // application will honor the new look and feel.
+            mergedDicts.Add(skinDict);
+
+            //这里演示加载到app(App.xaml)的MergedDictionaries
+            //Application.Current.Resources.MergedDictionaries.Add(skinDict);
+
+            ResourceDictionary rd = new ResourceDictionary();
+            //pack://application:,,,/Launcher;component/styles/Blue.xaml
+            //rd.Source = new Uri(@"/Launcher;Component/styles/Dark.xaml", UriKind.RelativeOrAbsolute);
+            //this.Resources.MergedDictionaries.Add(rd);
+        }
     }
 }

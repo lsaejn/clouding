@@ -83,7 +83,9 @@
                         <ListBox.ItemTemplate>
                             <!--<DataTemplate DataType="domain:DemoItem">-->
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}" Margin="32 0 32 0" AutomationProperties.AutomationId="DemoItemPage"/>
+                                <TextBlock Text="{Binding Name}" Margin="32 0 32 0" 
+                                           MouseLeftButtonDown="OnShortCut"
+                                           AutomationProperties.AutomationId="DemoItemPage"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -190,7 +192,8 @@
                             </ListBox.ItemContainerStyle>
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel Height="50" Margin="0" VerticalAlignment="Center" Orientation="Horizontal" IsItemsHost="True"/>
+                                    <WrapPanel Height="50" Margin="0" VerticalAlignment="Center" Orientation="Horizontal"
+                                               IsItemsHost="True"/>
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
