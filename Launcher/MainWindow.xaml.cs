@@ -174,15 +174,10 @@ namespace Launcher
         private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
-            {
-                // 向上滚动
                 scrollViewer.LineUp();
-            }
-            if (e.Delta < 0)
-            {
-                // 向下滚动
+            else
                 scrollViewer.LineDown();
-            }
+            if (e.Delta < 0)
         }
     }
 }
