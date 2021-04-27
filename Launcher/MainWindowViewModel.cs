@@ -9,17 +9,21 @@ using System.Threading.Tasks;
 
 namespace Launcher
 {
+    /// <summary>
+    /// 快捷键
+    /// </summary>
     public class ShortCutItem
     {
         public string Name { get; set; }
     }
 
     
-
-
+    /// <summary>
+    /// 工程数据
+    /// </summary>
     public class Project : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public string txt { get; set; }
         public string timeCreate { get; set; }
@@ -29,7 +33,7 @@ namespace Launcher
 
     class MainWindowViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private List<ShortCutItem> _shortCutItems;
         public  List<ShortCutItem> ShortCutItems
@@ -42,15 +46,15 @@ namespace Launcher
             }
         }
 
-        private ObservableCollection<NaviMenuItem>? _naviMenuItems;
-        private NaviMenuItem? _selectedItem;
+        private ObservableCollection<NaviMenuItem> _naviMenuItems;
+        private NaviMenuItem _selectedItem;
         private int _selectedIndex;
 
         private ObservableCollection<Project> _projects;
         private Project _selectedProject;
         private int _selectedProjectIndex;
 
-        public Tree tr;
+        //public Tree tr;
 
         //我还没弄明白怎么动态加载一段xaml，跨窗口的时候，里面有一些坑
         public void ReadNaviMenu(string fileName)
@@ -79,7 +83,7 @@ namespace Launcher
             //SelectedItem = _naviMenuItems[0];
         }
 
-        public ObservableCollection<NaviMenuItem>? NaviMenuItems
+        public ObservableCollection<NaviMenuItem> NaviMenuItems
         {
             get => _naviMenuItems;
             set
@@ -89,12 +93,13 @@ namespace Launcher
             }
         }
 
-        public NaviMenuItem? SelectedItem
+        public NaviMenuItem SelectedItem
         {
             get => _selectedItem;
             set
             {
-                if (value == null || value.Equals(_selectedItem)) return;
+                if (value == null || value.Equals(_selectedItem))
+                    return;
 
                 _selectedItem = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItem)));

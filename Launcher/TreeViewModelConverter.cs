@@ -23,6 +23,7 @@ namespace Launcher
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            //fix me, 
             return "下载" == (string)value;
         }
     }
