@@ -177,7 +177,6 @@ namespace Launcher
                 scrollViewer.LineUp();
             else
                 scrollViewer.LineDown();
-            if (e.Delta < 0)
         }
     }
 }
