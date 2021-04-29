@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/Blue.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Launcher;component/NaviRadioButton.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Launcher;component/NaviListBoxStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Launcher;component/ScrollViewerStyle.xaml"/>
                 <!--<ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/Dark.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

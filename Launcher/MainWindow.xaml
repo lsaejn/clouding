@@ -213,15 +213,16 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition Width="4*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" 
                                       x:Name="scrollViewer"
                                       MouseWheel="ScrollViewer_MouseWheel"
                                       PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
+                                      Template="{DynamicResource MyScrollViewer}"
                                       >
-                            <local:Tree x:Name="treeView" Grid.Column="0" 
+                            <local:Tree x:Name="treeView"  Grid.Column="0"
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                     DataContext="{Binding ElementName=NaviBar, Path=SelectedItem, Converter={StaticResource ItemConverter}}"
-                                     Margin="0,30,0,0"/>
+                                     Margin="0,10,0,0"/>
                             <!--fix me-->
                         </ScrollViewer>
 
