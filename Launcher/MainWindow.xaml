@@ -198,8 +198,8 @@
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock VerticalAlignment="Center" Margin="10,0 10,0"
-                                               Text="{Binding Name}" FontSize="14"></TextBlock>
+                                    <TextBlock VerticalAlignment="Center" Margin="10,0 10,0" Padding="15" 
+                                               Text="{Binding Name}" FontSize="16"></TextBlock>
                                     <!--<RadioButton Height="50" Style="{StaticResource NaviRadioButton}"
                                     Content="{Binding Name}" GroupName="navi"/>-->
                                 </DataTemplate>
