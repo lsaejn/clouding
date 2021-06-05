@@ -118,7 +118,7 @@ namespace Launcher
         {
             //_viewModel.ProfessionalCategories = null;
             //_viewModel = null;
-            this.treeView.DataContext= new TreesViewModel(null);
+            //this.treeView.DataContext= new TreesViewModel(null);
         }
 
         private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
@@ -177,6 +177,14 @@ namespace Launcher
                 scrollViewer.LineUp();
             else
                 scrollViewer.LineDown();
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount != 2)
+            {
+                return;
+            }
         }
     }
 }

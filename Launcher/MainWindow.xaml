@@ -20,7 +20,6 @@
     >
     <!--DataContext="{Binding MainWindowViewModel}"-->
     <Window.Resources>
-        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml"/>
@@ -28,9 +27,33 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+
+            <XmlDataProvider x:Key="xdp" XPath="FileSystem/Folder">
+                <x:XData>
+                    <FileSystem xmlns="">
+                        <Folder Name="Books">
+                            <Folder Name="Programming">
+                                <Folder Name="Windows">
+                                    <Folder Name="WPF"/>
+                                    <Folder Name="MFC"/>
+                                    <Folder Name="Delphi"/>
+                                </Folder>
+                            </Folder>
+                            <Folder Name="Tools">
+                                <Folder Name="Development"/>
+                                <Folder Name="Designment"/>
+                                <Folder Name="Players"/>
+                            </Folder>
+                        </Folder>
+                    </FileSystem>
+                </x:XData>
+            </XmlDataProvider>
+
             <local:TreeViewModelConverter x:Key="ItemConverter"/>
+            
             <XmlDataProvider x:Key="SamplesList"  XPath="/Samples" Source="pack://siteoforigin:,,,/samples_test.xml" />
             <XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories/Category" Source="pack://siteoforigin:,,,/PkpmLauncherMenu.xml" />
+            
             <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
                 <Setter Property="Source" Value="images/addCard.png"/>
                 <Style.Triggers>
@@ -94,7 +117,7 @@
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
 
-            <DockPanel>
+            <DockPanel DataContext="{Binding Source={StaticResource PkpmLauncherMenu} }">
                 <Grid DockPanel.Dock="Top" Background="{DynamicResource PrimaryDarkBlueBrush}" 
               MouseLeftButtonDown="Title_LButtonDown" Height="40">
                     <Grid.ColumnDefinitions>
@@ -155,15 +178,17 @@
                                 IsChecked="False"
                                 Click="MenuToggleButton_OnClick"
                                 AutomationProperties.Name="HamburgerToggleButton"/>
-                        <TextBlock Margin="10,0,0,0"  FontFamily="Calibri" FontWeight="bold"
-                                               Text="{Binding Source={StaticResource SamplesList}, XPath=/Samples/Category[1]/Sample/MyName}">
-                        </TextBlock>
+                        <!--<TextBlock Margin="10,0,0,0"  FontFamily="Calibri" FontWeight="bold"
+                                               Text="{Binding Source={StaticResource PkpmLauncherMenu}, 
+                            XPath=@Name}">
+                        </TextBlock>-->
 
 
                         <ListBox x:Name="NaviBar" Height="50" Style="{DynamicResource NaviListBoxStyle}" VerticalAlignment="Center" 
-                                 Background="Transparent" SelectedIndex="{Binding SelectedIndex}" 
-                                 DataContext="{Binding Source={StaticResource PkpmLauncherMenu} }"
+                                 Background="Transparent" SelectedIndex="0"
+                                 
                                  ItemsSource="{Binding}"
+                                 IsSynchronizedWithCurrentItem="True"
                                  Margin="120,0,0,0" Padding="0"  
                                  BorderThickness="0">
                             <ListBox.ItemContainerStyle>
@@ -217,27 +242,54 @@
                     </DockPanel>
                 </materialDesign:ColorZone>
                 <Border BorderThickness="1" BorderBrush="{DynamicResource PrimaryBlueBrush}">
-                <Grid>
+                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                        <ScrollViewer MinWidth="220" Grid.Column="0"  VerticalScrollBarVisibility="Auto" 
                                       x:Name="scrollViewer"
                                       MouseWheel="ScrollViewer_MouseWheel"
                                       PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
-                                      Template="{DynamicResource MyScrollViewer}"
+                                      Template="{DynamicResource MyScrollViewer}"  
                                       >
-                            <local:Tree x:Name="treeView"  Grid.Column="0"
-                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                    DataContext="{Binding ElementName=NaviBar, Path=SelectedItem, Converter={StaticResource ItemConverter}}"
-                                     Margin="0,10,0,0"/>
-                            <!--fix me-->
+                            <!--<TreeView Grid.Column="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                      Margin="0,10,0,0" MinWidth="220" 
+                                      ItemsSource="{Binding XPath=SubMenu}"
+                                      >
+                                <TreeViewItem></TreeViewItem>
+                                --><!--<TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding XPath=SubMenu}">
+                                        <TextBlock Text="{Binding XPath=@Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>-->
+
+                                <!--<TreeView.Resources>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding XPath=SubMenu}">
+                                        <TextBlock Text="{Binding Name}" Margin="3 2"/>
+                                    </HierarchicalDataTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding XPath=Selection}" Margin="3 2" ToolTip="{Binding ImageSrc}"/>
+                                    </DataTemplate>
+                                </TreeView.Resources>--><!--
+                            </TreeView>-->
+                            <TreeView ItemsSource="{Binding XPath=SubMenu}" Margin="0,10,0,0"
+                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                      >
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding XPath=SubMenu}">
+                                        <TextBlock Text="{Binding XPath=@Name}" 
+                                                   Tag="{Binding XPath=Path}"
+                                                   MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+
                         </ScrollViewer>
 
 
-                        <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
-                            <StackPanel>
+                        <ScrollViewer Grid.Column="1"  x:Name="scrList" VerticalScrollBarVisibility="Auto"  >
+                            <StackPanel >
                                 <StackPanel Orientation="Horizontal">
                                     <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="0"
                                             Click="Button_Click_1">新建</Button>
@@ -266,7 +318,7 @@
                                 </ItemsControl>
                             </StackPanel>
                         </ScrollViewer>
-                </Grid>
+                    </Grid>
                 </Border>
             </DockPanel>
         </materialDesign:DrawerHost>
