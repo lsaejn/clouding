@@ -29,7 +29,8 @@
             </ResourceDictionary.MergedDictionaries>
 
             <local:TreeViewModelConverter x:Key="ItemConverter"/>
-            <XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories" Source="pack://siteoforigin:,,,/PkpmLauncherMenu.xml" />
+            <XmlDataProvider x:Key="SamplesList"  XPath="/Samples" Source="pack://siteoforigin:,,,/samples_test.xml" />
+            <XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories/Category" Source="pack://siteoforigin:,,,/PkpmLauncherMenu.xml" />
             <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
                 <Setter Property="Source" Value="images/addCard.png"/>
                 <Style.Triggers>
@@ -154,12 +155,17 @@
                                 IsChecked="False"
                                 Click="MenuToggleButton_OnClick"
                                 AutomationProperties.Name="HamburgerToggleButton"/>
+                        <TextBlock Margin="10,0,0,0"  FontFamily="Calibri" FontWeight="bold"
+                                               Text="{Binding Source={StaticResource SamplesList}, XPath=/Samples/Category[1]/Sample/MyName}">
+                        </TextBlock>
+
 
                         <ListBox x:Name="NaviBar" Height="50" Style="{DynamicResource NaviListBoxStyle}" VerticalAlignment="Center" 
                                  Background="Transparent" SelectedIndex="{Binding SelectedIndex}" 
-                                 SelectedItem="{Binding SelectedItem}"
+                                 DataContext="{Binding Source={StaticResource PkpmLauncherMenu} }"
+                                 ItemsSource="{Binding}"
                                  Margin="120,0,0,0" Padding="0"  
-                                 ItemsSource="{Binding NaviMenuItems}" BorderThickness="0">
+                                 BorderThickness="0">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}">
                                     <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -201,7 +207,8 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock VerticalAlignment="Center" Margin="10,0 10,0"
-                                               Text="{Binding Name}" FontSize="14"></TextBlock>
+                                               Text="{Binding XPath=@Name}" 
+                                               FontSize="14"></TextBlock>
                                     <!--<RadioButton Height="50" Style="{StaticResource NaviRadioButton}"
                                     Content="{Binding Name}" GroupName="navi"/>-->
                                 </DataTemplate>
