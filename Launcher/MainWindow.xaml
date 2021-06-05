@@ -20,6 +20,7 @@
     >
     <!--DataContext="{Binding MainWindowViewModel}"-->
     <Window.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml"/>
@@ -28,7 +29,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <local:TreeViewModelConverter x:Key="ItemConverter"/>
-
+            <XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories" Source="pack://siteoforigin:,,,/PkpmLauncherMenu.xml" />
             <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
                 <Setter Property="Source" Value="images/addCard.png"/>
                 <Style.Triggers>
@@ -157,7 +158,8 @@
                         <ListBox x:Name="NaviBar" Height="50" Style="{DynamicResource NaviListBoxStyle}" VerticalAlignment="Center" 
                                  Background="Transparent" SelectedIndex="{Binding SelectedIndex}" 
                                  SelectedItem="{Binding SelectedItem}"
-                                 Margin="120,0,0,0" Padding="0"  ItemsSource="{Binding NaviMenuItems}" BorderThickness="0">
+                                 Margin="120,0,0,0" Padding="0"  
+                                 ItemsSource="{Binding NaviMenuItems}" BorderThickness="0">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}">
                                     <Setter Property="OverridesDefaultStyle" Value="True" />
