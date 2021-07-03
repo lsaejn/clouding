@@ -213,9 +213,18 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition Width="4*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <local:Tree x:Name="treeView" Grid.Column="0"
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      x:Name="scrollViewer"
+                                      MouseWheel="ScrollViewer_MouseWheel"
+                                      PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
+                                      >
+                            <local:Tree x:Name="treeView" Grid.Column="0" 
+                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                     DataContext="{Binding ElementName=NaviBar, Path=SelectedItem, Converter={StaticResource ItemConverter}}"
-                                     Margin="0,30,0,0"/> <!--fix me-->
+                                     Margin="0,30,0,0"/>
+                            <!--fix me-->
+                        </ScrollViewer>
+
 
                         <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
                             <StackPanel>

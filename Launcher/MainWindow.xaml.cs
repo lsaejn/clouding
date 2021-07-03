@@ -40,11 +40,7 @@ namespace Launcher
            //var sl= this.scrList;
             this.itemsControl.ItemsSource = pjs;
             //this.NaviBar.ItemsSource=
-            
-            mvm = new MainWindowViewModel();
-            var tree=this.treeView;
-            mvm.tr = tree;
-            DataContext = mvm;
+            DataContext = new MainWindowViewModel();
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -168,6 +164,19 @@ namespace Launcher
             //pack://application:,,,/Launcher;component/styles/Blue.xaml
             //rd.Source = new Uri(@"/Launcher;Component/styles/Dark.xaml", UriKind.RelativeOrAbsolute);
             //this.Resources.MergedDictionaries.Add(rd);
+        }
+
+        private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+
+        }
+
+        private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                scrollViewer.LineUp();
+            else
+                scrollViewer.LineDown();
         }
     }
 }
