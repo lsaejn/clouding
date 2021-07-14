@@ -276,10 +276,12 @@
                                             Click="Button_Click_1" Margin="20,10,0,0" Width="80">打开</Button>
                                     <Label VerticalAlignment="Center" Margin="20,10,0,0">授权码即将期</Label>
                                 </StackPanel>
-
-                                <ItemsControl  x:Name="ProjectItemsControl"  Background="white" Margin="0,20,0,0" 
-                                               DataContext="{Binding Source={StaticResource WorkPathList}}"
-                                               ItemsSource="{Binding}">
+                                
+                                <!--工程列表-->
+                                <ListBox x:Name="ProjectItemsControl"  Background="white" Margin="0,20,0,0"
+                                         DataContext="{Binding Source={StaticResource WorkPathList}}"
+                                         ItemsSource="{Binding}" 
+                                         Style="{DynamicResource WorkPathListBoxStyle}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal"/>
@@ -298,7 +300,36 @@
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <!-- 设置控件模板 -->
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                 TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+
+                                            <!-- 设置触发器 -->
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="true">
+                                                    <Setter Property="Background" Value="LightPink"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="Background" Value="LightGreen"/>
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                                
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
