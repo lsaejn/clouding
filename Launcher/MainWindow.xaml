@@ -27,7 +27,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-
             <XmlDataProvider x:Key="xdp" XPath="FileSystem/Folder">
                 <x:XData>
                     <FileSystem xmlns="">
@@ -52,7 +51,8 @@
             <local:TreeViewModelConverter x:Key="ItemConverter"/>
             
             <XmlDataProvider x:Key="SamplesList"  XPath="/Samples" Source="pack://siteoforigin:,,,/samples_test.xml" />
-            <XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories/Category" Source="pack://siteoforigin:,,,/PkpmLauncherMenu.xml" />
+            <!--<XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories/Category" Source="pack://siteoforigin:,,,/PkpmLauncherMenu.xml" />-->
+            <XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories/Category" Source="CFG\PKPMAPPMENU\PkpmLauncherMenu.xml" />
             
             <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
                 <Setter Property="Source" Value="images/addCard.png"/>
@@ -119,7 +119,7 @@
 
             <DockPanel DataContext="{Binding Source={StaticResource PkpmLauncherMenu} }">
                 <Grid DockPanel.Dock="Top" Background="{DynamicResource PrimaryDarkBlueBrush}" 
-              MouseLeftButtonDown="Title_LButtonDown" Height="40">
+                    MouseLeftButtonDown="Title_LButtonDown" Height="40">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -129,7 +129,7 @@
                         <Image Source="images/logo2k.png" Stretch="Uniform" Margin="6"></Image>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <!--只是一个演示-->
+                        <!--只是一个演示, Label应绑定到工程listbox-->
                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"
                                Content="{Binding ElementName=wnd, Path=DataContext.SelectedProject.projectName}">
                         </Label>

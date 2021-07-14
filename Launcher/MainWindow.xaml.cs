@@ -181,6 +181,7 @@ namespace Launcher
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            //DataContext.
             if (e.ClickCount != 2)
             {
                 return;
