@@ -27,32 +27,12 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <XmlDataProvider x:Key="xdp" XPath="FileSystem/Folder">
-                <x:XData>
-                    <FileSystem xmlns="">
-                        <Folder Name="Books">
-                            <Folder Name="Programming">
-                                <Folder Name="Windows">
-                                    <Folder Name="WPF"/>
-                                    <Folder Name="MFC"/>
-                                    <Folder Name="Delphi"/>
-                                </Folder>
-                            </Folder>
-                            <Folder Name="Tools">
-                                <Folder Name="Development"/>
-                                <Folder Name="Designment"/>
-                                <Folder Name="Players"/>
-                            </Folder>
-                        </Folder>
-                    </FileSystem>
-                </x:XData>
-            </XmlDataProvider>
-
             <local:TreeViewModelConverter x:Key="ItemConverter"/>
             
             <XmlDataProvider x:Key="SamplesList"  XPath="/Samples" Source="pack://siteoforigin:,,,/samples_test.xml" />
             <!--<XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories/Category" Source="pack://siteoforigin:,,,/PkpmLauncherMenu.xml" />-->
             <XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories/Category" Source="CFG\PKPMAPPMENU\PkpmLauncherMenu.xml" />
+            <XmlDataProvider x:Key="WorkPathList"  XPath="/WorkPaths/WorkPath" Source="CFG\PKPMAPPMENU\Pkpm.xml" />
             
             <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
                 <Setter Property="Source" Value="images/addCard.png"/>
@@ -128,10 +108,10 @@
                     <Grid Grid.Column="0" Margin="0">
                         <Image Source="images/logo2k.png" Stretch="Uniform" Margin="6"></Image>
                     </Grid>
-                    <Grid Grid.Column="1">
+                    <Grid Grid.Column="1" DataContext="{Binding Source={StaticResource WorkPathList} }">
                         <!--只是一个演示, Label应绑定到工程listbox-->
                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"
-                               Content="{Binding ElementName=wnd, Path=DataContext.SelectedProject.projectName}">
+                               Content="{Binding XPath=FullPath}">
                         </Label>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -184,7 +164,8 @@
                         </TextBlock>-->
 
 
-                        <ListBox x:Name="NaviBar" Height="50" Style="{DynamicResource NaviListBoxStyle}" VerticalAlignment="Center" 
+                        <ListBox x:Name="NaviBar" Height="50" Style="{DynamicResource NaviListBoxStyle}"
+                                 VerticalAlignment="Center" 
                                  Background="Transparent" SelectedIndex="0"
                                  ScrollViewer.VerticalScrollBarVisibility ="Disabled"
                                 ScrollViewer.HorizontalScrollBarVisibility ="Disabled"
@@ -274,9 +255,8 @@
                                     </DataTemplate>
                                 </TreeView.Resources>--><!--
                             </TreeView>-->
-                            <TreeView ItemsSource="{Binding XPath=SubMenu}" Margin="0,10,0,0"
-                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                      >
+                            <TreeView Name="menuTree" ItemsSource="{Binding XPath=SubMenu}" Margin="0,10,0,0"
+                                      ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <TreeView.ItemTemplate>
                                     <HierarchicalDataTemplate ItemsSource="{Binding XPath=SubMenu}">
                                         <TextBlock Text="{Binding XPath=@Name}" 
@@ -285,9 +265,7 @@
                                     </HierarchicalDataTemplate>
                                 </TreeView.ItemTemplate>
                             </TreeView>
-
                         </ScrollViewer>
-
 
                         <ScrollViewer Grid.Column="1"  x:Name="scrList" VerticalScrollBarVisibility="Auto"  >
                             <StackPanel>
@@ -299,7 +277,9 @@
                                     <Label VerticalAlignment="Center" Margin="20,10,0,0">授权码即将期</Label>
                                 </StackPanel>
 
-                                <ItemsControl  x:Name="itemsControl"  Background="white" Margin="0,20,0,0">
+                                <ItemsControl  x:Name="ProjectItemsControl"  Background="white" Margin="0,20,0,0" 
+                                               DataContext="{Binding Source={StaticResource WorkPathList}}"
+                                               ItemsSource="{Binding}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal"/>
@@ -311,8 +291,8 @@
                                                 <WrapPanel>
                                                     <StackPanel Margin="15" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
                                                         <Image Stretch="Fill" Width="105" Height="80" Style="{DynamicResource ImageStyle}"></Image>
-                                                        <TextBlock Margin="0,5,0,0" Text="{Binding timeCreate}"></TextBlock>
-                                                        <TextBlock Margin="0,5,0,0" Text="{Binding projectName}"></TextBlock>
+                                                        <TextBlock Margin="0,5,0,0" Text="{Binding XPath=ProjectName}"></TextBlock>
+                                                        <TextBlock Margin="0,5,0,0" Text="{Binding XPath=CreationTime}"></TextBlock>
                                                     </StackPanel>
                                                 </WrapPanel>
                                             </Border>
