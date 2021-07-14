@@ -186,7 +186,8 @@
 
                         <ListBox x:Name="NaviBar" Height="50" Style="{DynamicResource NaviListBoxStyle}" VerticalAlignment="Center" 
                                  Background="Transparent" SelectedIndex="0"
-                                 
+                                 ScrollViewer.VerticalScrollBarVisibility ="Disabled"
+                                ScrollViewer.HorizontalScrollBarVisibility ="Disabled"
                                  ItemsSource="{Binding}"
                                  IsSynchronizedWithCurrentItem="True"
                                  Margin="120,0,0,0" Padding="0"  
@@ -289,11 +290,13 @@
 
 
                         <ScrollViewer Grid.Column="1"  x:Name="scrList" VerticalScrollBarVisibility="Auto"  >
-                            <StackPanel >
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="0"
-                                            Click="Button_Click_1">新建</Button>
-                                    <Label VerticalAlignment="Center" Margin="20,0,0,0">授权码即将期</Label>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="1"
+                                            Click="Button_Click_1" Margin="20,10,0,0" Width="80">新建</Button>
+                                    <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="1"
+                                            Click="Button_Click_1" Margin="20,10,0,0" Width="80">打开</Button>
+                                    <Label VerticalAlignment="Center" Margin="20,10,0,0">授权码即将期</Label>
                                 </StackPanel>
 
                                 <ItemsControl  x:Name="itemsControl"  Background="white" Margin="0,20,0,0">
