@@ -278,7 +278,7 @@
                                 </StackPanel>
                                 
                                 <!--工程列表-->
-                                <ListBox x:Name="ProjectItemsControl"  Background="white" Margin="0,20,0,0"
+                                <ListBox x:Name="ProjectItemsControl"  Background="Transparent" Margin="0,20,0,0"
                                          DataContext="{Binding Source={StaticResource WorkPathList}}"
                                          ItemsSource="{Binding}" 
                                          Style="{DynamicResource WorkPathListBoxStyle}">
@@ -290,9 +290,14 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Padding="3">
+                                                <!--fix me drop WrapPanel-->
                                                 <WrapPanel>
-                                                    <StackPanel Margin="15" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
-                                                        <Image Stretch="Fill" Width="105" Height="80" Style="{DynamicResource ImageStyle}"></Image>
+                                                    <StackPanel Margin="10,10,5,10" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
+                                                        <RadioButton Style="{StaticResource myRadioButton}"
+                                                                IsChecked="{Binding RelativeSource=
+                                                            {RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, Path=IsSelected}">
+                                                            <Image Stretch="Fill" Width="105" Height="80" Style="{StaticResource ImageStyle}"></Image>
+                                                        </RadioButton>
                                                         <TextBlock Margin="0,5,0,0" Text="{Binding XPath=ProjectName}"></TextBlock>
                                                         <TextBlock Margin="0,5,0,0" Text="{Binding XPath=CreationTime}"></TextBlock>
                                                     </StackPanel>
@@ -302,30 +307,25 @@
                                     </ItemsControl.ItemTemplate>
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem">
-                                            <!-- 设置控件模板 -->
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="ListBoxItem">
                                                         <Border Background="{TemplateBinding Background}">
                                                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                 TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                 TextBlock.Foreground="{TemplateBinding Foreground}"/>
                                                         </Border>
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-
-                                            <!-- 设置触发器 -->
-                                            <Style.Triggers>
+                                            <!--<Style.Triggers>
                                                 <Trigger Property="IsSelected" Value="true">
-                                                    <Setter Property="Background" Value="LightPink"/>
-                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="Background" Value="Orange"/>
                                                 </Trigger>
                                                 <Trigger Property="IsMouseOver" Value="true">
                                                     <Setter Property="Background" Value="LightGreen"/>
-                                                    <Setter Property="Foreground" Value="Red"/>
                                                 </Trigger>
-                                            </Style.Triggers>
+                                            </Style.Triggers>-->
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                 </ListBox>

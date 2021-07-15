@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/NaviListBoxStyle.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/ScrollViewerStyle.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/WorkPathListBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/WorkPathButton.xaml"/>
                 <!--<ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/Dark.xaml"/>--> 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
