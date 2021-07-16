@@ -318,14 +318,6 @@
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
-                                            <!--<Style.Triggers>
-                                                <Trigger Property="IsSelected" Value="true">
-                                                    <Setter Property="Background" Value="Orange"/>
-                                                </Trigger>
-                                                <Trigger Property="IsMouseOver" Value="true">
-                                                    <Setter Property="Background" Value="LightGreen"/>
-                                                </Trigger>
-                                            </Style.Triggers>-->
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                 </ListBox>

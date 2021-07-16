@@ -73,7 +73,7 @@
         <Setter Property="Width" Value="Auto"/>
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="#9F707070"/>
+        <Setter Property="BorderBrush" Value="#55707070"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Margin" Value="1"/>
