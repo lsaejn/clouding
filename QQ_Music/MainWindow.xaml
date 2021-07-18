@@ -4,19 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QQ_Music"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize"
+        MouseLeftButtonDown="WindowLeftButtonDown"
         Title="MainWindow" Height="690" Width="1020">
     <Window.Resources>
         <local:Music x:Key="defaultMusic" Name="谢谢你的爱" Artist="谢霆锋"></local:Music>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="260"></ColumnDefinition>
+            <ColumnDefinition Width="210"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
-        <Grid x:Name="LeftBoard" Grid.Column="0" Background="AliceBlue">
+        <Grid x:Name="LeftBoard" Grid.Column="0" Background="#F0F0F0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -24,22 +26,23 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>QQ音乐</TextBlock>
-                </StackPanel>
-            </Label>
-            <StackPanel Grid.Row="1">
-                <Label Margin="20, 0, 0, 0">在线音乐</Label>
-                <ListBox Margin="20, 0, 0, 0" Background="Transparent" BorderThickness="0">
-                    <Button BorderThickness="0">
-                        <Button.Content>
-                            <TextBlock>hello</TextBlock>
-                        </Button.Content>
-                    </Button>
-                    <Button>视频</Button>
-                    <Button>电台</Button>
-                </ListBox>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,0,0">
+                <Image Source="/images/logo.ico" Height="24" Margin="0,0,0,0"></Image>
+                <TextBlock FontSize="17"  FontFamily="微软雅黑">QQ音乐</TextBlock>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" HorizontalAlignment="Left" Margin="20, 0, 0, 0">
+                <TextBlock Foreground="#808080" Margin="20, 10, 0, 10">在线音乐</TextBlock>
+                <RadioButton>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <Image Source="/images/logo.ico" Height="20" Margin="20, 0, 10, 0"></Image>
+                        <TextBlock>音乐馆</TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton>视频</RadioButton>
+                <RadioButton>电台</RadioButton>
+
             </StackPanel>
 
             <StackPanel Grid.Row="2">
@@ -69,8 +72,62 @@
                     <ColumnDefinition Width="400"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Label>left</Label>
-                    <Label>right</Label>
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent"></Setter>
+                            <Setter Property="BorderThickness" Value="0"></Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button Template="{DynamicResource ImageButton}" x:Name="leftButton" Height="14" Margin="20, 0, 10, 0">
+                        <svgc:SvgViewbox IsHitTestVisible="True" ToolTip="hello">
+                            <svgc:SvgViewbox.Style>
+                                <Style TargetType="svgc:SvgViewbox">
+                                    <Style.Setters>
+                                        <Setter Property="Source" Value="pack://application:,,,/images/leftArrow.svg"/>
+                                    </Style.Setters>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Source" Value="pack://application:,,,/images/leftArrowDisable.svg"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Source" Value="pack://application:,,,/images/leftArrowGreen.svg"/>
+                                        </Trigger>
+                                        <!--<DataTrigger Binding="{Binding ElementName=RightButton ,Path=IsMouseOver}" Value="true">
+                                            <Setter Property="Source" Value="pack://application:,,,/images/leftArrowGreen.svg"/>
+                                        </DataTrigger>-->
+                                    </Style.Triggers>
+                                </Style>
+                            </svgc:SvgViewbox.Style>
+                        </svgc:SvgViewbox>
+                    </Button>
+                    <Button x:Name="RightButton" IsEnabled="False" Template="{DynamicResource ImageButton}" Height="14" Margin="20, 0, 10, 0">
+                        <svgc:SvgViewbox IsHitTestVisible="True" ToolTip="hello">
+                            <svgc:SvgViewbox.Style>
+                                <Style TargetType="svgc:SvgViewbox">
+                                    <Style.Setters>
+                                        <Setter Property="Source" Value="pack://application:,,,/images/leftArrow.svg"/>
+                                    </Style.Setters>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Source" Value="pack://application:,,,/images/leftArrowDisable.svg"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Source" Value="pack://application:,,,/images/leftArrowGreen.svg"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </svgc:SvgViewbox.Style>
+                        </svgc:SvgViewbox>
+                    </Button>
+                    <!--<TextBlock Text="{Binding ElementName=leftButton, Path=IsMouseOver}"></TextBlock>-->
                 </StackPanel>
                 <Button Grid.Column="1" Background="Gray" VerticalAlignment="Center" MinWidth="100" HorizontalContentAlignment="Left" Padding="2">
                     <Button.Template >

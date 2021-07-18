@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:QQ_Music"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/QQ_Music;component/styles/LeftBoardRadioButton.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/QQ_Music;component/styles/ImageButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

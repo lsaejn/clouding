@@ -61,5 +61,15 @@ namespace QQ_Music
             var m=FindResource("defaultMusic") as Music;
             MessageBox.Show(m.Name + "  " + m.Artist.Name);
         }
+
+        private void WindowLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Point pp = Mouse.GetPosition(e.Source as FrameworkElement);
+                if (pp.Y < 75)
+                    DragMove();
+            }
+        }
     }
 }

@@ -6,4 +6,26 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="images\leftArrow.svg" />
+    <None Remove="images\leftArrowDisable.svg" />
+    <None Remove="images\leftArrowGreen.svg" />
+    <None Remove="images\logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpVectors" Version="1.7.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\leftArrow.svg" />
+    <Resource Include="images\leftArrowDisable.svg" />
+    <Resource Include="images\leftArrowGreen.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\logo.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>
