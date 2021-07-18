@@ -1,0 +1,575 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Categories>
+  <Category Name="结构" Visibility="true">
+    <SubMenu Name="SATWE核心的集成设计">
+      <SubMenu Name="结构建模">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMCAD</Param>
+      </SubMenu>
+      <SubMenu Name="SATWE分析设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -ANA</Param>
+      </SubMenu>
+      <SubMenu Name="SATWE结果查看">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -ANAPOST</Param>
+      </SubMenu>
+      <SubMenu Name="基础设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -JC</Param>
+      </SubMenu>
+      <SubMenu Name="复杂楼板设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -SLAB</Param>
+      </SubMenu>
+      <SubMenu Name="弹塑性时程分析">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -EPDA</Param>
+      </SubMenu>
+      <SubMenu Name="静力推覆分析">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PUSH</Param>
+      </SubMenu>
+      <SubMenu Name="砼结构施工图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -DRAWING</Param>
+      </SubMenu>
+      <SubMenu Name="砼施工图审查">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -DRAWING_CHECK</Param>
+      </SubMenu>
+      <SubMenu Name="结构工程量统计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STATS</Param>
+      </SubMenu>
+      <SubMenu Name="钢结构施工图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STS</Param>
+      </SubMenu>
+      <SubMenu Name="楼梯设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -LTCAD</Param>
+      </SubMenu>
+      <SubMenu Name="工具集">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -TOOLS</Param>
+      </SubMenu>
+      <SubMenu Name="SAUSAGE">
+        <Path>Sausage.exe</Path>
+        <Param> VER=ZY</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="PMSAP核心的集成设计">
+      <SubMenu Name="结构建模">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMSAP -PMSAP</Param>
+      </SubMenu>
+      <SubMenu Name="PMSAP分析设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMSAPANA -PMSAP</Param>
+      </SubMenu>
+      <SubMenu Name="PMSAP结果查看">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMSAPPOST -PMSAP</Param>
+      </SubMenu>
+      <SubMenu Name="基础设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -JC -PMSAP</Param>
+      </SubMenu>
+      <SubMenu Name="弹塑性时程分析">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -EPDA -PMSAP</Param>
+      </SubMenu>
+      <SubMenu Name="静力推覆分析">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PUSH -PMSAP</Param>
+      </SubMenu>
+      <SubMenu Name="砼结构施工图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -DRAWING -PMSAP</Param>
+      </SubMenu>
+      <SubMenu Name="结构工程量统计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STATS -PMSAP</Param>
+      </SubMenu>
+      <SubMenu Name="钢结构施工图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STS -PMSAP</Param>
+      </SubMenu>
+      <SubMenu Name="工具集">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -TOOLS -PMSAP</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="Spas+PMSAP的集成设计">
+      <SubMenu Name="空间建模与PMSAP分析">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -SPAS -SPAS</Param>
+      </SubMenu>
+      <SubMenu Name="PMSAP结果查看">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMSAPPOST -SPAS</Param>
+      </SubMenu>
+      <SubMenu Name="基础设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -JC -SPAS</Param>
+      </SubMenu>
+      <SubMenu Name="弹塑性时程分析">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -EPDA -SPAS</Param>
+      </SubMenu>
+      <SubMenu Name="静力推覆分析">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PUSH -SPAS</Param>
+      </SubMenu>
+      <SubMenu Name="砼结构施工图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -DRAWING -SPAS</Param>
+      </SubMenu>
+      <SubMenu Name="结构工程量统计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STATS -SPAS</Param>
+      </SubMenu>
+      <SubMenu Name="钢结构施工图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STS -SPAS</Param>
+      </SubMenu>
+      <SubMenu Name="工具集">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -TOOLS -SPAS</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="PK二维设计">
+      <SubMenu Name="PK二维设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PK</Param>
+      </SubMenu>
+      <SubMenu Name="PMCAD形成PK文件">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMCADTOPK -CONPK</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="数据转换接口">
+      <SubMenu Name="PDB">
+        <Path>P-TRANS\\Convdata.exe</Path>
+        <Param> -PDB -SELECT</Param>
+      </SubMenu>
+      <SubMenu Name="ETABS">
+        <Path>P-TRANS\\Convdata.exe</Path>
+        <Param> -ETABS -SELECT</Param>
+      </SubMenu>
+      <SubMenu Name="SAP2000">
+        <Path>P-TRANS\\Convdata.exe</Path>
+        <Param> -SAP2000 -SELECT</Param>
+      </SubMenu>
+      <SubMenu Name="Midas Gen">
+        <Path>P-TRANS\\Convdata.exe</Path>
+        <Param> -MIDAS -SELECT</Param>
+      </SubMenu>
+      <SubMenu Name="Staad Pro">
+        <Path>P-TRANS\\Convdata.exe</Path>
+        <Param> -STAAD -SELECT</Param>
+      </SubMenu>
+      <SubMenu Name="PDMS">
+        <Path>P-TRANS\\Convdata.exe</Path>
+        <Param> -PDMS -SELECT</Param>
+      </SubMenu>
+      <SubMenu Name="YJK">
+        <Path>P-TRANS\\Convdata.exe</Path>
+        <Param> -YJK -SELECT</Param>
+      </SubMenu>
+      <SubMenu Name="Revit">
+        <Path>P-TRANS\\PMTrans.exe</Path>
+        <Param> 1</Param>
+      </SubMenu>
+      <SubMenu Name="Intergraph PPM">
+        <Path>P-TRANS\\Convdata.exe</Path>
+        <Param> -INTERGRAPH -SELECT</Param>
+      </SubMenu>
+      <SubMenu Name="Sqlite">
+        <Path>P-TRANS\\Convdata.exe</Path>
+        <Param> -JWD -SELECT</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="TCAD、拼图和工具">
+      <SubMenu Name="图形编辑与打印 TCAD">
+        <Path>Modifyw.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+      <SubMenu Name="DWG拼图">
+        <Path>T-Dwg.exe</Path>
+        <Param> "Merge"</Param>
+      </SubMenu>
+      <SubMenu Name="复杂任意截面编辑器">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -USECT</Param>
+      </SubMenu>
+    </SubMenu>
+  </Category>
+  <Category Name="减隔震" Visibility="true">
+    <SubMenu Name="隔震设计">
+      <SubMenu Name="结构建模">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMCAD -GZ</Param>
+      </SubMenu>
+      <SubMenu Name="分析设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -ANA -GZ</Param>
+      </SubMenu>
+      <SubMenu Name="结果查看">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -ANAPOST -GZ</Param>
+      </SubMenu>
+      <SubMenu Name="基础设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -JC</Param>
+      </SubMenu>
+      <SubMenu Name="弹塑性时程分析">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -EPDA</Param>
+      </SubMenu>
+      <SubMenu Name="静力推覆分析">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PUSH</Param>
+      </SubMenu>
+      <SubMenu Name="砼结构施工图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -DRAWING</Param>
+      </SubMenu>
+      <SubMenu Name="工具集">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -TOOLS</Param>
+      </SubMenu>
+    </SubMenu>
+  </Category>
+  <Category Name="施工图审查" Visibility="true">
+    <SubMenu Name="砼施工图审查">
+      <SubMenu Name="砼施工图审查">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -DRAWING_CHECK</Param>
+      </SubMenu>
+    </SubMenu>
+  </Category>
+  <Category Name="鉴定加固" Visibility="true">
+    <SubMenu Name="砌体及底框结构鉴定加固">
+      <SubMenu Name="结构建模">
+        <Path>PKPMMain.exe</Path>
+        <Param> -PMCAD -QITI_JDJG</Param>
+      </SubMenu>
+      <SubMenu Name="砌体鉴定加固与计算">
+        <Path>PKPMMain.exe</Path>
+        <Param> -QITI_JDJG -QITI_JDJG</Param>
+      </SubMenu>
+      <SubMenu Name="结果查看">
+        <Path>PKPMMain.exe</Path>
+        <Param> -QITI_JDJG_POST -QITI_JDJG</Param>
+      </SubMenu>
+      <SubMenu Name="加固平面布置图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -JDJGCONDRAW -QITI_JDJG</Param>
+      </SubMenu>
+      <SubMenu Name="工具集">
+        <Path>PKPMMain.exe</Path>
+        <Param> -TOOLS -QITI_JDJG</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="混凝土结构鉴定加固">
+      <SubMenu Name="结构建模">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMCAD -CON_JDJG</Param>
+      </SubMenu>
+      <SubMenu Name="SATWE分析设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -ANA -CON_JDJG</Param>
+      </SubMenu>
+      <SubMenu Name="楼板加固">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -SLAB_JG -CON_JDJG</Param>
+      </SubMenu>
+      <SubMenu Name="加固平面布置图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -JDJGCONDRAW -CON_JDJG</Param>
+      </SubMenu>
+      <SubMenu Name="工具集">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -TOOLS -CON_JDJG</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="钢结构鉴定加固">
+      <SubMenu Name="二维钢结构加固设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STJG</Param>
+      </SubMenu>
+      <SubMenu Name="柱构件鉴定加固设计">
+        <Path>GjDesign.exe</Path>
+        <Param> -JGZHU</Param>
+      </SubMenu>
+      <SubMenu Name="梁构件鉴定加固设计">
+        <Path>GjDesign.exe</Path>
+        <Param> -JGLIANG</Param>
+      </SubMenu>
+      <SubMenu Name="图形编辑、打印及转换">
+        <Path>Modifyw.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+    </SubMenu>
+  </Category>
+  <Category Name="预应力" Visibility="true">
+    <SubMenu Name="预应力砼结构二维设计">
+      <SubMenu Name="预应力二维设计">
+        <Path>PKPMMain.exe</Path>
+        <Param> -PREC2D -PREC2D</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="预应力砼结构三维设计">
+      <SubMenu Name="结构建模">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMCAD -PREC3D</Param>
+      </SubMenu>
+      <SubMenu Name="预应力三维设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PREC3D -PREC3D</Param>
+      </SubMenu>
+      <SubMenu Name="预应力结果查看">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PREC3D_PRECPOST -PREC3D</Param>
+      </SubMenu>
+      <SubMenu Name="非预应力结果查看">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PREC3D_ANAPOST -PREC3D</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="预应力工具箱">
+      <SubMenu Name="预应力工具箱">
+        <Path>PRECToolKit.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+    </SubMenu>
+  </Category>
+  <Category Name="钢结构" Visibility="true">
+    <SubMenu Name="钢结构二维设计">
+      <SubMenu Name="门式刚架">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -MJ -STSPK</Param>
+      </SubMenu>
+      <SubMenu Name="框架">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -KJ -STSPK</Param>
+      </SubMenu>
+      <SubMenu Name="桁架">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -HJ -STSPK</Param>
+      </SubMenu>
+      <SubMenu Name="支架">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -ZJ -STSPK</Param>
+      </SubMenu>
+      <SubMenu Name="框排架">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PJ -STSPK</Param>
+      </SubMenu>
+      <SubMenu Name="重钢厂房">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PJHT -STSPK</Param>
+      </SubMenu>
+      <SubMenu Name="工具箱">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -TOOLS -STSPK</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="钢结构厂房三维设计">
+      <SubMenu Name="门式刚架三维设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STMJ3D -MJ3D</Param>
+      </SubMenu>
+      <SubMenu Name="门式刚架三维效果图">
+        <Path>STS3D\PKPM3D.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+      <SubMenu Name="框排架三维设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STPJ3D -MJ3D</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="钢框架三维设计">
+      <SubMenu Name="结构建模">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMCAD -STSKJ</Param>
+      </SubMenu>
+      <SubMenu Name="SATWE分析设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -ANA -STSKJ</Param>
+      </SubMenu>
+      <SubMenu Name="基础设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -JC -STSKJ</Param>
+      </SubMenu>
+      <SubMenu Name="楼板设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -SLAB -STSKJ</Param>
+      </SubMenu>
+      <SubMenu Name="砼结构施工图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -DRAWING -STSKJ</Param>
+      </SubMenu>
+      <SubMenu Name="钢结构施工图">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STS -STSKJ</Param>
+      </SubMenu>
+      <SubMenu Name="屋面、墙面设计">
+        <Path>STS\PortalEx.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+      <SubMenu Name="PMCAD形成PK文件">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMCADTOPK -STSPK</Param>
+      </SubMenu>
+      <SubMenu Name="工具集">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -TOOLS -STSKJ</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="网架网壳管桁架设计">
+      <SubMenu Name="网架网壳管桁架结构设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STWJ -STWJ</Param>
+      </SubMenu>
+      <SubMenu Name="整体分析与网架网壳管桁架设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -STWJZT -STWJZT</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="深化设计软件(结构版)">
+      <SubMenu Name="深化设计软件">
+        <Path>OpenPbBims.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+    </SubMenu>
+  </Category>
+  <Category Name="砌体" Visibility="true">
+    <SubMenu Name="砌体及底框结构">
+      <SubMenu Name="结构建模">
+        <Path>PKPMMain.exe</Path>
+        <Param> -PMCAD -QITI_DK</Param>
+      </SubMenu>
+      <SubMenu Name="砌体及底框结构设计">
+        <Path>PKPMMain.exe</Path>
+        <Param> -QITI_DK -QITI_DK</Param>
+      </SubMenu>
+      <SubMenu Name="砌体及底框结果查看">
+        <Path>PKPMMain.exe</Path>
+        <Param> -QITI_DK_POST -QITI_DK</Param>
+      </SubMenu>
+      <SubMenu Name="基础设计">
+        <Path>PKPMMain.exe</Path>
+        <Param> -JC -QITI_DK</Param>
+      </SubMenu>
+      <SubMenu Name="砼结构施工图">
+        <Path>PKPMMain.exe</Path>
+        <Param> -DRAWING -QITI_DK</Param>
+      </SubMenu>
+      <SubMenu Name="工具集">
+        <Path>PKPMMain.exe</Path>
+        <Param> -TOOLS -QITI_DK</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="配筋砌体结构集成设计">
+      <SubMenu Name="结构建模">
+        <Path>PKPMMain.exe</Path>
+        <Param> -PMCAD -QITI_PJ</Param>
+      </SubMenu>
+      <SubMenu Name="配筋砌体结构设计">
+        <Path>PKPMMain.exe</Path>
+        <Param> -QITI_PJ -QITI_PJ</Param>
+      </SubMenu>
+      <SubMenu Name="配筋砌体结果查看">
+        <Path>PKPMMain.exe</Path>
+        <Param> -QITI_PJ_POST -QITI_PJ</Param>
+      </SubMenu>
+      <SubMenu Name="基础设计">
+        <Path>PKPMMain.exe</Path>
+        <Param> -JC -QITI_PJ</Param>
+      </SubMenu>
+      <SubMenu Name="砼结构施工图">
+        <Path>PKPMMain.exe</Path>
+        <Param> -DRAWING -QITI_PJ</Param>
+      </SubMenu>
+      <SubMenu Name="工具集">
+        <Path>PKPMMain.exe</Path>
+        <Param> -TOOLS -QITI_PJ</Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="底框及连续梁PK二维分析">
+      <SubMenu Name="PK二维设计">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PK -QITIPK</Param>
+      </SubMenu>
+      <SubMenu Name="PMCAD形成PK文件">
+        <Path>PKPMMAIN.exe</Path>
+        <Param> -PMCADTOPK -QITIPK</Param>
+      </SubMenu>
+    </SubMenu>
+  </Category>
+  <Category Name="工具工业" Visibility="true">
+    <SubMenu Name="设计工具集(增强版)">
+      <SubMenu Name="设计工具集">
+        <Path>SjqyTools.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="水池设计软件">
+      <SubMenu Name="水池设计">
+        <Path>SjqyCAD.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="烟囱设计软件">
+      <SubMenu Name="钢烟囱">
+        <Path>SteelChimney.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+      <SubMenu Name="混凝土单筒烟囱">
+        <Path>SjqySingleTubeChimney.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+      <SubMenu Name="多筒套筒烟囱">
+        <Path>SjqyMultiTubeChimney.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="智能详图设计软件">
+      <SubMenu Name="智能详图设计软件">
+        <Path>Designer.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+    </SubMenu>
+    <SubMenu Name="智能详图设计软件(开发版)">
+      <SubMenu Name="智能详图设计软件(开发版)">
+        <Path>Editor.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+    </SubMenu>
+  </Category>
+  <Category Name="BIM软件" Visibility="true">
+    <SubMenu Name="装配式">
+      <SubMenu Name="装配式">
+        <Path>Dummy.exe</Path>
+        <Param>
+        </Param>
+      </SubMenu>
+    </SubMenu>
+  </Category>
+</Categories>

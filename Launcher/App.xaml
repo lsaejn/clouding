@@ -12,12 +12,15 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Launcher;component/NaviMenuButton.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Launcher;component/SystemButton.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/NaviMenuButton.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/SystemButton.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/Blue.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Launcher;component/NaviRadioButton.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Launcher;component/NaviListBoxStyle.xaml"/>
-                <!--<ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/Dark.xaml"/>-->
+                <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/NaviRadioButton.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/NaviListBoxStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/ScrollViewerStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/WorkPathListBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/WorkPathButton.xaml"/>
+                <!--<ResourceDictionary Source="pack://application:,,,/Launcher;component/styles/Dark.xaml"/>--> 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

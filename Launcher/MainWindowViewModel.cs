@@ -25,9 +25,9 @@ namespace Launcher
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string txt { get; set; }
-        public string timeCreate { get; set; }
-        public string projectName { get; set; }
+        public string FullPath { get; set; }
+        public string CreationTime { get; set; }
+        public string ProjectName { get; set; }
 
     }
 

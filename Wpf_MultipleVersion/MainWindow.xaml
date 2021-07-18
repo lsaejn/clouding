@@ -1,0 +1,87 @@
+﻿<Window x:Class="Wpf_MultipleVersion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_MultipleVersion"
+        mc:Ignorable="d"
+        WindowStyle="None" AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="300" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="5,0" Grid.Column="0" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" >多版本启动程序</TextBlock>
+                <Button Grid.Column="2" Width="25" Height="25" VerticalAlignment="Center" 
+                        Background="Transparent" Margin="5,0" BorderThickness="0">
+                    <Viewbox Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Canvas Width="18" Height="18">
+                            <Line Stroke="Orange" X1="0" Y1="0" X2="18" Y2="18"></Line>
+                            <Line Stroke="Orange" X1="0" Y1="18" X2="18" Y2="0"></Line>
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Background="Gray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Height="30" Width="60">新建版本</Button>
+            <Button Grid.Column="1"  Height="30" Width="60">编辑版本</Button>
+            <Button Grid.Column="2"  Height="30" Width="60">删除</Button>
+            <Button Grid.Column="3"  Height="30" Width="60">模块路径</Button>
+        </Grid>
+
+        <Grid Grid.Row="2" >
+            <ScrollViewer  VerticalScrollBarVisibility="Auto">
+                <ListBox  Margin="5" Name="versionItemBox">
+                    <ListBoxItem HorizontalContentAlignment="Stretch">
+                        <!--<Grid Width="{Binding ElementName=versionItemBox, Path=ActualWidth}">-->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0">Version Name</Label>
+                            <Label Grid.Column="1">Version Path</Label>
+                            <Label Grid.Column="2" Margin="0,0,10,0" Content="V52"/>
+                        </Grid>
+                    </ListBoxItem>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Height="30" Width="60" Margin="10,0,0,0">运行</Button>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" >
+                <CheckBox  Width="Auto" VerticalAlignment="Center" Margin="5,0">运行后退出</CheckBox>
+                <Button Height="30" Width="60" Margin="0,0,10,0">退出</Button>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>

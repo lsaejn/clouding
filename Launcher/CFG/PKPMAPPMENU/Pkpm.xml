@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkPaths MaximumQuantity="12">
+  <WorkPath>
+    <FullPath>C:\hello1</FullPath>
+    <CreationTime>2010-03-02 14:00</CreationTime>
+    <ProjectName>hello1</ProjectName>
+  </WorkPath>
+  <WorkPath>
+    <FullPath>F:\hello2</FullPath>
+    <CreationTime>2010-03-02 14:00</CreationTime>
+    <ProjectName>hello2</ProjectName>
+  </WorkPath>
+  <WorkPath>
+    <FullPath>D:\hello3</FullPath>
+    <CreationTime>2010-03-02 14:00</CreationTime>
+    <ProjectName>hello3</ProjectName>
+  </WorkPath>
+  <WorkPath>
+    <FullPath>E:\hello4</FullPath>
+    <CreationTime>2010-03-02 14:00</CreationTime>
+    <ProjectName>hello4</ProjectName>
+  </WorkPath>
+    <WorkPath>
+    <FullPath>E:\hello4</FullPath>
+    <CreationTime>2010-03-02 14:00</CreationTime>
+    <ProjectName>hello4</ProjectName>
+  </WorkPath>
+    <WorkPath>
+    <FullPath>E:\hello4</FullPath>
+    <CreationTime>2010-03-02 14:00</CreationTime>
+    <ProjectName>hello4</ProjectName>
+  </WorkPath>
+</WorkPaths>
+

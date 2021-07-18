@@ -306,6 +306,8 @@ namespace Clouding
 
         public string ReadPackInfo(string url)
         {
+            //我们是有意让客户端慢
+            Thread.Sleep(2000);
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -324,8 +326,7 @@ namespace Clouding
                     realReadLen = netStream.Read(read, 0, read.Length);
                 }
                 netStream.Close();
-                //我们是有意让客户端慢
-                //Thread.Sleep(2000);
+
                 return buffer;
             }
             catch(Exception e)

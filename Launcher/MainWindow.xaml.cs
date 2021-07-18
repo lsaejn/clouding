@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,17 +30,17 @@ namespace Launcher
             //DemoItemsListBox.ItemsSource = ShortCutItems;
 
             List<Project> pjs = new List<Project>() {
-                new Project() { txt = "选项1", timeCreate="2010-03-02 14:00", projectName="just a1 test prj"},
-                new Project() { txt = "选项2", timeCreate="2010-03-02 14:00", projectName="just a2 test prj"},
-                new Project() { txt = "选项3", timeCreate="2010-03-02 14:00", projectName="just a3 test prj"},
-                new Project() { txt = "选项4", timeCreate="2010-03-02 14:00", projectName="just a4 test prj"},
-                new Project() { txt = "选项5", timeCreate="2010-03-02 14:00", projectName="just a5 test prj"},
-                new Project() { txt = "选项6", timeCreate="2010-03-02 14:00", projectName="just a6 test prj"},
-                new Project() { txt = "选项7", timeCreate="2010-03-02 14:00", projectName="just a7 test prj"}
+                new Project() { FullPath = "选项1",  CreationTime="2010-03-02 14:00", ProjectName="just a1 test prj"},
+                new Project() { FullPath = "选项2", CreationTime="2010-03-02 14:00", ProjectName="just a2 test prj"},
+                new Project() { FullPath = "选项3", CreationTime="2010-03-02 14:00", ProjectName="just a3 test prj"},
+                new Project() { FullPath = "选项4", CreationTime="2010-03-02 14:00", ProjectName="just a4 test prj"},
+                new Project() { FullPath = "选项5", CreationTime="2010-03-02 14:00", ProjectName="just a5 test prj"},
+                new Project() { FullPath = "选项6", CreationTime="2010-03-02 14:00", ProjectName="just a6 test prj"},
+                new Project() { FullPath = "选项7", CreationTime="2010-03-02 14:00", ProjectName="just a7 test prj"}
              };
-           //var sl= this.scrList;
-            this.itemsControl.ItemsSource = pjs;
-            //this.NaviBar.ItemsSource=
+
+            //this.ProjectItemsControl.ItemsSource = pjs;
+
             DataContext = new MainWindowViewModel();
         }
 
@@ -118,15 +119,16 @@ namespace Launcher
         {
             //_viewModel.ProfessionalCategories = null;
             //_viewModel = null;
-            this.treeView.DataContext= new TreesViewModel(null);
+            //this.treeView.DataContext= new TreesViewModel(null);
         }
 
         private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
+            var data = ProjectItemsControl.DataContext;
             //mvm.SelectedProject = ()sender;
             var panel=(StackPanel)sender;
-            var p=(Project)panel.DataContext;
-            mvm.SelectedProject = p;
+            //var p=(Project)panel.DataContext;
+            //mvm.SelectedProject = p;
             //mvm.SelectedProject.ProjectName = p.ProjectName;
             //mvm._selectedProjectString = p.projectName;
         }
@@ -177,6 +179,31 @@ namespace Launcher
                 scrollViewer.LineUp();
             else
                 scrollViewer.LineDown();
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var sd =(System.Windows.Controls.TextBlock)sender;
+            if(sd != null && sd.Tag!=null)
+            {
+                System.Xml.XmlElement xmlElement = (System.Xml.XmlElement)sd.DataContext;
+
+                var path = xmlElement.SelectSingleNode("Path").InnerText;
+                var param = xmlElement.SelectSingleNode("Param").InnerText;
+
+                Process newProc = new Process();
+                //newProc.StartInfo.WorkingDirectory = 
+                newProc.StartInfo.ErrorDialog = true;
+                newProc.StartInfo.FileName = path;
+                newProc.StartInfo.Arguments = param; 
+                newProc.StartInfo.UseShellExecute = true;
+                newProc.Start();
+            }
+            //DataContext.
+            if (e.ClickCount != 2)
+            {
+                return;
+            }
         }
     }
 }

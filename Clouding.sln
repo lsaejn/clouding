@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQ_Music", "QQ_Music\QQ_Mus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Launcher\Launcher.csproj", "{8DFD557C-1527-4F2D-805A-3235EFDF353C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlTransformer", "XmlTransformer\XmlTransformer.csproj", "{BE12AA01-D039-43D9-A2E0-45B42735C3C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf_MultipleVersion", "Wpf_MultipleVersion\Wpf_MultipleVersion.csproj", "{B4D25097-2976-4A03-891D-02E7A536DB3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{8DFD557C-1527-4F2D-805A-3235EFDF353C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DFD557C-1527-4F2D-805A-3235EFDF353C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DFD557C-1527-4F2D-805A-3235EFDF353C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE12AA01-D039-43D9-A2E0-45B42735C3C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE12AA01-D039-43D9-A2E0-45B42735C3C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE12AA01-D039-43D9-A2E0-45B42735C3C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE12AA01-D039-43D9-A2E0-45B42735C3C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4D25097-2976-4A03-891D-02E7A536DB3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4D25097-2976-4A03-891D-02E7A536DB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4D25097-2976-4A03-891D-02E7A536DB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4D25097-2976-4A03-891D-02E7A536DB3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,7 +28,12 @@
             </ResourceDictionary.MergedDictionaries>
 
             <local:TreeViewModelConverter x:Key="ItemConverter"/>
-
+            
+            <XmlDataProvider x:Key="SamplesList"  XPath="/Samples" Source="pack://siteoforigin:,,,/samples_test.xml" />
+            <!--<XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories/Category" Source="pack://siteoforigin:,,,/PkpmLauncherMenu.xml" />-->
+            <XmlDataProvider x:Key="PkpmLauncherMenu"  XPath="/Categories/Category" Source="CFG\PKPMAPPMENU\PkpmLauncherMenu.xml" />
+            <XmlDataProvider x:Key="WorkPathList"  XPath="/WorkPaths/WorkPath" Source="CFG\PKPMAPPMENU\Pkpm.xml" />
+            
             <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
                 <Setter Property="Source" Value="images/addCard.png"/>
                 <Style.Triggers>
@@ -92,9 +97,9 @@
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
 
-            <DockPanel>
+            <DockPanel DataContext="{Binding Source={StaticResource PkpmLauncherMenu} }">
                 <Grid DockPanel.Dock="Top" Background="{DynamicResource PrimaryDarkBlueBrush}" 
-              MouseLeftButtonDown="Title_LButtonDown" Height="40">
+                    MouseLeftButtonDown="Title_LButtonDown" Height="40">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -103,10 +108,10 @@
                     <Grid Grid.Column="0" Margin="0">
                         <Image Source="images/logo2k.png" Stretch="Uniform" Margin="6"></Image>
                     </Grid>
-                    <Grid Grid.Column="1">
-                        <!--只是一个演示-->
+                    <Grid Grid.Column="1" DataContext="{Binding Source={StaticResource WorkPathList} }">
+                        <!--只是一个演示, Label应绑定到工程listbox-->
                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"
-                               Content="{Binding ElementName=wnd, Path=DataContext.SelectedProject.projectName}">
+                               Content="{Binding XPath=FullPath}">
                         </Label>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -153,11 +158,21 @@
                                 IsChecked="False"
                                 Click="MenuToggleButton_OnClick"
                                 AutomationProperties.Name="HamburgerToggleButton"/>
+                        <!--<TextBlock Margin="10,0,0,0"  FontFamily="Calibri" FontWeight="bold"
+                                               Text="{Binding Source={StaticResource PkpmLauncherMenu}, 
+                            XPath=@Name}">
+                        </TextBlock>-->
 
-                        <ListBox x:Name="NaviBar" Height="50" Style="{DynamicResource NaviListBoxStyle}" VerticalAlignment="Center" 
-                                 Background="Transparent" SelectedIndex="{Binding SelectedIndex}" 
-                                 SelectedItem="{Binding SelectedItem}"
-                                 Margin="120,0,0,0" Padding="0"  ItemsSource="{Binding NaviMenuItems}" BorderThickness="0">
+
+                        <ListBox x:Name="NaviBar" Height="50" Style="{DynamicResource NaviListBoxStyle}"
+                                 VerticalAlignment="Center" 
+                                 Background="Transparent" SelectedIndex="0"
+                                 ScrollViewer.VerticalScrollBarVisibility ="Disabled"
+                                ScrollViewer.HorizontalScrollBarVisibility ="Disabled"
+                                 ItemsSource="{Binding}"
+                                 IsSynchronizedWithCurrentItem="True"
+                                 Margin="120,0,0,0" Padding="0"  
+                                 BorderThickness="0">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}">
                                     <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -198,8 +213,9 @@
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock VerticalAlignment="Center" Margin="10,0 10,0" Padding="15" 
-                                               Text="{Binding Name}" FontSize="16"></TextBlock>
+                                    <TextBlock VerticalAlignment="Center" Margin="10,0 10,0"
+                                               Text="{Binding XPath=@Name}" 
+                                               FontSize="14"></TextBlock>
                                     <!--<RadioButton Height="50" Style="{StaticResource NaviRadioButton}"
                                     Content="{Binding Name}" GroupName="navi"/>-->
                                 </DataTemplate>
@@ -208,33 +224,64 @@
                     </DockPanel>
                 </materialDesign:ColorZone>
                 <Border BorderThickness="1" BorderBrush="{DynamicResource PrimaryBlueBrush}">
-                <Grid>
+                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                        <ScrollViewer MinWidth="220" Grid.Column="0"  VerticalScrollBarVisibility="Auto" 
                                       x:Name="scrollViewer"
                                       MouseWheel="ScrollViewer_MouseWheel"
                                       PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
+                                      Template="{DynamicResource MyScrollViewer}"  
                                       >
-                            <local:Tree x:Name="treeView" Grid.Column="0" 
-                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                    DataContext="{Binding ElementName=NaviBar, Path=SelectedItem, Converter={StaticResource ItemConverter}}"
-                                     Margin="0,30,0,0"/>
-                            <!--fix me-->
+                            <!--<TreeView Grid.Column="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                      Margin="0,10,0,0" MinWidth="220" 
+                                      ItemsSource="{Binding XPath=SubMenu}"
+                                      >
+                                <TreeViewItem></TreeViewItem>
+                                --><!--<TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding XPath=SubMenu}">
+                                        <TextBlock Text="{Binding XPath=@Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>-->
+
+                                <!--<TreeView.Resources>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding XPath=SubMenu}">
+                                        <TextBlock Text="{Binding Name}" Margin="3 2"/>
+                                    </HierarchicalDataTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding XPath=Selection}" Margin="3 2" ToolTip="{Binding ImageSrc}"/>
+                                    </DataTemplate>
+                                </TreeView.Resources>--><!--
+                            </TreeView>-->
+                            <TreeView Name="menuTree" ItemsSource="{Binding XPath=SubMenu}" Margin="0,10,0,0"
+                                      ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding XPath=SubMenu}">
+                                        <TextBlock Text="{Binding XPath=@Name}" 
+                                                   Tag="{Binding XPath=Path}"
+                                                   MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
                         </ScrollViewer>
 
-
-                        <ScrollViewer Grid.Column="1" x:Name="scrList" VerticalScrollBarVisibility="Auto" Margin="20,10,0,0">
+                        <ScrollViewer Grid.Column="1"  x:Name="scrList" VerticalScrollBarVisibility="Auto"  >
                             <StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="0"
-                                            Click="Button_Click_1">新建</Button>
-                                    <Label VerticalAlignment="Center" Margin="20,0,0,0">授权码即将期</Label>
+                                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="1"
+                                            Click="Button_Click_1" Margin="20,10,0,0" Width="80">新建</Button>
+                                    <Button Style="{x:Null}" Background="AliceBlue" Foreground="Black" BorderThickness="1"
+                                            Click="Button_Click_1" Margin="20,10,0,0" Width="80">打开</Button>
+                                    <Label VerticalAlignment="Center" Margin="20,10,0,0">授权码即将期</Label>
                                 </StackPanel>
-
-                                <ItemsControl  x:Name="itemsControl"  Background="white" Margin="0,20,0,0">
+                                
+                                <!--工程列表-->
+                                <ListBox x:Name="ProjectItemsControl"  Background="Transparent" Margin="0,20,0,0"
+                                         DataContext="{Binding Source={StaticResource WorkPathList}}"
+                                         ItemsSource="{Binding}" 
+                                         Style="{DynamicResource WorkPathListBoxStyle}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal"/>
@@ -243,20 +290,41 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Padding="3">
+                                                <!--fix me drop WrapPanel-->
                                                 <WrapPanel>
-                                                    <StackPanel Margin="15" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
-                                                        <Image Stretch="Fill" Width="105" Height="80" Style="{DynamicResource ImageStyle}"></Image>
-                                                        <TextBlock Margin="0,5,0,0" Text="{Binding timeCreate}"></TextBlock>
-                                                        <TextBlock Margin="0,5,0,0" Text="{Binding projectName}"></TextBlock>
+                                                    <StackPanel Margin="10,10,5,10" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
+                                                        <RadioButton Style="{StaticResource myRadioButton}"
+                                                                IsChecked="{Binding RelativeSource=
+                                                            {RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, Path=IsSelected}">
+                                                            <Image Stretch="Fill" Width="105" Height="80" Style="{StaticResource ImageStyle}"></Image>
+                                                        </RadioButton>
+                                                        <TextBlock Margin="0,5,0,0" Text="{Binding XPath=ProjectName}"></TextBlock>
+                                                        <TextBlock Margin="0,5,0,0" Text="{Binding XPath=CreationTime}"></TextBlock>
                                                     </StackPanel>
                                                 </WrapPanel>
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                 TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                                
                             </StackPanel>
                         </ScrollViewer>
-                </Grid>
+                    </Grid>
                 </Border>
             </DockPanel>
         </materialDesign:DrawerHost>
